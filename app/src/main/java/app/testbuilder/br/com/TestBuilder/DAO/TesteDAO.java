@@ -19,7 +19,7 @@ import app.testbuilder.br.com.TestBuilder.Model.Teste;
 public class TesteDAO {
 
     /* SQL INSERT, DELETE e UPDATE. */
-    private static final String SQL_SELECT_ALL = "SELECT * FROM teste ORDER BY avaliador";
+    private static final String SQL_SELECT_ALL = "SELECT * FROM teste ORDER BY usuario_id";
     private static final String SQL_SELECT_NOME = " SELECT usuario.avaliador FROM teste INNER JOIN usuario ON (teste.usuario_id = usuario.id) WHERE teste.id = ?";
     private static final String SQL_SELECT_ID = "SELECT * FROM teste WHERE id = ?";
 
@@ -34,7 +34,7 @@ public class TesteDAO {
         db = dbHelper.getWritableDatabase();
     }
 
-    public boolean save(Teste t) {
+    public boolean inserir(Teste t) {
         Log.d("Adicionado", t.toString());
         ContentValues values = new ContentValues();
         values.put(t.KEY_USUARIO, t.getUsuario());
@@ -57,8 +57,8 @@ public class TesteDAO {
                 Teste test = new Teste();
                 test.setId(cursor.getInt(0));
                 test.setUsuario(cursor.getInt(1));
-                test.setTipo(cursor.getString(3));
-                test.setStatus(cursor.getString(4));
+                test.setTipo(cursor.getString(2));
+                test.setStatus(cursor.getString(3));
                 list.add(test);
             }
         }
@@ -73,8 +73,8 @@ public class TesteDAO {
                 Teste test = new Teste();
                 test.setId(cursor.getInt(0));
                 test.setUsuario(cursor.getInt(1));
-                test.setTipo(cursor.getString(3));
-                test.setStatus(cursor.getString(4));
+                test.setTipo(cursor.getString(2));
+                test.setStatus(cursor.getString(3));
                 list.add(test);
             }
         }
@@ -88,8 +88,8 @@ public class TesteDAO {
         if (cursor.moveToFirst()) {
             test.setId(cursor.getInt(0));
             test.setUsuario(cursor.getInt(1));
-            test.setTipo(cursor.getString(3));
-            test.setStatus(cursor.getString(4));
+            test.setTipo(cursor.getString(2));
+            test.setStatus(cursor.getString(3));
         }
         return test;
     }

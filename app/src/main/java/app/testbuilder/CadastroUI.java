@@ -3,6 +3,7 @@ package app.testbuilder;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,7 +13,9 @@ import android.widget.Toast;
 
 import java.sql.SQLException;
 
+import app.testbuilder.br.com.TestBuilder.DAO.TesteDAO;
 import app.testbuilder.br.com.TestBuilder.DAO.UsuarioDAO;
+import app.testbuilder.br.com.TestBuilder.Model.Teste;
 import app.testbuilder.br.com.TestBuilder.Model.Usuario;
 
 /**
@@ -27,8 +30,10 @@ public class CadastroUI extends Activity {
 
     //Objetos das classes
     Usuario user = null;
-    UsuarioDAO dao = null;
-    boolean sucesso;
+    Teste test = null;
+    UsuarioDAO usuarioDao = null;
+    TesteDAO testDao = null;
+    boolean s1, s2;
 
 
     @Override
@@ -46,24 +51,41 @@ public class CadastroUI extends Activity {
             @Override
             public void onClick(View v) {
                 user = new Usuario();
-                dao = new UsuarioDAO(getApplicationContext());
+                test = new Teste();
+                usuarioDao = new UsuarioDAO(getApplicationContext());
+                testDao = new TesteDAO(getApplicationContext());
+
+                //Inicializando as variaveis
                 user.setAvaliador(etAvaliador.getText().toString());
                 user.setCumpridor(etCumpridor.getText().toString());
                 user.setIdade(Integer.valueOf(etIdade.getText().toString()));
                 int genero = rbGenero.getCheckedRadioButtonId();
-                if(genero == R.id.rbMasculino) {
+
+                //condição
+                if (genero == R.id.rbMasculino) {
                     user.setGenero("M");
                 } else {
                     user.setGenero("F");
                 }
+
                 try {
-                    sucesso = dao.inserir(user);
+                    s1 = usuarioDao.inserir(user);
+                    usuarioDao.getAll();
+
+                    test.setUsuario(usuarioDao.getLastId().getId());
+                    test.setTipo("1");
+                    test.setStatus("1");
+                    s2 = testDao.inserir(test);
+                    testDao.getAll();
+
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    trace("Error:" + e.getMessage());
                 }
+                /*
                 Intent intent = new Intent(CadastroUI.this, ASSISTPergunta1.class);
                 startActivity(intent);
                 finish();
+                */
             }
         });
     }

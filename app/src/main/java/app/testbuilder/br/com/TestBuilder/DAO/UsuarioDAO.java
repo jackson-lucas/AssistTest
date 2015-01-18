@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import app.testbuilder.br.com.TestBuilder.Model.Usuario;
@@ -25,6 +26,7 @@ public class UsuarioDAO {
     private static final String SQL_SELECT_ALL = "SELECT * FROM usuario ORDER BY id";
     private static final String SQL_SELECT_NOME = "SELECT * FROM usuario WHERE avaliador = ?";
     private static final String SQL_SELECT_ID = "SELECT * FROM usuario WHERE id = ?";
+    private static final String SQL_LAST_ID = "SELECT MAX(id) FROM usuario";
 
     private BaseDAO dbHelper;
     private SQLiteDatabase db;
@@ -67,38 +69,8 @@ public class UsuarioDAO {
         return (db.delete(Usuario.TABLE, "id ='" + id + "'", null) > 0);
     }
 
-    public List<Usuario> getAll() throws SQLException {
-        List<Usuario> list = new ArrayList<Usuario>();
-        //Consulta para trazer todos os dados da tabela Agenda ordenados pela coluna Nome
-        Cursor cursor = db.rawQuery(SQL_SELECT_ALL, null);
-        if (cursor.moveToFirst()) {
-            while (!cursor.isAfterLast()) {
-                Usuario user = populaUsuario(cursor);
-                list.add(user);
-                cursor.moveToNext();
-            }
-        }
-        cursor.close();
-        return (list);
-    }
-
-    //Converter o Cursor de dados no objeto POJO ContatoVO
-    private Usuario populaUsuario(Cursor cursor) throws SQLException {
-        final Usuario toReturn = new Usuario();
-        toReturn.setId(cursor.getInt(0));
-        toReturn.setAvaliador(cursor.getString(1));
-        toReturn.setCumpridor(cursor.getString(2));
-        toReturn.setIdade(cursor.getInt(3));
-        toReturn.setGenero(cursor.getString(4));
-        toReturn.setDt_cadastro(new Date(cursor.getLong(5)));
-        return toReturn;
-    }
-
-
-/*
     public List<Usuario> getAll() {
         List<Usuario> list = new LinkedList<Usuario>();
-        //List<Usuario> list = new ArrayList<Usuario>();
         Cursor cursor = db.rawQuery(SQL_SELECT_ALL, null);
         if (cursor.moveToFirst()) {
             while (cursor.moveToNext()) {
@@ -115,6 +87,21 @@ public class UsuarioDAO {
         return (list);
     }
 
+    //Converter o Cursor de dados no objeto POJO ContatoVO
+    private Usuario populaUsuario(Cursor cursor) throws SQLException {
+        final Usuario toReturn = new Usuario();
+        toReturn.setId(cursor.getInt(0));
+        toReturn.setAvaliador(cursor.getString(1));
+        toReturn.setCumpridor(cursor.getString(2));
+        toReturn.setIdade(cursor.getInt(3));
+        toReturn.setGenero(cursor.getString(4));
+        toReturn.setDt_cadastro(new Date(cursor.getLong(5)));
+        return toReturn;
+    }
+
+
+
+/*
     public List<Usuario> get(String nome) {
         List<Usuario> list = new ArrayList<Usuario>();
         Cursor cursor = db.rawQuery(SQL_SELECT_NOME, new String[]{String.valueOf(nome)});
@@ -149,4 +136,14 @@ public class UsuarioDAO {
         return user;
     }
     */
+
+    public Usuario getLastId() throws SQLException {
+        Cursor cursor = db.rawQuery(SQL_LAST_ID, null);
+        Usuario user = null;
+        if (cursor.moveToFirst()) {
+            user = new Usuario();
+            user.setId(cursor.getInt(0));
+        }
+        return user;
+    }
 }
