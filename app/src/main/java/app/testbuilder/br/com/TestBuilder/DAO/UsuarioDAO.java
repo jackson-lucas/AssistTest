@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.view.View;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;

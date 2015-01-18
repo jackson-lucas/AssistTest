@@ -10,6 +10,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import java.sql.SQLException;
+
 import app.testbuilder.br.com.TestBuilder.DAO.UsuarioDAO;
 import app.testbuilder.br.com.TestBuilder.Model.Usuario;
 
@@ -24,7 +26,10 @@ public class CadastroUI extends Activity {
     private RadioGroup rbGenero;
 
     //Objetos das classes
-    private Usuario user = new Usuario();
+    Usuario user = null;
+    UsuarioDAO dao = null;
+    boolean sucesso;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,22 +45,28 @@ public class CadastroUI extends Activity {
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String avaliador = etAvaliador.getText().toString();
-
+                user = new Usuario();
+                dao = new UsuarioDAO(getApplicationContext());
+                user.setAvaliador(etAvaliador.getText().toString());
+                user.setCumpridor(etCumpridor.getText().toString());
+                user.setIdade(Integer.valueOf(etIdade.getText().toString()));
+                int genero = rbGenero.getCheckedRadioButtonId();
+                if(genero == R.id.rbMasculino) {
+                    user.setGenero("M");
+                } else {
+                    user.setGenero("F");
+                }
+                try {
+                    sucesso = dao.inserir(user);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 Intent intent = new Intent(CadastroUI.this, ASSISTPergunta1.class);
                 startActivity(intent);
                 finish();
             }
         });
-
     }
-
-    public void salvar(View view) {
-
-
-
-    }
-
 
     public void toast(String msg) {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
@@ -64,8 +75,4 @@ public class CadastroUI extends Activity {
     private void trace(String msg) {
         toast(msg);
     }
-
-
-
-
 }

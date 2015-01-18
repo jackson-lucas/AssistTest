@@ -23,8 +23,6 @@ public class TesteDAO {
     private static final String SQL_SELECT_NOME = " SELECT usuario.avaliador FROM teste INNER JOIN usuario ON (teste.usuario_id = usuario.id) WHERE teste.id = ?";
     private static final String SQL_SELECT_ID = "SELECT * FROM teste WHERE id = ?";
 
-
-
     private BaseDAO dbHelper;
     private SQLiteDatabase db;
 
