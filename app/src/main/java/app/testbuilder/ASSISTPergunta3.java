@@ -9,7 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -26,10 +28,17 @@ public class ASSISTPergunta3 extends ActionBarActivity {
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("DEBUG", "BUTTON CLICKED");
+
+            Log.d("DEBUG", "BUTTON CLICKED");
+            RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup1);
+            if(radioGroup.getCheckedRadioButtonId() != -1) {
                 Intent intent = new Intent(ASSISTPergunta3.this, Resultado.class);
                 startActivity(intent);
                 finish();
+            } else {
+                Toast.makeText(getApplicationContext(), "Questão não respondida", Toast.LENGTH_LONG).show();
+            }
+
             }
         });
 

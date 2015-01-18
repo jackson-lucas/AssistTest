@@ -9,16 +9,16 @@
     <string name="title_activity_resultados">Resultados</string>
     <string name="title_activities_assist">Teste: ASSIST</string>
 
-    <string name="pergunta8">Alguma vez você já usou drogas por injeção (Apenas uso não médico)?</string>
+    <string name="pergunta8">8. Alguma vez você já usou drogas por injeção (Apenas uso não médico)?</string>
 
     <string-array name="perguntas_assist">
-        <item>Na sua vida qual destas substâncias você já usou? (Somente uso não prescrito pelo médico)</item>
-        <item>Durante os três últimos meses, com que frequência você utilizou essas substâncias que mencionou?</item>
-        <item>Durante os três últimos meses, com que frequência você teve um forte desejo ou urgência em consumir?</item>
-        <item>Durante os três últimos meses, com que frequência o seu consumo de (primeira droga, depois a segunda, etc) resultou em problemas de saúde, sociais legais ou financeiros?</item>
-        <item>Durante os três últimos meses, com que frequência por causa do uso de (primeira droga, depois a segunda, etc) você deixou de fazer coisas que eram normalmente esperadas de você?</item>
-        <item>Há amigos, parentes ou outra pessoa que tenha demonstrado preocupação com seu uso de (primeira droga, depois a segunda, etc)?</item>
-        <item>Alguma vez você já tentou controlar, diminuir ou parar o uso de (primeira droga, depois a segunda, etc) e não conseguiu)?</item>
+        <item>1. Na sua vida qual destas substâncias você já usou? (Somente uso não prescrito pelo médico)</item>
+        <item>2. Durante os três últimos meses, com que frequência você utilizou essas substâncias que mencionou?</item>
+        <item>3. Durante os três últimos meses, com que frequência você teve um forte desejo ou urgência em consumir?</item>
+        <item>4. Durante os três últimos meses, com que frequência o seu consumo de (primeira droga, depois a segunda, etc) resultou em problemas de saúde, sociais legais ou financeiros?</item>
+        <item>5. Durante os três últimos meses, com que frequência por causa do uso de (primeira droga, depois a segunda, etc) você deixou de fazer coisas que eram normalmente esperadas de você?</item>
+        <item>6. Há amigos, parentes ou outra pessoa que tenha demonstrado preocupação com seu uso de (primeira droga, depois a segunda, etc)?</item>
+        <item>7. Alguma vez você já tentou controlar, diminuir ou parar o uso de (primeira droga, depois a segunda, etc) e não conseguiu)?</item>
         <item>@string/pergunta8</item>
     </string-array>
 
