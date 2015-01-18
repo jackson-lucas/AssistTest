@@ -1,5 +1,8 @@
 package app.testbuilder;
 
+import android.app.AlertDialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -25,6 +28,29 @@ public class ASSISTPergunta1 extends ActionBarActivity {
 
         setContentView(R.layout.activity_assistpergunta1);
 
+        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+        alert.setMessage("Nem mesmo quando você estava na escola?");
+
+        alert.setNegativeButton("Sim", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // Paciente quer continuar o teste
+            }
+        });
+        alert.setPositiveButton("Não", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent intent;
+                // Paciente nunca usou nenhum tipo de droga
+                intent = new Intent(ASSISTPergunta1.this, Main.class);
+                intent.putExtra("INTEGRO", true);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        alert.create();
+
+
         String[] perguntasAssist = getResources().getStringArray(R.array.perguntas_assist);
 
         TextView textView = (TextView) findViewById(R.id.textView);
@@ -35,14 +61,58 @@ public class ASSISTPergunta1 extends ActionBarActivity {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("DEBUG", "BUTTON CLICKED");
-                Intent intent = new Intent(ASSISTPergunta1.this, ASSISTPergunta2.class);
-                intent.putExtra("QUESTION", 1);
-                intent.putExtra("SUBSTANCIAS", getSubstancias());
-                startActivity(intent);
-                finish();
+
+                // Check checkboxes
+                if(verifyCheckboxes()) {
+
+                    Intent intent = new Intent(ASSISTPergunta1.this, ASSISTPergunta2.class);
+                    intent.putExtra("QUESTION", 1);
+                    intent.putExtra("SUBSTANCIAS", getSubstancias());
+                    startActivity(intent);
+                    finish();
+                } else {
+                    alert.show();
+                }
+
             }
         });
 
+    }
+
+    int getCheckBoxId(int index) {
+      switch (index) {
+          case 2:
+              return R.id.checkBox2;
+          case 3:
+              return R.id.checkBox3;
+          case 4:
+              return R.id.checkBox4;
+          case 5:
+              return R.id.checkBox5;
+          case 6:
+              return R.id.checkBox6;
+          case 7:
+              return R.id.checkBox7;
+          case 8:
+              return R.id.checkBox8;
+          case 9:
+              return R.id.checkBox9;
+          case 10:
+              return R.id.checkBox10;
+          default:
+              return R.id.checkBox1;
+      }
+    };
+
+    public boolean verifyCheckboxes() {
+        for(int index = 1; index < 11; index++) {
+            CheckBox checkBox = (CheckBox) findViewById(getCheckBoxId(index));
+            if(checkBox.isChecked()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public boolean[] getSubstancias() {
