@@ -18,6 +18,7 @@ public class ASSISTPergunta1 extends ActionBarActivity {
 
     List<Boolean> substanciasUsadas;
 
+    // TODO create a dialog
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

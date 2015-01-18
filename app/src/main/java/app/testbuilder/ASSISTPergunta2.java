@@ -14,6 +14,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,6 +48,19 @@ public class ASSISTPergunta2 extends ActionBarActivity {
         createConfirmButton();
     }
 
+    public boolean checkIfAllRadiosGroupAreSelected() {
+        for(int index = 0; index < substanciasUsadas.length; index++) {
+            if(substanciasUsadas[index]) {
+                View v = (View) findViewById(getListGroupId(index));
+                RadioGroup radioGroup = (RadioGroup) v.findViewById(R.id.radioGroup1);
+                if (radioGroup.getCheckedRadioButtonId() == -1) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     // TODO update on SQLite ao finalizar
     private void createConfirmButton() {
         // Criar botão
@@ -61,17 +75,22 @@ public class ASSISTPergunta2 extends ActionBarActivity {
                 Log.d("DEBUG", "BUTTON CLICKED");
                 Intent intent;
 
-                if(perguntaIndex+1 < 7) {
+                if(checkIfAllRadiosGroupAreSelected()) {
 
-                    intent = new Intent(ASSISTPergunta2.this, ASSISTPergunta2.class);
-                    intent.putExtra("QUESTION", perguntaIndex+1);
-                    intent.putExtra("SUBSTANCIAS", substanciasUsadas);
-                    startActivity(intent);
-                    finish();
+                    if(perguntaIndex+1 < 7) {
+
+                        intent = new Intent(ASSISTPergunta2.this, ASSISTPergunta2.class);
+                        intent.putExtra("QUESTION", perguntaIndex+1);
+                        intent.putExtra("SUBSTANCIAS", substanciasUsadas);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        intent = new Intent(ASSISTPergunta2.this, ASSISTPergunta3.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 } else {
-                    intent = new Intent(ASSISTPergunta2.this, ASSISTPergunta3.class);
-                    startActivity(intent);
-                    finish();
+                    Toast.makeText(getApplicationContext(), "Existem questões não respondidas", Toast.LENGTH_LONG).show();
                 }
 
             }
