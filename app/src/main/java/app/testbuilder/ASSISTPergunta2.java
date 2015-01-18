@@ -52,7 +52,7 @@ public class ASSISTPergunta2 extends ActionBarActivity {
         // Criar botão
         RelativeLayout context = (RelativeLayout) findViewById(R.id.layout_pergunta2);
 
-        View viewConfirmButton = (View) getLayoutInflater().inflate(R.layout.confirm_button, null);
+        View viewConfirmButton = (View) findViewById(R.id.confirmButton);
 
         Button confirmButton = (Button) viewConfirmButton.findViewById(R.id.confirmButton);
 
@@ -82,10 +82,10 @@ public class ASSISTPergunta2 extends ActionBarActivity {
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
 
         params.addRule(RelativeLayout.BELOW, getListGroupId(lastRespostaIndex));
+        params.addRule(RelativeLayout.CENTER_IN_PARENT);
+
 
         viewConfirmButton.setLayoutParams(params);
-
-        context.addView(viewConfirmButton);
     }
 
     private int getListGroupId(int index) {
