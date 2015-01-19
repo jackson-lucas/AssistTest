@@ -50,7 +50,6 @@ public class ASSISTPergunta1 extends ActionBarActivity {
 
         alert.create();
 
-
         String[] perguntasAssist = getResources().getStringArray(R.array.perguntas_assist);
 
         TextView textView = (TextView) findViewById(R.id.textView);

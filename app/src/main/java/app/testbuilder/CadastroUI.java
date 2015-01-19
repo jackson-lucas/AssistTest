@@ -70,22 +70,18 @@ public class CadastroUI extends Activity {
 
                 try {
                     s1 = usuarioDao.inserir(user);
-                    usuarioDao.getAll();
-
                     test.setUsuario(usuarioDao.getLastId().getId());
                     test.setTipo("1");
                     test.setStatus("1");
                     s2 = testDao.inserir(test);
-                    testDao.getAll();
-
                 } catch (SQLException e) {
                     trace("Error:" + e.getMessage());
                 }
-                /*
+
                 Intent intent = new Intent(CadastroUI.this, ASSISTPergunta1.class);
                 startActivity(intent);
                 finish();
-                */
+
             }
         });
     }

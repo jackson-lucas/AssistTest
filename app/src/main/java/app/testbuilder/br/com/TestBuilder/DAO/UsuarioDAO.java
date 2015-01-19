@@ -99,7 +99,15 @@ public class UsuarioDAO {
         return toReturn;
     }
 
-
+    public Usuario getLastId() throws SQLException {
+        Cursor cursor = db.rawQuery(SQL_LAST_ID, null);
+        Usuario user = null;
+        if (cursor.moveToFirst()) {
+            user = new Usuario();
+            user.setId(cursor.getInt(0));
+        }
+        return user;
+    }
 
 /*
     public List<Usuario> get(String nome) {
@@ -137,13 +145,5 @@ public class UsuarioDAO {
     }
     */
 
-    public Usuario getLastId() throws SQLException {
-        Cursor cursor = db.rawQuery(SQL_LAST_ID, null);
-        Usuario user = null;
-        if (cursor.moveToFirst()) {
-            user = new Usuario();
-            user.setId(cursor.getInt(0));
-        }
-        return user;
-    }
+
 }

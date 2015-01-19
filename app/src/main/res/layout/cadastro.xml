@@ -161,15 +161,6 @@
             android:text="Salvar"
             android:layout_weight="2.01" />
 
-        <Button
-            android:id="@+id/btnLastID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:onClick="btn_LastId"
-            android:text="ID"
-            android:layout_weight="2.01" />
-
-        </LinearLayout>
+    </LinearLayout>
 
     </LinearLayout>
