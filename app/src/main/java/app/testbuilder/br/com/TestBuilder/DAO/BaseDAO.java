@@ -28,6 +28,22 @@ public class BaseDAO extends SQLiteOpenHelper {
             "tipo        char(1) NOT NULL DEFAULT 1," +
             "status      char(1) NOT NULL DEFAULT 1);";
 
+    public static final String CREATE_ASSIST = "CREATE TABLE assist (" +
+            "  id        integer PRIMARY KEY AUTOINCREMENT NOT NULL," +
+            "  teste_id  integer NOT NULL," +
+            "  p1        varchar(10) DEFAULT 0000000000," +
+            "  p2        varchar(10) DEFAULT 0000000000," +
+            "  p3        varchar(10) DEFAULT 0000000000," +
+            "  p4        varchar(50) DEFAULT 0000000000," +
+            "  p5        varchar(10) DEFAULT 0000000000," +
+            "  p6        varchar(10) DEFAULT 0000000000," +
+            "  p7        varchar(10) DEFAULT 0000000000," +
+            "  p8        varchar(10) DEFAULT 0000000000" +
+            ");";
+
+
+
+
     public BaseDAO(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,24 +30,18 @@ public class TesteDAO {
     /* Colunas base para resgatar dados */
     private String[] columns = {Teste.KEY_ID, Teste.KEY_USUARIO, Teste.KEY_TIPO, Teste.KEY_STATUS};
 
-    public TesteDAO(Context context) {
+    public TesteDAO(Context context)  {
         dbHelper = new BaseDAO(context);
         db = dbHelper.getWritableDatabase();
     }
 
-    public boolean inserir(Teste t) {
+    public boolean inserir(Teste t) throws SQLException {
         Log.d("Adicionado", t.toString());
         ContentValues values = new ContentValues();
         values.put(t.KEY_USUARIO, t.getUsuario());
         values.put(t.KEY_TIPO, t.getTipo());
         values.put(t.KEY_STATUS, t.getStatus());
         return (db.insert(t.TABLE, null, values)> 0) ;
-    }
-
-    public boolean delete(int id) {
-        //Usuario u = new Usuario();
-        //Log.d("Deletado -->", u.toString());
-        return (db.delete(Teste.TABLE, "id ='" + id + "'", null) > 0);
     }
 
     public List<Teste> get(String nome) {

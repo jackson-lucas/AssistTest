@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // TODO Update no SQLite ao finalizar
@@ -50,7 +51,6 @@ public class ASSISTPergunta1 extends ActionBarActivity {
 
         alert.create();
 
-
         String[] perguntasAssist = getResources().getStringArray(R.array.perguntas_assist);
 
         TextView textView = (TextView) findViewById(R.id.textView);
@@ -64,7 +64,6 @@ public class ASSISTPergunta1 extends ActionBarActivity {
 
                 // Check checkboxes
                 if(verifyCheckboxes()) {
-
                     Intent intent = new Intent(ASSISTPergunta1.this, ASSISTPergunta2.class);
                     intent.putExtra("QUESTION", 1);
                     intent.putExtra("SUBSTANCIAS", getSubstancias());
@@ -73,10 +72,8 @@ public class ASSISTPergunta1 extends ActionBarActivity {
                 } else {
                     alert.show();
                 }
-
             }
         });
-
     }
 
     int getCheckBoxId(int index) {
@@ -108,10 +105,11 @@ public class ASSISTPergunta1 extends ActionBarActivity {
         for(int index = 1; index < 11; index++) {
             CheckBox checkBox = (CheckBox) findViewById(getCheckBoxId(index));
             if(checkBox.isChecked()) {
+                substanciasUsadas = new ArrayList<Boolean>();
+                substanciasUsadas.add(true);
                 return true;
             }
         }
-
         return false;
     }
 
@@ -129,7 +127,6 @@ public class ASSISTPergunta1 extends ActionBarActivity {
                 substanciasUsadas[index] = false;
             }
         }
-
         return substanciasUsadas;
     }
 
@@ -155,4 +152,5 @@ public class ASSISTPergunta1 extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
