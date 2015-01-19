@@ -25,7 +25,7 @@ public class Assist {
     public static final String KEY_P8 ="p8";
 
     int id;
-    Teste teste_id;
+    int teste_id;
     String p1;
     String p2;
     String p3;
@@ -36,14 +36,13 @@ public class Assist {
     String p8;
 
     public Assist() {
-
     }
 
     public Assist(int id) {
         this.id = id;
     }
 
-    public Assist(int id, Teste teste_id, String p1, String p2, String p3, String p4, String p5, String p6, String p7, String p8) {
+    public Assist(int id, int teste_id, String p1, String p2, String p3, String p4, String p5, String p6, String p7, String p8) {
         this.id = id;
         this.teste_id = teste_id;
         this.p1 = p1;
@@ -64,11 +63,11 @@ public class Assist {
         this.id = id;
     }
 
-    public Teste getTeste_id() {
+    public int getTeste_id() {
         return teste_id;
     }
 
-    public void setTeste_id(Teste teste_id) {
+    public void setTeste_id(int teste_id) {
         this.teste_id = teste_id;
     }
 

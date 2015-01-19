@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import junit.framework.Test;
 
@@ -20,14 +21,11 @@ import java.sql.SQLException;
 import app.testbuilder.br.com.TestBuilder.DAO.AssistDAO;
 import app.testbuilder.br.com.TestBuilder.DAO.TesteDAO;
 import app.testbuilder.br.com.TestBuilder.Model.Assist;
+import app.testbuilder.br.com.TestBuilder.Model.Teste;
+import app.testbuilder.br.com.TestBuilder.Model.Usuario;
 
 // TODO Update no SQLite ao finalizar
 public class ASSISTPergunta1 extends ActionBarActivity {
-
-    Test test;
-    Assist assist;
-    TesteDAO testeDAO;
-    AssistDAO aDao;
 
     // TODO create a dialog
     @Override
@@ -68,31 +66,25 @@ public class ASSISTPergunta1 extends ActionBarActivity {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("DEBUG", "BUTTON CLICKED");
-
-                assist = new Assist();
-                aDao = new AssistDAO(getApplicationContext());
-
+                Assist assist = new Assist();
+                AssistDAO aDao = new AssistDAO(getApplicationContext());
+                Teste teste_id = null;
                 // Check checkboxes
                 if(verifyCheckboxes()) {
                     try {
-                        Log.i("idTeste->", aDao.getLastId().toString());
+                        teste_id = aDao.getLastId();
+                        String p1 = aDao.booleanToString(getSubstancias());
+                        assist.setTeste_id(teste_id.getId());
+                        assist.setP1(p1);
+                        aDao.inserir(assist);
                     } catch (SQLException e) {
-                        e.printStackTrace();
+                        trace("ERROR:" + e.getMessage());
                     }
-                    /*
-                    try {
-                        assist.setTeste_id(aDao.getLastId());
-                        assist.setP1(booleanToString(getSubstancias()));
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    //Log.i("checks->", booleanToString(getSubstancias()));
                     Intent intent = new Intent(ASSISTPergunta1.this, ASSISTPergunta2.class);
                     intent.putExtra("QUESTION", 1);
                     intent.putExtra("SUBSTANCIAS", getSubstancias());
                     startActivity(intent);
                     finish();
-                    */
                 } else {
 
                     alert.show();
@@ -175,6 +167,14 @@ public class ASSISTPergunta1 extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void toast(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private void trace(String msg) {
+        toast(msg);
     }
 
 }

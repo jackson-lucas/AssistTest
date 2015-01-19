@@ -37,7 +37,7 @@ public class AssistDAO {
     public boolean inserir(Assist a) throws SQLException  {
         ContentValues values = new ContentValues();
 
-        values.put(a.KEY_TESTE, a.getTeste_id().getId());
+        values.put(a.KEY_TESTE, a.getTeste_id());
         values.put(a.KEY_P1, a.getP1());
         values.put(a.KEY_P2, a.getP2());
         values.put(a.KEY_P3, a.getP3());
@@ -53,7 +53,7 @@ public class AssistDAO {
     public boolean update(Assist a) throws SQLException {
         ContentValues values = new ContentValues();
 
-        values.put(a.KEY_TESTE, a.getTeste_id().getId());
+        values.put(a.KEY_TESTE, a.getTeste_id());
         values.put(a.KEY_P1, a.getP1());
         values.put(a.KEY_P2, a.getP2());
         values.put(a.KEY_P3, a.getP3());
@@ -70,7 +70,7 @@ public class AssistDAO {
         return (db.update(Assist.TABLE, values, where, whereArgs) > 0);
     }
 
-    public Teste getLastId() throws SQLException {
+    public Teste getLastId() throws SQLException{
         Cursor cursor = db.rawQuery(SQL_LAST_ID, null);
         Teste test = null;
         if (cursor.moveToFirst()) {
