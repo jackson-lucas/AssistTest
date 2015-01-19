@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,10 +41,12 @@ public class ASSISTPergunta1 extends ActionBarActivity {
         });
         alert.setPositiveButton("Não", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                Intent intent;
                 // Paciente nunca usou nenhum tipo de droga
+
+                Toast.makeText(getApplicationContext(), "Parabéns por não utilizar drogas!", Toast.LENGTH_LONG).show();
+
+                Intent intent;
                 intent = new Intent(ASSISTPergunta1.this, Main.class);
-                intent.putExtra("INTEGRO", true);
                 startActivity(intent);
                 finish();
             }
