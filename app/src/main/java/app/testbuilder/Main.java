@@ -27,15 +27,6 @@ public class Main extends Activity {
         // START Retrieve data from another activity
         Intent intent = getIntent();
 
-        if(intent != null) {
-            // Não funcionando, o porquê eu não sei
-            Boolean isClean = intent.getBooleanExtra("INTEGRO", false);
-            Log.d("isClean", isClean+"");
-            if(isClean) {
-                Toast.makeText(getApplicationContext(), "Parabéns por não utilizar drogas!", Toast.LENGTH_LONG);
-            }
-        }
-
         btnIniciar = (Button) findViewById(R.id.btnTeste);
 
         btnIniciar.setOnClickListener(new View.OnClickListener() {
