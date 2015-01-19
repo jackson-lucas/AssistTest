@@ -23,12 +23,12 @@ public class Usuario {
     private String cumpridor;
     private int idade;
     private String genero;
-    private Date dt_cadastro;
+    private String dt_cadastro;
 
     public Usuario() {
     }
 
-    public Usuario(String avaliador, String cumpridor, int idade, String genero, Date dt_cadastro) {
+    public Usuario(String avaliador, String cumpridor, int idade, String genero, String dt_cadastro) {
         this.avaliador = avaliador;
         this.cumpridor = cumpridor;
         this.idade = idade;
@@ -37,7 +37,7 @@ public class Usuario {
     }
 
     //Insert;Update;Delete
-    public Usuario(int id, String avaliador, String cumpridor, int idade, String genero, Date dt_cadastro) {
+    public Usuario(int id, String avaliador, String cumpridor, int idade, String genero, String dt_cadastro) {
         this.id = id;
         this.avaliador = avaliador;
         this.cumpridor = cumpridor;
@@ -86,11 +86,11 @@ public class Usuario {
         this.genero = genero;
     }
 
-    public Date getDt_cadastro() {
+    public String getDt_cadastro() {
         return dt_cadastro;
     }
 
-    public void setDt_cadastro(Date dt_cadastro) {
+    public void setDt_cadastro(String dt_cadastro) {
         this.dt_cadastro = dt_cadastro;
     }
 

@@ -7,11 +7,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import app.testbuilder.br.com.TestBuilder.DAO.TesteDAO;
 import app.testbuilder.br.com.TestBuilder.DAO.UsuarioDAO;
@@ -34,7 +35,6 @@ public class CadastroUI extends Activity {
     UsuarioDAO usuarioDao = null;
     TesteDAO testDao = null;
     boolean s1, s2;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,25 +67,23 @@ public class CadastroUI extends Activity {
                 } else {
                     user.setGenero("F");
                 }
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                user.setDt_cadastro(sdf.format(new Date()));
+                Log.d("Data:", user.getDt_cadastro().toLowerCase());
 
                 try {
                     s1 = usuarioDao.inserir(user);
-                    usuarioDao.getAll();
-
                     test.setUsuario(usuarioDao.getLastId().getId());
                     test.setTipo("1");
                     test.setStatus("1");
                     s2 = testDao.inserir(test);
-                    testDao.getAll();
 
                 } catch (SQLException e) {
                     trace("Error:" + e.getMessage());
                 }
-                /*
                 Intent intent = new Intent(CadastroUI.this, ASSISTPergunta1.class);
                 startActivity(intent);
                 finish();
-                */
             }
         });
     }

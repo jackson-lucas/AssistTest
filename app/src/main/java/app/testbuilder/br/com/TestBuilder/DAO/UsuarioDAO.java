@@ -8,7 +8,9 @@ import android.view.View;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,17 +41,14 @@ public class UsuarioDAO {
         db = dbHelper.getWritableDatabase();
     }
 
-    private static Date getDateTime() throws SQLException {
-        return new Timestamp(new Date().getTime());
-    }
-
     public boolean inserir(Usuario u) throws SQLException {
         ContentValues values = new ContentValues();
         values.put(u.KEY_avaliador, u.getAvaliador());
         values.put(u.KEY_cumpridor, u.getCumpridor());
         values.put(u.KEY_idade, u.getIdade());
         values.put(u.KEY_genero, u.getGenero());
-        values.put(u.KEY_dt_cadastro, getDateTime().getTime());
+//        values.put(u.KEY_dt_cadastro, getDateTime().getTime());
+        values.put(u.KEY_dt_cadastro, u.getDt_cadastro());
         return (db.insert(u.TABLE, null, values) > 0);
     }
 
@@ -59,7 +58,7 @@ public class UsuarioDAO {
         values.put(u.KEY_cumpridor, u.getCumpridor());
         values.put(u.KEY_idade, u.getIdade());
         values.put(u.KEY_genero, u.getGenero());
-        values.put(u.KEY_dt_cadastro, getDateTime().getTime());
+        values.put(u.KEY_dt_cadastro, u.getDt_cadastro());
         String where = "_id = ?";
         String[] whereArgs = {Integer.toString(u.getId())};
         return (db.update(Usuario.TABLE, values, where, whereArgs) > 0);
@@ -80,7 +79,7 @@ public class UsuarioDAO {
                 user.setCumpridor(cursor.getString(2));
                 user.setIdade(cursor.getInt(3));
                 user.setGenero(cursor.getString(4));
-                user.setDt_cadastro(new Date(cursor.getLong(5)));
+                user.setDt_cadastro(cursor.getString(5));
                 list.add(user);
             }
         }
@@ -95,7 +94,7 @@ public class UsuarioDAO {
         toReturn.setCumpridor(cursor.getString(2));
         toReturn.setIdade(cursor.getInt(3));
         toReturn.setGenero(cursor.getString(4));
-        toReturn.setDt_cadastro(new Date(cursor.getLong(5)));
+        toReturn.setDt_cadastro(cursor.getString(5));
         return toReturn;
     }
 
