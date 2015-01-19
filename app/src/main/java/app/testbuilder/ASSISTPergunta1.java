@@ -1,7 +1,6 @@
 package app.testbuilder;
 
 import android.app.AlertDialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,13 +13,21 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
+import junit.framework.Test;
+
+import java.sql.SQLException;
+
+import app.testbuilder.br.com.TestBuilder.DAO.AssistDAO;
+import app.testbuilder.br.com.TestBuilder.DAO.TesteDAO;
+import app.testbuilder.br.com.TestBuilder.Model.Assist;
 
 // TODO Update no SQLite ao finalizar
 public class ASSISTPergunta1 extends ActionBarActivity {
 
-    List<Boolean> substanciasUsadas;
+    Test test;
+    Assist assist;
+    TesteDAO testeDAO;
+    AssistDAO aDao;
 
     // TODO create a dialog
     @Override
@@ -62,15 +69,34 @@ public class ASSISTPergunta1 extends ActionBarActivity {
             public void onClick(View v) {
                 Log.d("DEBUG", "BUTTON CLICKED");
 
+                assist = new Assist();
+                aDao = new AssistDAO(getApplicationContext());
+
                 // Check checkboxes
                 if(verifyCheckboxes()) {
+                    try {
+                        Log.i("idTeste->", aDao.getLastId().toString());
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    /*
+                    try {
+                        assist.setTeste_id(aDao.getLastId());
+                        assist.setP1(booleanToString(getSubstancias()));
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    //Log.i("checks->", booleanToString(getSubstancias()));
                     Intent intent = new Intent(ASSISTPergunta1.this, ASSISTPergunta2.class);
                     intent.putExtra("QUESTION", 1);
                     intent.putExtra("SUBSTANCIAS", getSubstancias());
                     startActivity(intent);
                     finish();
+                    */
                 } else {
+
                     alert.show();
+
                 }
             }
         });
@@ -105,8 +131,6 @@ public class ASSISTPergunta1 extends ActionBarActivity {
         for(int index = 1; index < 11; index++) {
             CheckBox checkBox = (CheckBox) findViewById(getCheckBoxId(index));
             if(checkBox.isChecked()) {
-                substanciasUsadas = new ArrayList<Boolean>();
-                substanciasUsadas.add(true);
                 return true;
             }
         }
