@@ -48,7 +48,7 @@ public class ASSISTPergunta2 extends ActionBarActivity {
 
         // START create radio groups
         setContentView(R.layout.activity_assistpergunta2);
-
+        Toast.makeText(getApplicationContext(), "Pergunta: " + perguntaIndex, Toast.LENGTH_SHORT);
         createQuestion(perguntaIndex);
 
         createConfirmButton();
@@ -199,6 +199,7 @@ public class ASSISTPergunta2 extends ActionBarActivity {
                 }
                 break;
             case 6:
+            case 7:
                 switch (radioId) {
                     case R.id.radioButton2:
                         return 6;
@@ -222,9 +223,8 @@ public class ASSISTPergunta2 extends ActionBarActivity {
             } else {
                 resultado += "0";
             }
-            Log.d("Resultado: ", resultado);
         }
-
+        Toast.makeText(getApplicationContext(), "Resultado:" + resultado, Toast.LENGTH_SHORT).show();
         return resultado;
     }
 
@@ -288,7 +288,8 @@ public class ASSISTPergunta2 extends ActionBarActivity {
         return id;
     }
 
-    private void createQuestion(int questionIndex) {
+    private void createQuestion(int questionNumber) {
+        int questionIndex = questionNumber - 1;
         String[] substancias = getResources().getStringArray(R.array.substancias);
         RelativeLayout context = (RelativeLayout) findViewById(R.id.layout_pergunta2);
         String[] respostas = perguntaIndex < 6 ?
