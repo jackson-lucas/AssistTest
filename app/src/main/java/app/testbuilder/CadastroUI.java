@@ -24,17 +24,18 @@ import app.testbuilder.br.com.TestBuilder.Model.Usuario;
  */
 public class CadastroUI extends Activity {
 
+    //Objetos das classes
+    public Usuario user = null;
+    public Teste test = null;
+    public UsuarioDAO usuarioDao = null;
+    public TesteDAO testDao = null;
+    public boolean s1, s2;
+    public Teste teste_id = null;
+
     //Objetos do fragment
     private Button btnSalvar;
     private EditText etAvaliador, etCumpridor, etIdade;
     private RadioGroup rbGenero;
-
-    //Objetos das classes
-    Usuario user = null;
-    Teste test = null;
-    UsuarioDAO usuarioDao = null;
-    TesteDAO testDao = null;
-    boolean s1, s2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,33 +56,45 @@ public class CadastroUI extends Activity {
                 usuarioDao = new UsuarioDAO(getApplicationContext());
                 testDao = new TesteDAO(getApplicationContext());
 
-                //Inicializando as variaveis
-                user.setAvaliador(etAvaliador.getText().toString());
-                user.setCumpridor(etCumpridor.getText().toString());
-                user.setIdade(Integer.valueOf(etIdade.getText().toString()));
-                int genero = rbGenero.getCheckedRadioButtonId();
-
-                //condição
-                if (genero == R.id.rbMasculino) {
-                    user.setGenero("M");
-                } else {
-                    user.setGenero("F");
-                }
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                user.setDt_cadastro(sdf.format(new Date()));
-                Log.d("Data:", user.getDt_cadastro().toLowerCase());
-
                 try {
+
+                    //Inicializando as variaveis
+                    user.setAvaliador(etAvaliador.getText().toString());
+                    user.setCumpridor(etCumpridor.getText().toString());
+                    user.setIdade(Integer.valueOf(etIdade.getText().toString()));
+                    int genero = rbGenero.getCheckedRadioButtonId();
+
+                    //condição
+                    if (genero == R.id.rbMasculino) {
+                        user.setGenero("M");
+                    } else {
+                        user.setGenero("F");
+                    }
+
+                    //Formata da data
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    user.setDt_cadastro(sdf.format(new Date()));
+
+                    //Cria Usuario
                     s1 = usuarioDao.inserir(user);
+
                     test.setUsuario(usuarioDao.getLastId().getId());
                     test.setTipo("1");
                     test.setStatus("1");
-                    s2 = testDao.inserir(test);
+                    test.toString();
+
+                    //Cria Teste
+                    s2 = testDao.inserir(test); //Criando o teste;
+
+                    test = new Teste();
+                    test = testDao.getLastId();
 
                 } catch (SQLException e) {
-                    trace("Error:" + e.getMessage());
+                    trace("ErrorCadastro:" + e.getMessage());
                 }
+
                 Intent intent = new Intent(CadastroUI.this, ASSISTPergunta1.class);
+                intent.putExtra("TESTE_ID", test.getId());
                 startActivity(intent);
                 finish();
             }

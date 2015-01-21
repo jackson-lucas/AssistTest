@@ -214,8 +214,6 @@ public class ASSISTPergunta2 extends ActionBarActivity {
                 context.addView(list);
             }
         }
-
-
     }
 
 
