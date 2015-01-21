@@ -50,6 +50,8 @@ public class ASSISTPergunta3 extends ActionBarActivity {
 
                         assist.setTeste_id(teste_id.getId());
                         assist.setP8(resposta);
+
+                        Toast.makeText(getApplicationContext(), "Resultado:" + resposta, Toast.LENGTH_SHORT).show();
                         aDao.inserir(assist);
                     } catch (SQLException e) {
                         Log.e("ERROR:", e.getMessage());
