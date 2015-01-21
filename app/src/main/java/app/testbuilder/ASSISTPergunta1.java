@@ -1,7 +1,6 @@
 package app.testbuilder;
 
 import android.app.AlertDialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,13 +14,18 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
+import junit.framework.Test;
+
+import java.sql.SQLException;
+
+import app.testbuilder.br.com.TestBuilder.DAO.AssistDAO;
+import app.testbuilder.br.com.TestBuilder.DAO.TesteDAO;
+import app.testbuilder.br.com.TestBuilder.Model.Assist;
+import app.testbuilder.br.com.TestBuilder.Model.Teste;
+import app.testbuilder.br.com.TestBuilder.Model.Usuario;
 
 // TODO Update no SQLite ao finalizar
 public class ASSISTPergunta1 extends ActionBarActivity {
-
-    List<Boolean> substanciasUsadas;
 
     // TODO create a dialog
     @Override
@@ -64,16 +68,29 @@ public class ASSISTPergunta1 extends ActionBarActivity {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("DEBUG", "BUTTON CLICKED");
-
+                Assist assist = new Assist();
+                AssistDAO aDao = new AssistDAO(getApplicationContext());
+                Teste teste_id = null;
                 // Check checkboxes
                 if(verifyCheckboxes()) {
+                    try {
+                        teste_id = aDao.getLastId();
+                        String p1 = aDao.booleanToString(getSubstancias());
+                        assist.setTeste_id(teste_id.getId());
+                        assist.setP1(p1);
+                        aDao.inserir(assist);
+                    } catch (SQLException e) {
+                        trace("ERROR:" + e.getMessage());
+                    }
                     Intent intent = new Intent(ASSISTPergunta1.this, ASSISTPergunta2.class);
                     intent.putExtra("QUESTION", 1);
                     intent.putExtra("SUBSTANCIAS", getSubstancias());
                     startActivity(intent);
                     finish();
                 } else {
+
                     alert.show();
+
                 }
             }
         });
@@ -108,8 +125,6 @@ public class ASSISTPergunta1 extends ActionBarActivity {
         for(int index = 1; index < 11; index++) {
             CheckBox checkBox = (CheckBox) findViewById(getCheckBoxId(index));
             if(checkBox.isChecked()) {
-                substanciasUsadas = new ArrayList<Boolean>();
-                substanciasUsadas.add(true);
                 return true;
             }
         }
@@ -154,6 +169,14 @@ public class ASSISTPergunta1 extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void toast(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private void trace(String msg) {
+        toast(msg);
     }
 
 }

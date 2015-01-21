@@ -3,6 +3,7 @@ package app.testbuilder.br.com.TestBuilder.DAO;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.sql.SQLException;
@@ -19,6 +20,7 @@ public class AssistDAO {
     /* SQL INSERT, DELETE e UPDATE. */
     private static final String SQL_SELECT_ALL = "SELECT * FROM assist ORDER BY teste_id";
     private static final String SQL_SELECT_ID = "SELECT * FROM assist WHERE id = ?";
+    private static final String SQL_LAST_ID = "SELECT MAX(id) FROM teste";
 
     private BaseDAO dbHelper;
     private SQLiteDatabase db;
@@ -35,7 +37,7 @@ public class AssistDAO {
     public boolean inserir(Assist a) throws SQLException  {
         ContentValues values = new ContentValues();
 
-        values.put(a.KEY_TESTE, a.getTeste_id().getId());
+        values.put(a.KEY_TESTE, a.getTeste_id());
         values.put(a.KEY_P1, a.getP1());
         values.put(a.KEY_P2, a.getP2());
         values.put(a.KEY_P3, a.getP3());
@@ -51,7 +53,7 @@ public class AssistDAO {
     public boolean update(Assist a) throws SQLException {
         ContentValues values = new ContentValues();
 
-        values.put(a.KEY_TESTE, a.getTeste_id().getId());
+        values.put(a.KEY_TESTE, a.getTeste_id());
         values.put(a.KEY_P1, a.getP1());
         values.put(a.KEY_P2, a.getP2());
         values.put(a.KEY_P3, a.getP3());
@@ -67,5 +69,24 @@ public class AssistDAO {
 
         return (db.update(Assist.TABLE, values, where, whereArgs) > 0);
     }
+
+    public Teste getLastId() throws SQLException{
+        Cursor cursor = db.rawQuery(SQL_LAST_ID, null);
+        Teste test = null;
+        if (cursor.moveToFirst()) {
+            test = new Teste();
+            test.setId(cursor.getInt(0));
+        }
+        return test;
+    }
+
+    public String booleanToString(boolean[] array) {
+        String inicial = "";
+        for (int index = 0; index < array.length; index++) {
+            inicial += array[index] ? 1 : 0;
+        }
+        return inicial;
+    }
+
 
 }
