@@ -20,7 +20,7 @@ public class AssistDAO {
     /* SQL INSERT, DELETE e UPDATE. */
     private static final String SQL_SELECT_ALL = "SELECT * FROM assist ORDER BY teste_id";
     private static final String SQL_SELECT_ID = "SELECT * FROM assist WHERE id = ?";
-    private static final String SQL_LAST_ID = "SELECT MAX(id) FROM assit";
+    private static final String SQL_LAST_ID = "SELECT MAX(id) FROM assist";
 
     private BaseDAO dbHelper;
     private SQLiteDatabase db;
