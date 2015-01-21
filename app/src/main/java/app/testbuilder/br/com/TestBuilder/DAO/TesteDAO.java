@@ -23,6 +23,7 @@ public class TesteDAO {
     private static final String SQL_SELECT_ALL = "SELECT * FROM teste ORDER BY usuario_id";
     private static final String SQL_SELECT_NOME = " SELECT usuario.avaliador FROM teste INNER JOIN usuario ON (teste.usuario_id = usuario.id) WHERE teste.id = ?";
     private static final String SQL_SELECT_ID = "SELECT * FROM teste WHERE id = ?";
+    private static final String SQL_LAST_ID = "SELECT MAX(id) FROM teste";
 
     private BaseDAO dbHelper;
     private SQLiteDatabase db;
@@ -85,6 +86,16 @@ public class TesteDAO {
             test.setUsuario(cursor.getInt(1));
             test.setTipo(cursor.getString(2));
             test.setStatus(cursor.getString(3));
+        }
+        return test;
+    }
+
+    public Teste getLastId() throws SQLException{
+        Cursor cursor = db.rawQuery(SQL_LAST_ID, null);
+        Teste test = null;
+        if (cursor.moveToFirst()) {
+            test = new Teste();
+            test.setId(cursor.getInt(0));
         }
         return test;
     }
