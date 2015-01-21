@@ -74,19 +74,19 @@ public class ASSISTPergunta1 extends ActionBarActivity {
 
                 // Check checkboxes
                 if(verifyCheckboxes()) {
+
                     assist = new Assist();
                     aDao = new AssistDAO(getApplicationContext());
+
                     try {
-                        Log.d("DEBUG:", "ENTROU NO TRY");
+
                         assist.setTeste_id(Integer.parseInt(finalIdTeste)); //ID-test
                         String p1 = aDao.booleanToString(getSubstancias());
                         assist.setP1(p1); //Valores da Questão1
                         aDao.inserir(assist); //Gravando o assist
-                        Log.i("DEBUG:ANTES", assist.toString());
 
                         assist = new Assist();
                         assist = aDao.getLastId();
-                        Log.i("DEBUG:DEPOIS", assist.toString());
 
                     } catch (SQLException e) {
 
