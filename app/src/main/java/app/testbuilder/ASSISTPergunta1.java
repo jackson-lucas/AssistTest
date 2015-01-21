@@ -24,6 +24,7 @@ public class ASSISTPergunta1 extends ActionBarActivity {
 
     public Assist assist;
     public AssistDAO aDao;
+    int idTeste; // Preciso saber no BD um número possível para representar erro
 
     // TODO create a dialog
     @Override
@@ -31,9 +32,8 @@ public class ASSISTPergunta1 extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent(); //Recupera ID do Teste
-        String idTeste = new String();
         if(intent != null) {
-            idTeste = intent.getStringExtra("TESTE_ID");
+            idTeste = intent.getIntExtra("TESTE_ID", 1);
         }
 
         setContentView(R.layout.activity_assistpergunta1);
@@ -67,7 +67,6 @@ public class ASSISTPergunta1 extends ActionBarActivity {
 
         Button confirmButton = (Button) findViewById(R.id.button);
 
-        final String finalIdTeste = idTeste;
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("DEBUG", "BUTTON CLICKED");
@@ -79,33 +78,39 @@ public class ASSISTPergunta1 extends ActionBarActivity {
                     aDao = new AssistDAO(getApplicationContext());
 
                     try {
+<<<<<<< HEAD
 
                         assist.setTeste_id(Integer.parseInt(finalIdTeste)); //ID-test
+=======
+                        Log.d("DEBUG:", "ENTROU NO TRY");
+                        assist.setTeste_id(idTeste); //ID-test
+>>>>>>> origin/dev
                         String p1 = aDao.booleanToString(getSubstancias());
                         assist.setP1(p1); //Valores da Questão1
                         aDao.inserir(assist); //Gravando o assist
 
                         assist = new Assist();
+<<<<<<< HEAD
                         assist = aDao.getLastId();
+=======
+                        assist = aDao.getLastId(); // android.database.sqlite.SQLiteException: no such table: assit (code 1): , while compiling: SELECT MAX(id) FROM assit
+                        Log.i("DEBUG:DEPOIS", assist.toString());
+>>>>>>> origin/dev
 
                     } catch (SQLException e) {
 
                         trace("ERROR-Cadastro:" + e.getMessage());
 
                     }
-                    /*
                     Intent intent = new Intent(ASSISTPergunta1.this, ASSISTPergunta2.class);
                     intent.putExtra("QUESTION", 1);
                     intent.putExtra("SUBSTANCIAS", getSubstancias());
-                    intent.putExtra("ASSIST", assist);
+                    intent.putExtra("TESTE_ID", idTeste);
                     startActivity(intent);
                     finish();
-                    */
-
+                // Se não selecionou nenhuma substância
                 } else {
-
                     alert.show();
-
                 }
             }
         });
