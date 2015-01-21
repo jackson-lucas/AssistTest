@@ -45,10 +45,12 @@ public class ASSISTPergunta1 extends ActionBarActivity {
         });
         alert.setPositiveButton("Não", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                Intent intent;
                 // Paciente nunca usou nenhum tipo de droga
+
+                Toast.makeText(getApplicationContext(), "Parabéns por não utilizar drogas!", Toast.LENGTH_LONG).show();
+
+                Intent intent;
                 intent = new Intent(ASSISTPergunta1.this, Main.class);
-                intent.putExtra("INTEGRO", true);
                 startActivity(intent);
                 finish();
             }
@@ -80,9 +82,11 @@ public class ASSISTPergunta1 extends ActionBarActivity {
                     } catch (SQLException e) {
                         trace("ERROR:" + e.getMessage());
                     }
+
                     Intent intent = new Intent(ASSISTPergunta1.this, ASSISTPergunta2.class);
                     intent.putExtra("QUESTION", 1);
                     intent.putExtra("SUBSTANCIAS", getSubstancias());
+                    intent.putExtra("ASSIST", assist);
                     startActivity(intent);
                     finish();
                 } else {
