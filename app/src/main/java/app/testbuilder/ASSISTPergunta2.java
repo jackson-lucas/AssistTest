@@ -32,10 +32,14 @@ public class ASSISTPergunta2 extends ActionBarActivity {
     private int perguntaIndex; // Pergunta 2 de 7
     private boolean[] substanciasUsadas;
     private int lastRespostaIndex = -1;
+    private int testeId = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // START create radio groups
+        setContentView(R.layout.activity_assistpergunta2);
 
         // START Retrieve data from another activity
         Intent intent = getIntent();
@@ -44,10 +48,10 @@ public class ASSISTPergunta2 extends ActionBarActivity {
             substanciasUsadas = intent.getBooleanArrayExtra("SUBSTANCIAS");
             perguntaIndex = intent.getIntExtra("QUESTION", 1);
             perguntaIndex += 1; // 2 - 7
+
+            testeId = intent.getIntExtra("TESTE_ID", 1);
         }
 
-        // START create radio groups
-        setContentView(R.layout.activity_assistpergunta2);
         Toast.makeText(getApplicationContext(), "Pergunta: " + perguntaIndex, Toast.LENGTH_SHORT);
         createQuestion(perguntaIndex);
 
@@ -82,15 +86,14 @@ public class ASSISTPergunta2 extends ActionBarActivity {
                 Intent intent;
                 Assist assist = new Assist();
                 AssistDAO aDao = new AssistDAO(getApplicationContext());
-                Teste teste_id = null;
 
                 if(checkIfAllRadiosGroupAreSelected()) {
 
                     if(perguntaIndex < 7) {
                         try {
-                            teste_id = aDao.getLastId();
+                            assist = aDao.getLastId();
                             String respostas = getAnswer();
-                            assist.setTeste_id(teste_id.getId());
+                            assist.setTeste_id(testeId);
 
                             switch (perguntaIndex) {
                                 case 2:
@@ -109,7 +112,7 @@ public class ASSISTPergunta2 extends ActionBarActivity {
                                     assist.setP6(respostas);
                                     break;
                             }
-                            aDao.inserir(assist);
+                            aDao.update(assist);
                         } catch (SQLException e) {
                             Log.e("ERROR:", e.getMessage());
                         }
@@ -117,7 +120,7 @@ public class ASSISTPergunta2 extends ActionBarActivity {
                         intent = new Intent(ASSISTPergunta2.this, ASSISTPergunta2.class);
                         intent.putExtra("QUESTION", perguntaIndex);
                         intent.putExtra("SUBSTANCIAS", substanciasUsadas);
-
+                        intent.putExtra("TESTE_ID", testeId);
                         startActivity(intent);
                         finish();
                     } else {
@@ -336,8 +339,6 @@ public class ASSISTPergunta2 extends ActionBarActivity {
                 context.addView(list);
             }
         }
-
-
     }
 
 

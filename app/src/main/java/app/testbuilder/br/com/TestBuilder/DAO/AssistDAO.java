@@ -20,7 +20,7 @@ public class AssistDAO {
     /* SQL INSERT, DELETE e UPDATE. */
     private static final String SQL_SELECT_ALL = "SELECT * FROM assist ORDER BY teste_id";
     private static final String SQL_SELECT_ID = "SELECT * FROM assist WHERE id = ?";
-    private static final String SQL_LAST_ID = "SELECT MAX(id) FROM teste";
+    private static final String SQL_LAST_ID = "SELECT MAX(id) FROM assist";
 
     private BaseDAO dbHelper;
     private SQLiteDatabase db;
@@ -70,14 +70,14 @@ public class AssistDAO {
         return (db.update(Assist.TABLE, values, where, whereArgs) > 0);
     }
 
-    public Teste getLastId() throws SQLException{
+    public Assist getLastId() throws SQLException{
         Cursor cursor = db.rawQuery(SQL_LAST_ID, null);
-        Teste test = null;
+        Assist toReturn = null;
         if (cursor.moveToFirst()) {
-            test = new Teste();
-            test.setId(cursor.getInt(0));
+            toReturn = new Assist();
+            toReturn.setId(cursor.getInt(0));
         }
-        return test;
+        return toReturn;
     }
 
     public String booleanToString(boolean[] array) {
