@@ -89,6 +89,7 @@ public class ASSISTPergunta1 extends ActionBarActivity {
                     intent.putExtra("ASSIST", assist);
                     startActivity(intent);
                     finish();
+                // Se não selecionou nenhuma substância
                 } else {
 
                     alert.show();

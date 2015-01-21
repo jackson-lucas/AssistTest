@@ -13,7 +13,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.SQLException;
 import java.util.List;
+
+import app.testbuilder.br.com.TestBuilder.DAO.AssistDAO;
+import app.testbuilder.br.com.TestBuilder.Model.Assist;
+import app.testbuilder.br.com.TestBuilder.Model.Teste;
 
 // TODO Update no SQLite ao finalizar
 public class ASSISTPergunta3 extends ActionBarActivity {
@@ -28,10 +33,30 @@ public class ASSISTPergunta3 extends ActionBarActivity {
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-                Log.d("DEBUG", "BUTTON CLICKED");
                 RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup1);
+                int itemChecked = radioGroup.getCheckedRadioButtonId();
+                Assist assist = new Assist();
+                AssistDAO aDao = new AssistDAO(getApplicationContext());
+                Teste teste_id = null;
+
                 if (radioGroup.getCheckedRadioButtonId() != -1) {
+
+                    try {
+                        teste_id = aDao.getLastId();
+                        String resposta = "";
+
+                        resposta += itemChecked == R.id.radioButton1 ? 0 :
+                                itemChecked == R.id.radioButton2 ? 1 : 2;
+
+                        assist.setTeste_id(teste_id.getId());
+                        assist.setP8(resposta);
+                        aDao.inserir(assist);
+                    } catch (SQLException e) {
+                        Log.e("ERROR:", e.getMessage());
+                    }
+
+                    Log.d("DEBUG", "BUTTON CLICKED");
+
                     Intent intent = new Intent(ASSISTPergunta3.this, Resultado.class);
                     startActivity(intent);
                     finish();
