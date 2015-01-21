@@ -82,9 +82,11 @@ public class ASSISTPergunta1 extends ActionBarActivity {
                     } catch (SQLException e) {
                         trace("ERROR:" + e.getMessage());
                     }
+
                     Intent intent = new Intent(ASSISTPergunta1.this, ASSISTPergunta2.class);
                     intent.putExtra("QUESTION", 1);
                     intent.putExtra("SUBSTANCIAS", getSubstancias());
+                    intent.putExtra("ASSIST", assist);
                     startActivity(intent);
                     finish();
                 } else {

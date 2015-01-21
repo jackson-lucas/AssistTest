@@ -1,5 +1,8 @@
 package app.testbuilder.br.com.TestBuilder.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Arrays;
 
 /**
@@ -7,7 +10,8 @@ import java.util.Arrays;
  */
 
 
-public class Assist {
+public class Assist implements Parcelable {
+    // Parceable é necessário para passar Objetos da Classe entre Activities
 
     // Labels table name
     public static final String TABLE="assist";
@@ -150,4 +154,61 @@ public class Assist {
                 ", p8='" + p8 + '\'' +
                 '}';
     }
+
+    /**
+     * Constructor to use when re-constructing object from a parcel
+     *
+     * @param in a parcel from which to read this object
+     */
+    public Assist(Parcel in) {
+        readFromParcel(in);
+    }
+
+    // Para satisfazer implementação de Parceable
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+        // A ordem que for escrita aqui é a ordem que deve ser lida em readFromParcel()
+        parcel.writeInt(id);
+        parcel.writeInt(teste_id);
+        parcel.writeString(p1);
+        parcel.writeString(p2);
+        parcel.writeString(p3);
+        parcel.writeString(p4);
+        parcel.writeString(p5);
+        parcel.writeString(p6);
+        parcel.writeString(p7);
+        parcel.writeString(p8);
+    }
+
+    private void readFromParcel(Parcel input) {
+        id = input.readInt();
+        teste_id = input.readInt();
+        p1 = input.readString();
+        p2 = input.readString();
+        p3 = input.readString();
+        p4 = input.readString();
+        p5 = input.readString();
+        p6 = input.readString();
+        p7 = input.readString();
+        p8 = input.readString();
+    }
+
+    /**
+     * This field is needed for Android to be able to create new objects, individually or as arrays.
+     * This also means that you can use use the default constructor to create the object and
+     * use another method to hydrate it as necessary.
+     */
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Assist createFromParcel(Parcel in) {
+            return new Assist(in);
+        }
+        public Assist[] newArray(int size) {
+            return new Assist[size];
+        }
+    };
 }
