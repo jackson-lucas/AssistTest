@@ -24,6 +24,7 @@ import app.testbuilder.br.com.TestBuilder.Model.Teste;
 public class ASSISTPergunta3 extends ActionBarActivity {
 
     private int testeId = 1; // Preciso saber no BD um número possível para representar erro
+    Assist assist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class ASSISTPergunta3 extends ActionBarActivity {
 
         if(intent != null) {
             testeId = intent.getIntExtra("TESTE_ID", 1);
+            assist = intent.getParcelableExtra("ASSIST");
         }
 
         Button confirmButton = (Button) findViewById(R.id.button);
@@ -44,18 +46,17 @@ public class ASSISTPergunta3 extends ActionBarActivity {
             public void onClick(View v) {
                 RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup1);
                 int itemChecked = radioGroup.getCheckedRadioButtonId();
-                Assist assist = new Assist();
                 AssistDAO aDao = new AssistDAO(getApplicationContext());
 
                 if (radioGroup.getCheckedRadioButtonId() != -1) {
 
                     try {
-                        assist = aDao.getLastId();
+                        //assist = aDao.getLastId();
                         String resposta = "";
 
                         resposta += itemChecked == R.id.radioButton1 ? 0 : itemChecked == R.id.radioButton2 ? 1 : 2;
 
-                        assist.setTeste_id(testeId);
+                        //assist.setTeste_id(testeId);
                         assist.setP8(resposta);
 
                         Toast.makeText(getApplicationContext(), "Resultado:" + resposta, Toast.LENGTH_SHORT).show();

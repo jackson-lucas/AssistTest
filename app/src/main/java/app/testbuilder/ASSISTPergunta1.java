@@ -33,6 +33,13 @@ public class ASSISTPergunta1 extends ActionBarActivity {
 
         setContentView(R.layout.activity_assistpergunta1);
 
+        // START Retrieve data from another activity
+        Intent intent = getIntent();
+
+        if (intent != null) {
+            assist = intent.getParcelableExtra("ASSIST");
+        }
+
         final AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
         alert.setMessage("Nem mesmo quando você estava na escola?");
@@ -68,7 +75,6 @@ public class ASSISTPergunta1 extends ActionBarActivity {
 
                 // Check checkboxes
                 if(verifyCheckboxes()) {
-
                     assist = new Assist();
                     aDao = new AssistDAO(getApplicationContext());
 
@@ -79,12 +85,12 @@ public class ASSISTPergunta1 extends ActionBarActivity {
 
                         boolean sucesso = aDao.inserir(assist); //Gravando o assist
                         if(sucesso) {
-                            Log.i("ASSIST-1-IF:","");
+                            Log.i("ASSIST-1-IF:",assist.toString());
                         } else {
                             Log.i("ASSIST-1-ELSE:","");
                         }
-                        assist = new Assist();
-                        assist = aDao.getLastId(); // android.database.sqlite.SQLiteException: no such table: assit (code 1): , while compiling: SELECT MAX(id) FROM assit
+                        //assist = new Assist();
+                        //assist = aDao.getLastId(); // android.database.sqlite.SQLiteException: no such table: assit (code 1): , while compiling: SELECT MAX(id) FROM assit
 
                     } catch (SQLException e) {
 
@@ -93,6 +99,7 @@ public class ASSISTPergunta1 extends ActionBarActivity {
                     Intent intent = new Intent(ASSISTPergunta1.this, ASSISTPergunta2.class);
                     intent.putExtra("QUESTION", 1);
                     intent.putExtra("SUBSTANCIAS", getSubstancias());
+                    intent.putExtra("ASSIST", assist);
                     startActivity(intent);
                     finish();
 
