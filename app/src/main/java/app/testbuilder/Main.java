@@ -37,4 +37,9 @@ public class Main extends Activity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }
