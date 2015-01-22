@@ -5,11 +5,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.sql.SQLException;
 
 import app.testbuilder.br.com.TestBuilder.Model.Assist;
-import app.testbuilder.br.com.TestBuilder.Model.Teste;
 
 
 /**
@@ -51,6 +51,8 @@ public class AssistDAO {
     }
 
     public boolean update(Assist a) throws SQLException {
+
+        int id = a.getId();
         ContentValues values = new ContentValues();
 
         values.put(a.KEY_TESTE, a.getTeste_id());
@@ -63,11 +65,16 @@ public class AssistDAO {
         values.put(a.KEY_P7, a.getP7());
         values.put(a.KEY_P8, a.getP8());
 
-        String where = "id = ?";
+        boolean sucesso = db.update(Assist.TABLE, values, Assist.KEY_ID + " = " + id, null) > 0;
 
-        String[] whereArgs = {Integer.toString(a.getId())};
-
-        return (db.update(Assist.TABLE, values, where, whereArgs) > 0);
+        if(sucesso) {
+            Log.i("SUCESSO-UPDATE:",a.toString());
+            return sucesso;
+        } else {
+            Log.i("FALHA-UPDATE:",a.toString());
+            return sucesso;
+        }
+        // return (db.update(Assist.TABLE, values, Assist.KEY_ID + " = " + id, null) > 0);
     }
 
     public Assist getLastId() throws SQLException{
@@ -87,6 +94,4 @@ public class AssistDAO {
         }
         return inicial;
     }
-
-
 }

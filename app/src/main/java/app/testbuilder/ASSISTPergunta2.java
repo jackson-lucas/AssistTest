@@ -4,12 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -17,14 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
 import app.testbuilder.br.com.TestBuilder.DAO.AssistDAO;
+import app.testbuilder.br.com.TestBuilder.DAO.TesteDAO;
 import app.testbuilder.br.com.TestBuilder.Model.Assist;
-import app.testbuilder.br.com.TestBuilder.Model.Teste;
 
 // TODO checar listas antes de ir para proxima activity ao pressionar botao
 public class ASSISTPergunta2 extends ActionBarActivity {
@@ -44,11 +38,10 @@ public class ASSISTPergunta2 extends ActionBarActivity {
         // START Retrieve data from another activity
         Intent intent = getIntent();
 
-        if(intent != null) {
+        if (intent != null) {
             substanciasUsadas = intent.getBooleanArrayExtra("SUBSTANCIAS");
             perguntaIndex = intent.getIntExtra("QUESTION", 1);
             perguntaIndex += 1; // 2 - 7
-
             testeId = intent.getIntExtra("TESTE_ID", 1);
         }
 
@@ -59,8 +52,8 @@ public class ASSISTPergunta2 extends ActionBarActivity {
     }
 
     public boolean checkIfAllRadiosGroupAreSelected() {
-        for(int index = 0; index < substanciasUsadas.length; index++) {
-            if(substanciasUsadas[index]) {
+        for (int index = 0; index < substanciasUsadas.length; index++) {
+            if (substanciasUsadas[index]) {
                 View v = (View) findViewById(getListGroupId(index));
                 RadioGroup radioGroup = (RadioGroup) v.findViewById(R.id.radioGroup1);
                 if (radioGroup.getCheckedRadioButtonId() == -1) {
@@ -80,20 +73,21 @@ public class ASSISTPergunta2 extends ActionBarActivity {
 
         Button confirmButton = (Button) viewConfirmButton.findViewById(R.id.confirmButton);
 
+
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("DEBUG", "BUTTON CLICKED");
-                Intent intent;
-                Assist assist = new Assist();
-                AssistDAO aDao = new AssistDAO(getApplicationContext());
 
-                if(checkIfAllRadiosGroupAreSelected()) {
+                if (checkIfAllRadiosGroupAreSelected()) {
 
-                    if(perguntaIndex < 7) {
+                    Intent intent;
+                    Assist assist = new Assist();
+                    AssistDAO aDao = new AssistDAO(getApplicationContext());
+
+                    if (perguntaIndex < 7) {
+                        
                         try {
-                            assist = aDao.getLastId();
+                            assist.setId(aDao.getLastId().getId()); //ID do assist
                             String respostas = getAnswer();
-                            assist.setTeste_id(testeId);
 
                             switch (perguntaIndex) {
                                 case 2:
@@ -111,8 +105,16 @@ public class ASSISTPergunta2 extends ActionBarActivity {
                                 case 6:
                                     assist.setP6(respostas);
                                     break;
+                                case 7:
+                                    assist.setP7(respostas);
+                                    break;
+
                             }
+
+                            Log.i("ASSIST02:",assist.toString());
                             aDao.update(assist);
+                            Log.i("RETURN-ASSIST02:",assist.toString());
+
                         } catch (SQLException e) {
                             Log.e("ERROR:", e.getMessage());
                         }
@@ -120,9 +122,9 @@ public class ASSISTPergunta2 extends ActionBarActivity {
                         intent = new Intent(ASSISTPergunta2.this, ASSISTPergunta2.class);
                         intent.putExtra("QUESTION", perguntaIndex);
                         intent.putExtra("SUBSTANCIAS", substanciasUsadas);
-                        intent.putExtra("TESTE_ID", testeId);
                         startActivity(intent);
                         finish();
+
                     } else {
                         intent = new Intent(ASSISTPergunta2.this, ASSISTPergunta3.class);
                         startActivity(intent);
@@ -148,7 +150,7 @@ public class ASSISTPergunta2 extends ActionBarActivity {
 
     // Switchssauro
     private int parseRadioIdToAnswerValue(int perguntaIndex, int radioId) {
-        if(radioId == R.id.radioButton1) {
+        if (radioId == R.id.radioButton1) {
             return 0;
         }
 
@@ -165,6 +167,7 @@ public class ASSISTPergunta2 extends ActionBarActivity {
                         return 6;
                 }
                 break;
+
             case 3:
                 switch (radioId) {
                     case R.id.radioButton2:
@@ -218,8 +221,8 @@ public class ASSISTPergunta2 extends ActionBarActivity {
     private String getAnswer() {
         String resultado = "";
 
-        for(int index = 0; index < substanciasUsadas.length; index++) {
-            if(substanciasUsadas[index]) {
+        for (int index = 0; index < substanciasUsadas.length; index++) {
+            if (substanciasUsadas[index]) {
                 View v = (View) findViewById(getListGroupId(index));
                 RadioGroup radioGroup = (RadioGroup) v.findViewById(R.id.radioGroup1);
                 resultado += parseRadioIdToAnswerValue(perguntaIndex, radioGroup.getCheckedRadioButtonId());
@@ -227,7 +230,6 @@ public class ASSISTPergunta2 extends ActionBarActivity {
                 resultado += "0";
             }
         }
-        Toast.makeText(getApplicationContext(), "Resultado:" + resultado, Toast.LENGTH_SHORT).show();
         return resultado;
     }
 
@@ -303,8 +305,8 @@ public class ASSISTPergunta2 extends ActionBarActivity {
 
         question.setText(getResources().getStringArray(R.array.perguntas_assist)[questionIndex]);
 
-        for(int index = 0; index < substancias.length; index++) {
-            if(substanciasUsadas[index]) {
+        for (int index = 0; index < substancias.length; index++) {
+            if (substanciasUsadas[index]) {
 
                 View list = perguntaIndex < 6 ?
                         getLayoutInflater().inflate(R.layout.list_group, null)
@@ -314,7 +316,7 @@ public class ASSISTPergunta2 extends ActionBarActivity {
                         RelativeLayout.LayoutParams.FILL_PARENT,
                         RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-                if(lastRespostaIndex == -1) {
+                if (lastRespostaIndex == -1) {
                     params.addRule(RelativeLayout.BELOW, R.id.question);
                 } else {
                     params.addRule(RelativeLayout.BELOW, getListGroupId(lastRespostaIndex));
@@ -329,8 +331,8 @@ public class ASSISTPergunta2 extends ActionBarActivity {
 
                 RadioGroup radioGroup = (RadioGroup) list.findViewById(R.id.radioGroup1);
 
-                for(int index2 = 0; index2 < respostas.length; index2++) {
-                    Log.d("INDEX2", index2+"");
+                for (int index2 = 0; index2 < respostas.length; index2++) {
+                    Log.d("INDEX2", index2 + "");
                     RadioButton radioButton = (RadioButton) radioGroup.findViewById(getRadioButtonId(index2));
 
                     radioButton.setText(respostas[index2]);

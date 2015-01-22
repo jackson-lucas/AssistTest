@@ -18,23 +18,18 @@ import java.sql.SQLException;
 
 import app.testbuilder.br.com.TestBuilder.DAO.AssistDAO;
 import app.testbuilder.br.com.TestBuilder.Model.Assist;
+import app.testbuilder.br.com.TestBuilder.Model.Teste;
 
 // TODO Update no SQLite ao finalizar
 public class ASSISTPergunta1 extends ActionBarActivity {
 
     public Assist assist;
     public AssistDAO aDao;
-    int idTeste; // Preciso saber no BD um número possível para representar erro
 
     // TODO create a dialog
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Intent intent = getIntent(); //Recupera ID do Teste
-        if(intent != null) {
-            idTeste = intent.getIntExtra("TESTE_ID", 1);
-        }
 
         setContentView(R.layout.activity_assistpergunta1);
 
@@ -78,36 +73,29 @@ public class ASSISTPergunta1 extends ActionBarActivity {
                     aDao = new AssistDAO(getApplicationContext());
 
                     try {
-<<<<<<< HEAD
-
-                        assist.setTeste_id(Integer.parseInt(finalIdTeste)); //ID-test
-=======
-                        Log.d("DEBUG:", "ENTROU NO TRY");
-                        assist.setTeste_id(idTeste); //ID-test
->>>>>>> origin/dev
+                        assist.setTeste_id(aDao.getLastId().getId()); //ID-test
                         String p1 = aDao.booleanToString(getSubstancias());
                         assist.setP1(p1); //Valores da Questão1
-                        aDao.inserir(assist); //Gravando o assist
 
+                        boolean sucesso = aDao.inserir(assist); //Gravando o assist
+                        if(sucesso) {
+                            Log.i("ASSIST-1-IF:","");
+                        } else {
+                            Log.i("ASSIST-1-ELSE:","");
+                        }
                         assist = new Assist();
-<<<<<<< HEAD
-                        assist = aDao.getLastId();
-=======
                         assist = aDao.getLastId(); // android.database.sqlite.SQLiteException: no such table: assit (code 1): , while compiling: SELECT MAX(id) FROM assit
-                        Log.i("DEBUG:DEPOIS", assist.toString());
->>>>>>> origin/dev
 
                     } catch (SQLException e) {
 
                         trace("ERROR-Cadastro:" + e.getMessage());
-
                     }
                     Intent intent = new Intent(ASSISTPergunta1.this, ASSISTPergunta2.class);
                     intent.putExtra("QUESTION", 1);
                     intent.putExtra("SUBSTANCIAS", getSubstancias());
-                    intent.putExtra("TESTE_ID", idTeste);
                     startActivity(intent);
                     finish();
+
                 // Se não selecionou nenhuma substância
                 } else {
                     alert.show();
