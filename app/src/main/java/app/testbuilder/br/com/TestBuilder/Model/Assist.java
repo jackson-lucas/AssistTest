@@ -3,6 +3,9 @@ package app.testbuilder.br.com.TestBuilder.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -42,6 +45,7 @@ public class Assist implements Parcelable {
     int[] resultado = new int[10];
 
     public Assist() {
+        this.resultado = new int[10];
     }
 
     public Assist(int id) {
@@ -166,6 +170,28 @@ public class Assist implements Parcelable {
         }
     }
 
+    public JSONObject getAsJson() {
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            jsonObject.put("id", id);
+            jsonObject.put("teste_id", teste_id);
+            jsonObject.put("p1", p1);
+            jsonObject.put("p2", p2);
+            jsonObject.put("p3", p3);
+            jsonObject.put("p4", p4);
+            jsonObject.put("p5", p5);
+            jsonObject.put("p6", p6);
+            jsonObject.put("p7", p7);
+            jsonObject.put("p8", p8);
+            jsonObject.put("resultado", resultado);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
+    }
+
     @Override
     public String toString() {
         return "Assist{" +
@@ -215,6 +241,7 @@ public class Assist implements Parcelable {
         parcel.writeString(p6);
         parcel.writeString(p7);
         parcel.writeString(p8);
+        parcel.writeIntArray(resultado);
     }
 
     private void readFromParcel(Parcel input) {
@@ -228,6 +255,7 @@ public class Assist implements Parcelable {
         p6 = input.readString();
         p7 = input.readString();
         p8 = input.readString();
+        input.readIntArray(resultado);
     }
 
     /**
