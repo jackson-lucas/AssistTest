@@ -168,29 +168,6 @@ public class ASSISTPergunta1 extends ActionBarActivity {
         return substanciasUsadas;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        // Modificao de action_settings para action_bar nao sei se foi correto
-        if (id == R.id.action_bar) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     public void toast(String msg) {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
