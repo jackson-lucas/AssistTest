@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import junit.framework.Test;
+
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,7 +32,6 @@ public class CadastroUI extends Activity {
     public UsuarioDAO usuarioDao = null;
     public TesteDAO testDao = null;
     public boolean s1, s2;
-    public Teste teste_id = null;
 
     //Objetos do fragment
     private Button btnSalvar;
@@ -52,7 +53,7 @@ public class CadastroUI extends Activity {
             @Override
             public void onClick(View v) {
                 user = new Usuario();
-                test = new Teste();
+                Teste test = new Teste();
                 usuarioDao = new UsuarioDAO(getApplicationContext());
                 testDao = new TesteDAO(getApplicationContext());
 
@@ -81,13 +82,9 @@ public class CadastroUI extends Activity {
                     test.setUsuario(usuarioDao.getLastId().getId());
                     test.setTipo("1");
                     test.setStatus("1");
-                    test.toString();
 
                     //Cria Teste
                     s2 = testDao.inserir(test); //Criando o teste;
-
-                    test = new Teste();
-                    test = testDao.getLastId();
 
                 } catch (SQLException e) {
                     trace("ErrorCadastro:" + e.getMessage());

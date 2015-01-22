@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.sql.SQLException;
 
 import app.testbuilder.br.com.TestBuilder.DAO.AssistDAO;
+import app.testbuilder.br.com.TestBuilder.DAO.TesteDAO;
 import app.testbuilder.br.com.TestBuilder.Model.Assist;
 import app.testbuilder.br.com.TestBuilder.Model.Teste;
 
@@ -25,6 +26,7 @@ public class ASSISTPergunta1 extends ActionBarActivity {
 
     public Assist assist;
     public AssistDAO aDao;
+    public TesteDAO tDao;
 
     // TODO create a dialog
     @Override
@@ -77,10 +79,11 @@ public class ASSISTPergunta1 extends ActionBarActivity {
                 if(verifyCheckboxes()) {
                     assist = new Assist();
                     aDao = new AssistDAO(getApplicationContext());
+                    tDao = new TesteDAO(getApplicationContext());
 
                     try {
-                        assist.setTeste_id(aDao.getLastId().getId()); //ID-test
                         String p1 = aDao.booleanToString(getSubstancias());
+                        assist.setTeste_id(tDao.getLastId().getId());
                         assist.setP1(p1); //Valores da Questão1
 
                         boolean sucesso = aDao.inserir(assist); //Gravando o assist
@@ -92,6 +95,7 @@ public class ASSISTPergunta1 extends ActionBarActivity {
 
                         assist = aDao.getLastId(); // android.database.sqlite.SQLiteException: no such table: assit (code 1): , while compiling: SELECT MAX(id) FROM assit
                         assist.setP1(p1); // É necessário devido aDao.getLastId() retornar um novo objeto sem p1
+                        assist.setTeste_id(tDao.getLastId().getId());
                         Log.i("ASSIST-1-AFTER:",assist.toString());
                     } catch (SQLException e) {
 

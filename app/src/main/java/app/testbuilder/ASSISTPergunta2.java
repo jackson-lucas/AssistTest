@@ -89,8 +89,6 @@ public class ASSISTPergunta2 extends ActionBarActivity {
                         
                         try {
                             //assist.setId(aDao.getLastId().getId()); //ID do assist
-
-
                             switch (perguntaIndex) {
                                 case 2:
                                     assist.setP2(respostas);
@@ -110,9 +108,7 @@ public class ASSISTPergunta2 extends ActionBarActivity {
 
                             }
 
-                            Log.i("ASSIST02:",assist.toString());
                             aDao.update(assist);
-                            Log.i("RETURN-ASSIST02:",assist.toString());
 
                         } catch (SQLException e) {
                             Log.e("ERROR:", e.getMessage());
@@ -126,11 +122,10 @@ public class ASSISTPergunta2 extends ActionBarActivity {
                         finish();
 
                     } else {
+
                         try {
                             assist.setP7(respostas);
-                            Log.i("ASSIST02:",assist.toString());
                             aDao.update(assist);
-                            Log.i("RETURN-ASSIST02:",assist.toString());
 
                         } catch (SQLException e) {
                             Log.e("ERROR:", e.getMessage());
@@ -143,7 +138,6 @@ public class ASSISTPergunta2 extends ActionBarActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), "Existem questões não respondidas", Toast.LENGTH_LONG).show();
                 }
-
             }
         });
 
