@@ -34,6 +34,7 @@ public class Main extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(Main.this, CadastroUI.class);
                 startActivity(i);
+                finish();
             }
         });
     }
