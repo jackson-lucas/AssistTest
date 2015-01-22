@@ -1,10 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:test_builder="http://schemas.android.com/apk/res-auto"
     tools:context=".Main">
     <item android:id="@+id/action_send_data"
         android:title="@string/enviar_dados"
         android:orderInCategory="100"
-        android:showAsAction="always"/>
+        test_builder:showAsAction="always"/>
 
 </menu>

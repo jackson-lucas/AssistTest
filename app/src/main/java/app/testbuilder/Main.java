@@ -47,6 +47,11 @@ public class Main extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        // TODO criar metodo para verificar se existe algo no BD
+        //MenuItem menuItem = menu.findItem(R.id.action_send_data);
+        //menuItem.setVisible(false);
+
         return true;
     }
 

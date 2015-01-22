@@ -21,14 +21,12 @@ import app.testbuilder.br.com.TestBuilder.DAO.TesteDAO;
 import app.testbuilder.br.com.TestBuilder.Model.Assist;
 import app.testbuilder.br.com.TestBuilder.Model.Teste;
 
-// TODO Update no SQLite ao finalizar
 public class ASSISTPergunta1 extends ActionBarActivity {
 
     public Assist assist;
     public AssistDAO aDao;
     public TesteDAO tDao;
 
-    // TODO create a dialog
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
