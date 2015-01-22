@@ -11,18 +11,36 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import java.util.List;
+
+import app.testbuilder.br.com.TestBuilder.Model.Assist;
 
 // TODO Update no SQLite ao finalizar
 public class Resultado extends ActionBarActivity {
 
-    List<Boolean> substanciasUsadas;
+    Assist assist;
+    int[] resultado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_result);
+
+        Intent intent = getIntent();
+
+        if(intent != null) {
+            assist = intent.getParcelableExtra("ASSIST");
+
+            resultado = assist.getResultado();
+
+            for(int result : resultado) {
+
+                Log.i("resultado: ", result+"");
+            }
+        }
 
         Button confirmButton = (Button) findViewById(R.id.button);
 

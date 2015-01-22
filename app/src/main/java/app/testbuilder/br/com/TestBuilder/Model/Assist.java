@@ -3,6 +3,7 @@ package app.testbuilder.br.com.TestBuilder.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -38,12 +39,15 @@ public class Assist implements Parcelable {
     String p6;
     String p7;
     String p8;
+    int[] resultado = new int[10];
 
     public Assist() {
     }
 
     public Assist(int id) {
+
         this.id = id;
+        this.resultado = new int[10];
     }
 
     public Assist(int id, int teste_id, String p1, String p2, String p3, String p4, String p5, String p6, String p7, String p8) {
@@ -57,6 +61,7 @@ public class Assist implements Parcelable {
         this.p6 = p6;
         this.p7 = p7;
         this.p8 = p8;
+        this.resultado = new int[10];
     }
 
     public int getId() {
@@ -139,6 +144,28 @@ public class Assist implements Parcelable {
         this.p8 = p8;
     }
 
+    public int[] getResultado() {
+        somarRespostas();
+        return resultado;
+    }
+
+    public void somarRespostas() {
+        String[] respostas = {p2, p3, p4, p5, p6, p7};
+        int index;
+
+        // Limpa resultado para evitar bugs com o caso que tenha sido executado anteriormente
+        for(index = 0; index < resultado.length; index++) {
+            resultado[index] = 0;
+        }
+
+        //TODO Não esquecer do tabaco na questão 5(ver documento)
+        for(String resposta : respostas) {
+            for(index = 0; index < resposta.length(); index++) {
+                resultado[index] += ((int) resposta.charAt(index)-'0');
+            }
+        }
+    }
+
     @Override
     public String toString() {
         return "Assist{" +
@@ -152,8 +179,13 @@ public class Assist implements Parcelable {
                 ", p6='" + p6 + '\'' +
                 ", p7='" + p7 + '\'' +
                 ", p8='" + p8 + '\'' +
+                ", resultado='" + resultado + '\'' +
                 '}';
     }
+
+
+
+
 
     /**
      * Constructor to use when re-constructing object from a parcel

@@ -68,6 +68,7 @@ public class ASSISTPergunta3 extends ActionBarActivity {
                     Log.d("DEBUG", "BUTTON CLICKED");
 
                     Intent intent = new Intent(ASSISTPergunta3.this, Resultado.class);
+                    intent.putExtra("ASSIST", assist);
                     startActivity(intent);
                     finish();
                 } else {
