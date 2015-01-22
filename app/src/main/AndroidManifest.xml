@@ -20,31 +20,25 @@
         <activity
             android:name=".CadastroUI" >
         </activity>
+
         <activity
             android:name=".ASSISTPergunta3"
             android:label="@string/title_activities_assist" >
         </activity>
+
         <activity
             android:name=".ASSISTPergunta2"
             android:label="@string/title_activities_assist" >
         </activity>
+
         <activity
             android:name=".ASSISTPergunta1"
             android:label="@string/title_activities_assist" >
-            <!-- Just for test -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+
         <activity
             android:name=".Resultado"
             android:label="@string/title_activity_resultados" >
-            <!-- Just for test -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
     </application>

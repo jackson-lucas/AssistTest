@@ -94,7 +94,6 @@ public class CadastroUI extends Activity {
                 }
 
                 Intent intent = new Intent(CadastroUI.this, ASSISTPergunta1.class);
-                intent.putExtra("TESTE_ID", test.getId());
                 startActivity(intent);
                 finish();
             }

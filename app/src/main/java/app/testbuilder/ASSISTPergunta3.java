@@ -53,8 +53,7 @@ public class ASSISTPergunta3 extends ActionBarActivity {
                         assist = aDao.getLastId();
                         String resposta = "";
 
-                        resposta += itemChecked == R.id.radioButton1 ? 0 :
-                                itemChecked == R.id.radioButton2 ? 1 : 2;
+                        resposta += itemChecked == R.id.radioButton1 ? 0 : itemChecked == R.id.radioButton2 ? 1 : 2;
 
                         assist.setTeste_id(testeId);
                         assist.setP8(resposta);
