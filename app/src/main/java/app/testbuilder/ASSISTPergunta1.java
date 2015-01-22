@@ -89,9 +89,10 @@ public class ASSISTPergunta1 extends ActionBarActivity {
                         } else {
                             Log.i("ASSIST-1-ELSE:","");
                         }
-                        //assist = new Assist();
-                        //assist = aDao.getLastId(); // android.database.sqlite.SQLiteException: no such table: assit (code 1): , while compiling: SELECT MAX(id) FROM assit
 
+                        assist = aDao.getLastId(); // android.database.sqlite.SQLiteException: no such table: assit (code 1): , while compiling: SELECT MAX(id) FROM assit
+                        assist.setP1(p1); // É necessário devido aDao.getLastId() retornar um novo objeto sem p1
+                        Log.i("ASSIST-1-AFTER:",assist.toString());
                     } catch (SQLException e) {
 
                         trace("ERROR-Cadastro:" + e.getMessage());
