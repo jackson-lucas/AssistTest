@@ -1,5 +1,8 @@
 package app.testbuilder.br.com.TestBuilder.Model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by jcaf on 27/12/2014.
  */
@@ -74,6 +77,21 @@ public class Teste {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public JSONObject getAsJson() {
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            jsonObject.put("id", id);
+            jsonObject.put("usuario", usuario);
+            jsonObject.put("tipo", tipo);
+            jsonObject.put("status", status);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
     }
 
     @Override

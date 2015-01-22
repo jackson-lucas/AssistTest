@@ -18,7 +18,8 @@
         </activity>
 
         <activity
-            android:name=".CadastroUI" >
+            android:name=".CadastroUI"
+            android:label="@string/title_activity_cadastrar">
         </activity>
 
         <activity

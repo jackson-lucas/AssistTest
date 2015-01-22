@@ -11,18 +11,36 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import java.util.List;
+
+import app.testbuilder.br.com.TestBuilder.Model.Assist;
 
 // TODO Update no SQLite ao finalizar
 public class Resultado extends ActionBarActivity {
 
-    List<Boolean> substanciasUsadas;
+    Assist assist;
+    int[] resultado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_result);
+
+        Intent intent = getIntent();
+
+        if(intent != null) {
+            assist = intent.getParcelableExtra("ASSIST");
+
+            resultado = assist.getResultado();
+
+            for(int result : resultado) {
+
+                Log.i("resultado: ", result+"");
+            }
+        }
 
         Button confirmButton = (Button) findViewById(R.id.button);
 
@@ -35,28 +53,5 @@ public class Resultado extends ActionBarActivity {
             }
         });
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        // Modificao de action_settings para action_bar nao sei se foi correto
-        if (id == R.id.action_bar) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

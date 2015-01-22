@@ -1,5 +1,8 @@
 package app.testbuilder.br.com.TestBuilder.Model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Date;
 
 /**
@@ -121,6 +124,22 @@ public class Usuario {
                 ", genero='" + genero + '\'' +
                 ", dt_cadastro=" + dt_cadastro +
                 '}';
+    }
+
+    public JSONObject getAsJson() {
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            jsonObject.put("avaliador", avaliador);
+            jsonObject.put("cumpridor", cumpridor);
+            jsonObject.put("idade", idade);
+            jsonObject.put("genero", genero);
+            jsonObject.put("dt_cadastro", dt_cadastro);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
     }
 
 }
