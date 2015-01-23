@@ -10,21 +10,28 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import app.testbuilder.br.com.TestBuilder.Model.Assist;
+import app.testbuilder.br.com.TestBuilder.Model.Substancia;
+import app.testbuilder.br.ufam.testbuilder.Utilities.ResultadoAdapter;
 
 public class Resultado extends ActionBarActivity {
 
     Assist assist;
     int[] resultados;
     String[] substancias;
+    ArrayList<Substancia> substanciasLista = new ArrayList<Substancia>();
+    ResultadoAdapter adapter;
+    ListView list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,67 +61,25 @@ public class Resultado extends ActionBarActivity {
         substancias = getResources().getStringArray(R.array.substancias);
         Log.i("substancias", substancias.length+"");
 
+        list = (ListView) findViewById(R.id.ListView12);
+
         showResult();
 
     }
 
     public void showResult() {
-        TableLayout tabelaResulado = (TableLayout) findViewById(R.id.table_result);
-        String p1;
-        int resultado;
-        String intervencao;
+        String p1 = assist.getP1();
+        substanciasLista.clear();
 
-        TableRow.LayoutParams textLayoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
-        //textLayoutParams.gravity = Gravity.CENTER_HORIZONTAL;
-
-        p1 = assist.getP1();
         for(int index = 0, indexResultado = 0; index < p1.length(); index++) {
-            if(p1.charAt(index) == '1') {
-                TableRow tableRow = new TableRow(this);
-                tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-                tableRow.setGravity(Gravity.CENTER_HORIZONTAL);
-
-                TextView substancia = new TextView(this);
-                substancia.setText(substancias[index]);
-                substancia.setLayoutParams(textLayoutParams);
-
-                resultado = resultados[indexResultado];
-                Log.i("Resultado: ", resultado+"");
+            if (p1.charAt(index) == '1') {
+                substanciasLista.add(new Substancia(substancias[index], resultados[indexResultado]));
                 indexResultado++;
-
-                TextView pontuacao = new TextView(this);
-                pontuacao.setText(resultado+"");
-                pontuacao.setLayoutParams(textLayoutParams);
-
-                if(substancias[index].equals("bebidas alcoólicas")) {
-                    if(resultado < 11) {
-                        intervencao = "Nenhuma intervenção";
-                    } else if(resultado < 27) {
-                        intervencao = "Intervenção breve";
-                    } else {
-                        intervencao = "Tratamento intensivo";
-                    }
-                } else {
-                    if(resultado < 4) {
-                        intervencao = "Nenhuma intervenção";
-                    } else if(resultado < 27) {
-                        intervencao = "Intervenção breve";
-                    } else {
-                        intervencao = "Tratamento intensivo";
-                    }
-                }
-
-                TextView recomendacao = new TextView(this);
-                recomendacao.setText(intervencao);
-                recomendacao.setLayoutParams(textLayoutParams);
-
-                tableRow.addView(substancia);
-                tableRow.addView(pontuacao);
-                tableRow.addView(recomendacao);
-
-                tabelaResulado.addView(tableRow);
-            };
+            }
         }
 
+        adapter = new ResultadoAdapter(this, substanciasLista);
+
+        list.setAdapter(adapter);
     }
 }
