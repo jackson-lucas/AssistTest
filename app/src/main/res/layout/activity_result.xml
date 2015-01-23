@@ -19,8 +19,9 @@
         android:layout_marginTop="31dp" />
 
     <TableLayout
+        android:id="@+id/table_result"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true">
 
@@ -54,7 +55,7 @@
                 android:text="Recomendação"
                 android:id="@+id/textView4"
                 android:layout_marginLeft="5dp"
-                android:layout_column="7" />
+                android:layout_column="2" />
         </TableRow>
     </TableLayout>
 </RelativeLayout>
