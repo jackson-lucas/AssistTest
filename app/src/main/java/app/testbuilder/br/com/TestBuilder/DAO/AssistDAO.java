@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 import app.testbuilder.br.com.TestBuilder.Model.Assist;
 
@@ -18,7 +20,7 @@ import app.testbuilder.br.com.TestBuilder.Model.Assist;
 public class AssistDAO {
 
     /* SQL INSERT, DELETE e UPDATE. */
-    private static final String SQL_SELECT_ALL = "SELECT * FROM assist ORDER BY teste_id";
+    private static final String SQL_SELECT_ALL = "SELECT * FROM assist ORDER BY id";
     private static final String SQL_SELECT_ID = "SELECT * FROM assist WHERE id = ?";
     private static final String SQL_LAST_ID = "SELECT MAX(id) FROM assist";
 
@@ -51,7 +53,6 @@ public class AssistDAO {
     }
 
     public boolean update(Assist a) throws SQLException {
-
         int id = a.getId();
         ContentValues values = new ContentValues();
 
@@ -65,16 +66,7 @@ public class AssistDAO {
         values.put(a.KEY_P7, a.getP7());
         values.put(a.KEY_P8, a.getP8());
 
-        boolean sucesso = db.update(Assist.TABLE, values, Assist.KEY_ID + " = " + id, null) > 0;
-
-        if(sucesso) {
-            Log.i("SUCESSO-UPDATE:",a.toString());
-            return sucesso;
-        } else {
-            Log.i("FALHA-UPDATE:",a.toString());
-            return sucesso;
-        }
-        // return (db.update(Assist.TABLE, values, Assist.KEY_ID + " = " + id, null) > 0);
+        return (db.update(Assist.TABLE, values, Assist.KEY_ID + " = " + id, null) > 0);
     }
 
     public Assist getLastId() throws SQLException{
@@ -93,5 +85,34 @@ public class AssistDAO {
             inicial += array[index] ? 1 : 0;
         }
         return inicial;
+    }
+
+    public List<Assist> getAllAssist() throws SQLException {
+        List<Assist> list = new LinkedList<Assist>();
+        Cursor cursor = db.rawQuery(SQL_SELECT_ALL, null);
+        if (cursor.moveToFirst()) {
+            while (cursor.moveToNext()) {
+                Assist assist = populaAssist(cursor);
+                list.add(assist);
+            }
+        }
+        Log.d("getAll()", list.toString());
+        return (list);
+    }
+
+    //Converter o Cursor de dados no objeto POJO Assist
+    private Assist populaAssist(Cursor cursor) throws SQLException {
+        final Assist toReturn = new Assist();
+        toReturn.setId(cursor.getInt(0));
+        toReturn.setTeste_id(cursor.getInt(1));
+        toReturn.setP1(cursor.getString(2));
+        toReturn.setP2(cursor.getString(3));
+        toReturn.setP3(cursor.getString(4));
+        toReturn.setP4(cursor.getString(5));
+        toReturn.setP5(cursor.getString(6));
+        toReturn.setP6(cursor.getString(7));
+        toReturn.setP7(cursor.getString(8));
+        toReturn.setP8(cursor.getString(9));
+        return toReturn;
     }
 }
