@@ -4,14 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.view.View;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -59,7 +53,7 @@ public class UsuarioDAO {
         values.put(u.KEY_idade, u.getIdade());
         values.put(u.KEY_genero, u.getGenero());
         values.put(u.KEY_dt_cadastro, u.getDt_cadastro());
-        String where = "_id = ?";
+        String where = "id = ?";
         String[] whereArgs = {Integer.toString(u.getId())};
         return (db.update(Usuario.TABLE, values, where, whereArgs) > 0);
     }
@@ -68,25 +62,19 @@ public class UsuarioDAO {
         return (db.delete(Usuario.TABLE, "id ='" + id + "'", null) > 0);
     }
 
-    public List<Usuario> getAll() {
+    public List<Usuario> getAllUsuarios() throws SQLException {
         List<Usuario> list = new LinkedList<Usuario>();
         Cursor cursor = db.rawQuery(SQL_SELECT_ALL, null);
         if (cursor.moveToFirst()) {
             while (cursor.moveToNext()) {
-                Usuario user = new Usuario();
-                user.setId(cursor.getInt(0));
-                user.setAvaliador(cursor.getString(1));
-                user.setCumpridor(cursor.getString(2));
-                user.setIdade(cursor.getInt(3));
-                user.setGenero(cursor.getString(4));
-                user.setDt_cadastro(cursor.getString(5));
+                Usuario user = populaUsuario(cursor);
                 list.add(user);
             }
         }
         return (list);
     }
 
-    //Converter o Cursor de dados no objeto POJO ContatoVO
+    //Converter o Cursor de dados no objeto POJO Usuario
     private Usuario populaUsuario(Cursor cursor) throws SQLException {
         final Usuario toReturn = new Usuario();
         toReturn.setId(cursor.getInt(0));
@@ -97,8 +85,6 @@ public class UsuarioDAO {
         toReturn.setDt_cadastro(cursor.getString(5));
         return toReturn;
     }
-
-
 
 /*
     public List<Usuario> get(String nome) {
@@ -145,4 +131,5 @@ public class UsuarioDAO {
         }
         return user;
     }
+
 }

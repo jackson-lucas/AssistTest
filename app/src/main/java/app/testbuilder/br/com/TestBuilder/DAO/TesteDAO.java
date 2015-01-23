@@ -20,7 +20,7 @@ import app.testbuilder.br.com.TestBuilder.Model.Teste;
 public class TesteDAO {
 
     /* SQL INSERT, DELETE e UPDATE. */
-    private static final String SQL_SELECT_ALL = "SELECT * FROM teste ORDER BY usuario_id";
+    private static final String SQL_SELECT_ALL = "SELECT * FROM teste ORDER BY id";
     private static final String SQL_SELECT_NOME = " SELECT usuario.avaliador FROM teste INNER JOIN usuario ON (teste.usuario_id = usuario.id) WHERE teste.id = ?";
     private static final String SQL_SELECT_ID = "SELECT * FROM teste WHERE id = ?";
     private static final String SQL_LAST_ID = "SELECT MAX(id) FROM teste";
@@ -45,32 +45,24 @@ public class TesteDAO {
         return (db.insert(t.TABLE, null, values)> 0) ;
     }
 
-    public List<Teste> get(String nome) {
+    public List<Teste> get(String nome) throws SQLException {
         List<Teste> list = new ArrayList<Teste>();
         Cursor cursor = db.rawQuery(SQL_SELECT_NOME, new String[]{String.valueOf(nome)});
         if (cursor.moveToFirst()) {
             while (cursor.moveToNext()) {
-                Teste test = new Teste();
-                test.setId(cursor.getInt(0));
-                test.setUsuario(cursor.getInt(1));
-                test.setTipo(cursor.getString(2));
-                test.setStatus(cursor.getString(3));
+                Teste test = populaTeste(cursor);
                 list.add(test);
             }
         }
         return (list);
     }
 
-    public List<Teste> getAll() {
+    public List<Teste> getAllTestes()  throws SQLException {
         List<Teste> list = new LinkedList<Teste>();
         Cursor cursor = db.rawQuery(SQL_SELECT_ALL, null);
         if (cursor.moveToFirst()) {
             while (cursor.moveToNext()) {
-                Teste test = new Teste();
-                test.setId(cursor.getInt(0));
-                test.setUsuario(cursor.getInt(1));
-                test.setTipo(cursor.getString(2));
-                test.setStatus(cursor.getString(3));
+                Teste test = populaTeste(cursor);
                 list.add(test);
             }
         }
@@ -78,7 +70,7 @@ public class TesteDAO {
         return (list);
     }
 
-    public Teste getTesteById(int id) {
+    public Teste getTesteById(int id) throws SQLException{
         Cursor cursor = db.rawQuery(SQL_SELECT_ID, new String[]{String.valueOf(id)});
         Teste test = new Teste();
         if (cursor.moveToFirst()) {
@@ -99,4 +91,16 @@ public class TesteDAO {
         }
         return test;
     }
+
+    //Converter o Cursor de dados no objeto POJO Teste
+    private Teste populaTeste(Cursor cursor) throws SQLException {
+        final Teste toReturn = new Teste();
+        toReturn.setId(cursor.getInt(0));
+        toReturn.setUsuario(cursor.getInt(1));
+        toReturn.setTipo(cursor.getString(2));
+        toReturn.setStatus(cursor.getString(3));
+        return toReturn;
+    }
+
+
 }
