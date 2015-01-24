@@ -7,54 +7,24 @@
     tools:context="testbuilder.com.br.testbuilder.ASSISTPergunta3"
     android:id="@+id/layout_pergunta3">
 
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/list_layout">
+        <ListView
+            android:id="@+id/ListView12"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent">
+        </ListView>
+    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Finalizar"
         android:id="@+id/button"
-        android:layout_below="@+id/radioGroup1"
+        android:layout_below="@+id/list_layout"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp" />
-
-    <TableLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_centerHorizontal="true">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Substância"
-                android:id="@+id/textView2"
-                android:layout_marginLeft="5dp"
-                android:layout_column="0" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Pontuação"
-                android:id="@+id/textView3"
-                android:layout_marginLeft="5dp"
-                android:layout_column="1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Recomendação"
-                android:id="@+id/textView4"
-                android:layout_marginLeft="5dp"
-                android:layout_column="7" />
-        </TableRow>
-    </TableLayout>
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>
