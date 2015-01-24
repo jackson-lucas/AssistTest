@@ -16,12 +16,13 @@
             android:focusable="false"
             android:id="@+id/bandeira"
             android:layout_height="48dp"
-            android:layout_width="48dp">
+            android:layout_width="48dp"
+            android:layout_alignParentRight="true">
         </ImageView>
         <TextView
             android:id="@+id/lblEstado"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/bandeira"
+            android:layout_alignParentLeft="true"
             android:layout_width="wrap_content"
             android:text="Substância : "
             android:textSize="16sp">
@@ -40,7 +41,6 @@
             android:id="@+id/lblCapital"
             android:layout_below="@+id/lblEstado"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/bandeira"
             android:layout_width="wrap_content"
             android:text="Resultado : "
             android:textSize="13sp">

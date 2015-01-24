@@ -1,20 +1,25 @@
 package app.testbuilder;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -24,6 +29,7 @@ import java.util.List;
 import app.testbuilder.br.com.TestBuilder.Model.Assist;
 import app.testbuilder.br.com.TestBuilder.Model.Substancia;
 import app.testbuilder.br.ufam.testbuilder.Utilities.ResultadoAdapter;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class Resultado extends ActionBarActivity {
 
@@ -33,6 +39,7 @@ public class Resultado extends ActionBarActivity {
     ArrayList<Substancia> substanciasLista = new ArrayList<Substancia>();
     ResultadoAdapter adapter;
     ListView list;
+    AlertDialog.Builder alert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +81,22 @@ public class Resultado extends ActionBarActivity {
 
         showResult();
 
+        // Dialog
+        alert = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View helpView = (View) inflater.inflate(R.layout.help_dialog, null);
+
+        alert.setTitle("Ajuda");
+        alert.setView(helpView);
+
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+
+        alert.create();
+
     }
 
     public void showResult() {
@@ -91,4 +114,32 @@ public class Resultado extends ActionBarActivity {
 
         list.setAdapter(adapter);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_result, menu);
+
+        // TODO criar metodo para verificar se existe algo no BD
+        //MenuItem menuItem = menu.findItem(R.id.action_send_data);
+        //menuItem.setVisible(false);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        /*
+        Handle action bar item clicks here, The action bar will automatically handle clicks on the
+        Home/Up button, so long as you specify a parent activity in AndroidManifest.xml.
+         */
+        int id = item.getItemId();
+
+        if (id == R.id.action_help) {
+            alert.show();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }
