@@ -1,6 +1,3 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -10,20 +7,24 @@
     tools:context="testbuilder.com.br.testbuilder.ASSISTPergunta3"
     android:id="@+id/layout_pergunta3">
 
-    <ListView
-        android:id="@+id/ListView12"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent">
-    </ListView>
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/list_layout">
+        <ListView
+            android:id="@+id/ListView12"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent">
+        </ListView>
+    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Finalizar"
         android:id="@+id/button"
-        android:layout_below="@+id/ListView12"
+        android:layout_below="@+id/list_layout"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp" />
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>
-</ScrollView>

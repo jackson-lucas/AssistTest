@@ -3,6 +3,7 @@ package app.testbuilder;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -63,6 +64,14 @@ public class Resultado extends ActionBarActivity {
 
         list = (ListView) findViewById(R.id.ListView12);
 
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+
+        // Mudando dinamicamente os tamanhos dos componentes visto que ScrollView não possîvel com ListView
+        View view = findViewById(R.id.list_layout);
+
+        view.getLayoutParams().height = (int) (displayMetrics.heightPixels * 0.7);
+        view.setLayoutParams(view.getLayoutParams());
+
         showResult();
 
     }
@@ -71,10 +80,10 @@ public class Resultado extends ActionBarActivity {
         String p1 = assist.getP1();
         substanciasLista.clear();
 
-        for(int index = 0, indexResultado = 0; index < p1.length(); index++) {
+        for(int index = 0; index < p1.length(); index++) {
             if (p1.charAt(index) == '1') {
-                substanciasLista.add(new Substancia(substancias[index], resultados[indexResultado]));
-                indexResultado++;
+                substanciasLista.add(new Substancia(substancias[index], resultados[index]));
+                Log.i("Substancia: ", substancias[index]);
             }
         }
 

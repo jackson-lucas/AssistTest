@@ -6,6 +6,7 @@ package app.testbuilder.br.ufam.testbuilder.Utilities;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,8 @@ public class ResultadoAdapter extends BaseAdapter  {
 
 
         //bandeira.setImageResource(substancia.getBandeira());
+
+        bandeira.setBackgroundResource(substancia.getColor());
         tvEstado.setText(substancia.getNome());
         tvCapital.setText(substancia.getResultado()+"");
 
