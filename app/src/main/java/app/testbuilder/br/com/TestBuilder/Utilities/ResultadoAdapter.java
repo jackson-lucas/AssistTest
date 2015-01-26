@@ -1,4 +1,4 @@
-package app.testbuilder.br.ufam.testbuilder.Utilities;
+package app.testbuilder.br.com.TestBuilder.Utilities;
 
 /**
  * Created by jacksonlima on 1/23/15.
@@ -64,9 +64,7 @@ public class ResultadoAdapter extends BaseAdapter  {
         TextView tvEstado = (TextView)convertView.findViewById(R.id.tvEstado);
         TextView tvCapital = (TextView)convertView.findViewById(R.id.tvCapital);
 
-
         //bandeira.setImageResource(substancia.getBandeira());
-
         bandeira.setBackgroundResource(substancia.getColor());
         tvEstado.setText(substancia.getNome());
         tvCapital.setText(substancia.getResultado()+"");

@@ -1,9 +1,11 @@
 package app.testbuilder.br.com.TestBuilder.Model;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by jcaf on 27/12/2014.
@@ -47,6 +49,20 @@ public class Usuario {
         this.idade = idade;
         this.genero = genero;
         this.dt_cadastro = dt_cadastro;
+    }
+
+    public Usuario(JSONObject object){
+        try {
+            this.id = object.getInt("id");
+            this.avaliador = object.getString("avaliador");
+            this.cumpridor = object.getString("cumpridor");
+            this.idade = object.getInt("idade");
+            this.genero = object.getString("genero");
+            this.dt_cadastro = object.getString("dt_cadastro");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public int getId() {
@@ -126,9 +142,22 @@ public class Usuario {
                 '}';
     }
 
+    public String toJSONString() {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("avaliador", getAvaliador());
+            obj.put("cumpridor", getCumpridor());
+            obj.put("idade", getIdade());
+            obj.put("genero", getGenero());
+            obj.put("dt_cadastro", getDt_cadastro());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return obj.toString();
+    }
+
     public JSONObject getAsJson() {
         JSONObject jsonObject = new JSONObject();
-
         try {
             jsonObject.put("avaliador", avaliador);
             jsonObject.put("cumpridor", cumpridor);
@@ -138,8 +167,18 @@ public class Usuario {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return jsonObject;
     }
 
+    public static List<Usuario> fromJson(JSONArray jsonObjects) {
+        List<Usuario> users = new LinkedList<Usuario>();
+        for (int i = 0; i < jsonObjects.length(); i++) {
+            try {
+                users.add(new Usuario(jsonObjects.getJSONObject(i)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return users;
+    }
 }

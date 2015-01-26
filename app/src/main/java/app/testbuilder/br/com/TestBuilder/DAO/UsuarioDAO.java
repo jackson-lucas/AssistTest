@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -71,12 +72,13 @@ public class UsuarioDAO {
                 list.add(user);
             }
         }
+        Log.i("DEBUG:", list.toString());
         return (list);
     }
 
     //Converter o Cursor de dados no objeto POJO Usuario
     private Usuario populaUsuario(Cursor cursor) throws SQLException {
-        final Usuario toReturn = new Usuario();
+        Usuario toReturn = new Usuario();
         toReturn.setId(cursor.getInt(0));
         toReturn.setAvaliador(cursor.getString(1));
         toReturn.setCumpridor(cursor.getString(2));
