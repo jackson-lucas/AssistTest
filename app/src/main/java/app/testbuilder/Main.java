@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class Main extends ActionBarActivity {
 
-    Button btnIniciar, btnEnviarDaddos;
+    Button btnIniciar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,21 +21,11 @@ public class Main extends ActionBarActivity {
         Intent intent = getIntent();
 
         btnIniciar = (Button) findViewById(R.id.btnTeste);
-        btnEnviarDaddos = (Button) findViewById(R.id.btnEnviarDados);
 
         btnIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Main.this, CadastroUI.class);
-                startActivity(i);
-                finish();
-            }
-        });
-
-        btnEnviarDaddos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Main.this, Register.class);
                 startActivity(i);
                 finish();
             }
@@ -63,7 +53,9 @@ public class Main extends ActionBarActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_send_data) {
-
+            Intent i = new Intent(Main.this, Register.class);
+            startActivity(i);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
