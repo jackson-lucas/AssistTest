@@ -1,27 +1,16 @@
 package app.testbuilder;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
-import java.util.Date;
-import java.sql.Timestamp;
 
 public class Main extends ActionBarActivity {
 
-    Button btnIniciar;
-
-    private static Date getDateTime() {
-        return new Timestamp(new Date().getTime());
-    }
+    Button btnIniciar, btnEnviarDaddos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +21,21 @@ public class Main extends ActionBarActivity {
         Intent intent = getIntent();
 
         btnIniciar = (Button) findViewById(R.id.btnTeste);
+        btnEnviarDaddos = (Button) findViewById(R.id.btnEnviarDados);
 
         btnIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Main.this, CadastroUI.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        btnEnviarDaddos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Main.this, Register.class);
                 startActivity(i);
                 finish();
             }
@@ -64,7 +63,6 @@ public class Main extends ActionBarActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_send_data) {
-
 
         }
 

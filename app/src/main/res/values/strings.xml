@@ -8,6 +8,7 @@
     <string name="ajuda">Ajuda</string>
 
     <string name="title_activity_cadastrar">Cadastro</string>
+    <string name="title_activity_jsonpost">Enviar Dados</string>
     <string name="title_activity_resultados">Resultados</string>
     <string name="title_activities_assist">Teste: ASSIST</string>
 

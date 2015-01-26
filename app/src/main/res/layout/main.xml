@@ -10,6 +10,15 @@
         android:layout_height="wrap_content"
         android:text="Iniciar Teste"
         android:id="@+id/btnTeste"
+        android:layout_marginTop="190dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enviar Dados"
+        android:id="@+id/btnEnviarDados"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 

@@ -1,4 +1,4 @@
-package app.testbuilder.br.ufam.testbuilder.Utilities;
+package app.testbuilder.br.com.TestBuilder.Utilities;
 
 /**
  * Created by jacksonlima on 1/22/15.

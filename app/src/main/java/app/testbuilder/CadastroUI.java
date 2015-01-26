@@ -3,7 +3,6 @@ package app.testbuilder;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,11 +23,6 @@ import app.testbuilder.br.com.TestBuilder.Model.Usuario;
  */
 public class CadastroUI extends ActionBarActivity {
 
-    //Objetos das classes
-    public Usuario user = null;
-    public Teste test = null;
-    public UsuarioDAO usuarioDao = null;
-    public TesteDAO testDao = null;
     public boolean s1, s2;
 
     //Objetos do fragment
@@ -39,7 +33,7 @@ public class CadastroUI extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cadastro);
+        setContentView(R.layout.activity_cadastro);
 
         etAvaliador = (EditText) findViewById(R.id.etAvaliador);
         etCumpridor = (EditText) findViewById(R.id.etCumpridor);
@@ -48,13 +42,13 @@ public class CadastroUI extends ActionBarActivity {
         btnSalvar = (Button) findViewById(R.id.btnsalvar);
 
         btnSalvar.setOnClickListener(new View.OnClickListener() {
+            Usuario user = new Usuario();
+            Teste test = new Teste();
+            UsuarioDAO usuarioDao = new UsuarioDAO(getApplicationContext());
+            TesteDAO testDao = new TesteDAO(getApplicationContext());
+
             @Override
             public void onClick(View v) {
-                user = new Usuario();
-                Teste test = new Teste();
-                usuarioDao = new UsuarioDAO(getApplicationContext());
-                testDao = new TesteDAO(getApplicationContext());
-
                 String avaliador = etAvaliador.getText().toString();
                 String cumpridor = etCumpridor.getText().toString();
 
@@ -99,6 +93,7 @@ public class CadastroUI extends ActionBarActivity {
                     } catch (SQLException e) {
                         trace("ErrorCadastro:" + e.getMessage());
                     }
+
                     Intent intent = new Intent(CadastroUI.this, ASSISTPergunta1.class);
                     startActivity(intent);
                     finish();
