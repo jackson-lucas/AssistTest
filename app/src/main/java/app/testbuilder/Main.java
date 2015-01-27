@@ -26,9 +26,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import app.testbuilder.br.com.TestBuilder.Utilities.JSONParser;
+
 public class Main extends ActionBarActivity {
 
     Button btnIniciar;
+    public JSONParser jsonParser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,8 @@ public class Main extends ActionBarActivity {
                 finish();
             }
         });
+
+        jsonParser = new JSONParser(this);
     }
 
     @Override
@@ -99,7 +104,7 @@ public class Main extends ActionBarActivity {
     // iso-8859-1 o servidor está lendo assim? e não UTF-8?
     // TODO fazer JSON para enviar todos os dados do banco de dados
     // Methods for HTTPRequest
-    public static String POST(String url, Person person){
+    public static String POST(String url, JSONParser jsonParser){
         InputStream inputStream = null;
         String result = "";
         try {
@@ -113,10 +118,7 @@ public class Main extends ActionBarActivity {
             String json = "";
 
             // 3. build jsonObject
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.accumulate("name", person.name);
-            jsonObject.accumulate("country", person.country);
-            jsonObject.accumulate("twitter", person.twitter);
+            JSONObject jsonObject = jsonParser.getAll();
 
             // 4. convert JSONObject to JSON to String
             json = jsonObject.toString();
@@ -164,21 +166,11 @@ public class Main extends ActionBarActivity {
             return false;
     }
 
-    // Just for test
-    public class Person {
-        String  name, country, twitter;
-    }
-
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
 
-            Person person = new Person();
-            person.name = ("Jackson");
-            person.country = ("Brazil");
-            person.twitter = ("Not Found");
-
-            return POST(urls[0],person);
+            return POST(urls[0],jsonParser);
         }
         // onPostExecute displays the results of the AsyncTask.
         @Override
