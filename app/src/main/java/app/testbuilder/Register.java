@@ -19,7 +19,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.testbuilder.br.com.TestBuilder.Temp.JSONParser;
+import app.testbuilder.br.com.TestBuilder.Utilities.JSONParser;
 
 public class Register extends Activity implements OnClickListener {
 
