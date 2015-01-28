@@ -67,8 +67,11 @@ public class UsuarioDAO {
         List<Usuario> list = new LinkedList<Usuario>();
         Cursor cursor = db.rawQuery(SQL_SELECT_ALL, null);
         if (cursor.moveToFirst()) {
+            Usuario user = populaUsuario(cursor);
+            list.add(user);
+
             while (cursor.moveToNext()) {
-                Usuario user = populaUsuario(cursor);
+                user = populaUsuario(cursor);
                 list.add(user);
             }
         }

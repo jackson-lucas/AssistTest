@@ -184,7 +184,6 @@ public class Assist implements Parcelable {
             jsonObject.put("p6", p6);
             jsonObject.put("p7", p7);
             jsonObject.put("p8", p8);
-            jsonObject.put("resultado", resultado);
         } catch (JSONException e) {
             e.printStackTrace();
         }

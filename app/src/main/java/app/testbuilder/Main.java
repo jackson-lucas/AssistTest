@@ -14,17 +14,28 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.protocol.HTTP;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 import app.testbuilder.br.com.TestBuilder.Utilities.JSONParser;
 
@@ -76,18 +87,14 @@ public class Main extends ActionBarActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_send_data) {
-            /*Intent i = new Intent(Main.this, Register.class);
-            startActivity(i);
-            finish();
-            */
             // call AsynTask to perform network operation on separate thread
             if(isConnected()) {
 
-                new HttpAsyncTask().execute("http://www.testbuilder.com.br/testbuilder/post_usuario.php");
-                //new HttpAsyncTask().execute("http://hmkcode.appspot.com/jsonservlet");
+                //new HttpAsyncTask().execute("http://www.mocky.io/v2/54c7b3a41f6a71fe111514c9");
+                new HttpAsyncTask().execute("http://testbuilder.com.br/testbuilder/post_usuario.php");
             } else {
 
-                Toast.makeText(getBaseContext(), "Servidor não encontrado!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "Não conectado a internet!", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -107,50 +114,49 @@ public class Main extends ActionBarActivity {
     public static String POST(String url, JSONParser jsonParser){
         InputStream inputStream = null;
         String result = "";
+
         try {
 
             // 1. create HttpClient
-            HttpClient httpclient = new DefaultHttpClient();
+            HttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
 
             // 2. make POST request to the given URL
             HttpPost httpPost = new HttpPost(url);
 
-            String json = "";
 
-            // 3. build jsonObject
-            JSONObject jsonObject = jsonParser.getAll();
+            try {
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                String usuarios = jsonParser.getAllUsuariosAsJson().toString();
+                String testes = jsonParser.getAllTestesAsJson().toString();
+                String assist = jsonParser.getAllAssistAsJson().toString();
 
-            // 4. convert JSONObject to JSON to String
-            json = jsonObject.toString();
+                Log.i("USUARIOS", usuarios);
+                Log.i("TESTES", testes);
+                Log.i("ASSIST", assist);
 
-            // ** Alternative way to convert Person object to JSON string usin Jackson Lib
-            // ObjectMapper mapper = new ObjectMapper();
-            // json = mapper.writeValueAsString(person);
+                params.add(new BasicNameValuePair("usuarios", usuarios));
+                params.add(new BasicNameValuePair("testes", testes));
+                params.add(new BasicNameValuePair("assist", assist));
 
-            // 5. set json to StringEntity
-            StringEntity se = new StringEntity(json);
+                httpPost.setEntity(new UrlEncodedFormEntity(params));
 
-            // 6. set httpPost Entity
-            httpPost.setEntity(se);
+                HttpResponse response = httpclient.execute(httpPost);
 
-            // 7. Set some headers to inform server about the type of the content
-            httpPost.setHeader("Accept", "application/json");
-            httpPost.setHeader("Content-type", "application/json");
+                inputStream = response.getEntity().getContent();
 
-            // 8. Execute POST request to the given URL
-            HttpResponse httpResponse = httpclient.execute(httpPost);
-
-            // 9. receive response as inputStream
-            inputStream = httpResponse.getEntity().getContent();
+            } catch (UnsupportedEncodingException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 
             // 10. convert inputstream to string
             if(inputStream != null)
                 result = convertInputStreamToString(inputStream);
             else
-                result = "Não funcionou";
+                result = "Resultado Nulo";
 
         } catch (Exception e) {
-            Log.d("InputStream", e.getLocalizedMessage());
+            Log.i("InputStream", e.getLocalizedMessage());
         }
 
         // 11. return result
@@ -184,8 +190,12 @@ public class Main extends ActionBarActivity {
         BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
         String line = "";
         String result = "";
-        while((line = bufferedReader.readLine()) != null)
-            result += line;
+        Log.i("HTTP REQUEST RESULTADO", "");
+        while((line = bufferedReader.readLine()) != null) {
+            result = line;
+            Log.i("", result);
+        }
+        Log.i("HTTP REQUEST RESULTADO FIM", "");
 
         inputStream.close();
         return result;

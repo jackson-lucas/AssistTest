@@ -91,8 +91,11 @@ public class AssistDAO {
         List<Assist> list = new LinkedList<Assist>();
         Cursor cursor = db.rawQuery(SQL_SELECT_ALL, null);
         if (cursor.moveToFirst()) {
+            Assist assist = populaAssist(cursor);
+            list.add(assist);
+
             while (cursor.moveToNext()) {
-                Assist assist = populaAssist(cursor);
+                assist = populaAssist(cursor);
                 list.add(assist);
             }
         }

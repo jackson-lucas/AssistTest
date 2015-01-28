@@ -145,6 +145,7 @@ public class Usuario {
     public String toJSONString() {
         JSONObject obj = new JSONObject();
         try {
+            obj.put("id", getId());
             obj.put("avaliador", getAvaliador());
             obj.put("cumpridor", getCumpridor());
             obj.put("idade", getIdade());
@@ -159,6 +160,7 @@ public class Usuario {
     public JSONObject getAsJson() {
         JSONObject jsonObject = new JSONObject();
         try {
+            jsonObject.put("id", id);
             jsonObject.put("avaliador", avaliador);
             jsonObject.put("cumpridor", cumpridor);
             jsonObject.put("idade", idade);

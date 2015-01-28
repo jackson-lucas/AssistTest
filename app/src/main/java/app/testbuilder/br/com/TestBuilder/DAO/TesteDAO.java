@@ -61,8 +61,11 @@ public class TesteDAO {
         List<Teste> list = new LinkedList<Teste>();
         Cursor cursor = db.rawQuery(SQL_SELECT_ALL, null);
         if (cursor.moveToFirst()) {
+            Teste test = populaTeste(cursor);
+            list.add(test);
+
             while (cursor.moveToNext()) {
-                Teste test = populaTeste(cursor);
+                test = populaTeste(cursor);
                 list.add(test);
             }
         }
