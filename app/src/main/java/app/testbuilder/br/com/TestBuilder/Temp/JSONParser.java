@@ -55,7 +55,7 @@ public class JSONParser {
 
         try {
             // Create a BufferedReader to parse through the inputStream.
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
             // Declare a string builder to help with the parsing.
             StringBuilder sb = new StringBuilder();
             // Declare a string to store the JSON object data in string form.
@@ -123,7 +123,7 @@ public class JSONParser {
         }
  
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
             StringBuilder sb = new StringBuilder();
             String line = null;
             while ((line = reader.readLine()) != null) {

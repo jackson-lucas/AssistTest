@@ -41,7 +41,7 @@ public class Register extends Activity implements OnClickListener {
     // private static final String REGISTER_URL = "http://xxx.xxx.x.x:1234/webservice/register.php";
 
     //testing on Emulator:
-    private static final String REGISTER_URL = "http://192.168.0.4/testbuilder/phpscript.php";
+    private static final String REGISTER_URL = "http://www.testbuilder.com.br/testbuilder/phpscript.php";
 
     //testing from a real server:
     //private static final String REGISTER_URL = "http://www.mybringback.com/webservice/register.php";
@@ -129,6 +129,5 @@ public class Register extends Activity implements OnClickListener {
                 Toast.makeText(Register.this, file_url, Toast.LENGTH_LONG).show();
             }
         }
-
     }
 }
