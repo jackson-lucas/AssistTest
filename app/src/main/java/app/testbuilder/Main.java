@@ -1,6 +1,8 @@
 package app.testbuilder;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -34,15 +36,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.testbuilder.br.com.TestBuilder.DAO.AssistDAO;
 import app.testbuilder.br.com.TestBuilder.Utilities.JSONParser;
 
+/* TODO Falta deletar os dados BD quando for enviado com sucesso para servidor
+    (não fazer antes do servidor estiver funcionando, para não ficar criando manualmente os dados p/ teste)
+ */
 public class Main extends ActionBarActivity {
 
     Button btnIniciar;
     public JSONParser jsonParser;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +72,15 @@ public class Main extends ActionBarActivity {
         });
 
         jsonParser = new JSONParser(this);
+
+        createProgressDialog();
+    }
+
+    public void createProgressDialog() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Enviando dados...");
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
     }
 
     @Override
@@ -71,9 +88,15 @@ public class Main extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        // TODO criar metodo para verificar se existe algo no BD
-        //MenuItem menuItem = menu.findItem(R.id.action_send_data);
-        //menuItem.setVisible(false);
+        AssistDAO assistDAO = new AssistDAO(this);
+        try {
+            MenuItem menuItem = menu.findItem(R.id.action_send_data);
+            if (assistDAO.getAllAssist().size() == 0) {
+                menuItem.setVisible(false);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return true;
     }
@@ -89,11 +112,10 @@ public class Main extends ActionBarActivity {
         if (id == R.id.action_send_data) {
             // call AsynTask to perform network operation on separate thread
             if(isConnected()) {
-
+                progressDialog.show();
                 //new HttpAsyncTask().execute("http://www.mocky.io/v2/54c7b3a41f6a71fe111514c9");
                 new HttpAsyncTask().execute("http://testbuilder.com.br/testbuilder/post_usuario.php");
             } else {
-
                 Toast.makeText(getBaseContext(), "Não conectado a internet!", Toast.LENGTH_LONG).show();
             }
         }
@@ -181,8 +203,16 @@ public class Main extends ActionBarActivity {
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(getBaseContext(), "Dados Enviados!", Toast.LENGTH_LONG).show();
             Log.i("HTTP REQUEST RESULTADO", result);
+
+            progressDialog.dismiss();
+
+            if(result.equals("OK")) {
+                Toast.makeText(getBaseContext(), "Dados enviados com sucesso!", Toast.LENGTH_SHORT).show();
+            } else {
+
+                Toast.makeText(getBaseContext(), "Erro ao tentar enviar dados!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
