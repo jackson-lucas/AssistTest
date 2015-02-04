@@ -13,8 +13,10 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import app.testbuilder.br.com.TestBuilder.DAO.AssistDAO;
 import app.testbuilder.br.com.TestBuilder.DAO.TesteDAO;
 import app.testbuilder.br.com.TestBuilder.DAO.UsuarioDAO;
+import app.testbuilder.br.com.TestBuilder.Model.Assist;
 import app.testbuilder.br.com.TestBuilder.Model.Teste;
 import app.testbuilder.br.com.TestBuilder.Model.Usuario;
 
@@ -46,6 +48,8 @@ public class CadastroUI extends ActionBarActivity {
             Teste test = new Teste();
             UsuarioDAO usuarioDao = new UsuarioDAO(getApplicationContext());
             TesteDAO testDao = new TesteDAO(getApplicationContext());
+            AssistDAO aDao = new AssistDAO(getApplicationContext());
+            Assist assist = new Assist();
 
             @Override
             public void onClick(View v) {
@@ -90,11 +94,14 @@ public class CadastroUI extends ActionBarActivity {
                         //Cria Teste
                         s2 = testDao.inserir(test); //Criando o teste;
 
+                        assist.setTeste_id(testDao.getLastId().getId());
+
                     } catch (SQLException e) {
                         trace("ErrorCadastro:" + e.getMessage());
                     }
 
                     Intent intent = new Intent(CadastroUI.this, ASSISTPergunta1.class);
+                    intent.putExtra("ASSIST", assist);
                     startActivity(intent);
                     finish();
                 }

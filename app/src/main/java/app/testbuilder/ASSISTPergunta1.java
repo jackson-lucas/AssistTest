@@ -75,7 +75,6 @@ public class ASSISTPergunta1 extends ActionBarActivity {
 
                 // Check checkboxes
                 if(verifyCheckboxes()) {
-                    assist = new Assist();
                     aDao = new AssistDAO(getApplicationContext());
                     tDao = new TesteDAO(getApplicationContext());
 
@@ -84,16 +83,14 @@ public class ASSISTPergunta1 extends ActionBarActivity {
                         assist.setTeste_id(tDao.getLastId().getId());
                         assist.setP1(p1); //Valores da Questão1
 
-                        boolean sucesso = aDao.inserir(assist); //Gravando o assist
+                        boolean sucesso = aDao.update(assist);
                         if(sucesso) {
                             Log.i("ASSIST-1-IF:",assist.toString());
                         } else {
                             Log.i("ASSIST-1-ELSE:","");
                         }
 
-                        assist = aDao.getLastId(); // android.database.sqlite.SQLiteException: no such table: assit (code 1): , while compiling: SELECT MAX(id) FROM assit
-                        assist.setP1(p1); // É necessário devido aDao.getLastId() retornar um novo objeto sem p1
-                        assist.setTeste_id(tDao.getLastId().getId());
+
                         Log.i("ASSIST-1-AFTER:",assist.toString());
                     } catch (SQLException e) {
 

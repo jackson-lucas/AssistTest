@@ -72,7 +72,9 @@ public class Resultado extends ActionBarActivity {
         view.getLayoutParams().height = (int) (displayMetrics.heightPixels * 0.7);
         view.setLayoutParams(view.getLayoutParams());
 
-        showResult();
+        if(assist.getP1() != null) {
+            showResult();
+        }
 
         // Dialog
         alert = new AlertDialog.Builder(this);
