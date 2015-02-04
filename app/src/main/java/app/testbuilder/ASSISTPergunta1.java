@@ -42,7 +42,7 @@ public class ASSISTPergunta1 extends ActionBarActivity {
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-
+        alert.setMessage("Nem mesmo quando você estava na escola?");
 
         alert.setNegativeButton("Sim", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
