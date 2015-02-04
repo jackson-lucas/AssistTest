@@ -1,6 +1,7 @@
 package app.testbuilder;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,9 +50,12 @@ import app.testbuilder.br.com.TestBuilder.Utilities.JSONParser;
  */
 public class Main extends ActionBarActivity {
 
+    private final String URL = "http://testbuilder.com.br/testbuilder/post_usuario.php";
     Button btnIniciar;
     public JSONParser jsonParser;
     ProgressDialog progressDialog;
+    AlertDialog.Builder alert;
+    boolean venhoDeResultado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +64,10 @@ public class Main extends ActionBarActivity {
 
         // START Retrieve data from another activity
         Intent intent = getIntent();
+
+        if(intent != null) {
+            venhoDeResultado = intent.getBooleanExtra("RESULTADO", false);
+        }
 
         btnIniciar = (Button) findViewById(R.id.btnTeste);
 
@@ -74,6 +83,38 @@ public class Main extends ActionBarActivity {
         jsonParser = new JSONParser(this);
 
         createProgressDialog();
+
+        alert = new AlertDialog.Builder(this);
+
+        alert.setTitle("Enviar Dados?");
+        alert.setMessage("Existem dados para enviar, deseja enviá-los?");
+
+        alert.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+
+                // call AsynTask to perform network operation on separate thread
+                if(isConnected()) {
+                    progressDialog.show();
+                    //new HttpAsyncTask().execute("http://www.mocky.io/v2/54c7b3a41f6a71fe111514c9");
+                    new HttpAsyncTask().execute(URL);
+                } else {
+                    Toast.makeText(getBaseContext(), "Não conectado a internet!", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        alert.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+
+        alert.create();
+
+        if(venhoDeResultado) {
+            alert.show();
+        }
     }
 
     public void createProgressDialog() {
@@ -114,7 +155,7 @@ public class Main extends ActionBarActivity {
             if(isConnected()) {
                 progressDialog.show();
                 //new HttpAsyncTask().execute("http://www.mocky.io/v2/54c7b3a41f6a71fe111514c9");
-                new HttpAsyncTask().execute("http://testbuilder.com.br/testbuilder/post_usuario.php");
+                new HttpAsyncTask().execute(URL);
             } else {
                 Toast.makeText(getBaseContext(), "Não conectado a internet!", Toast.LENGTH_LONG).show();
             }

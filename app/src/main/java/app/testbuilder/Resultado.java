@@ -54,6 +54,7 @@ public class Resultado extends ActionBarActivity {
             public void onClick(View v) {
                 Log.d("DEBUG", "BUTTON FINALIZAR CLICKED");
                 Intent intent = new Intent(Resultado.this, Main.class);
+                intent.putExtra("RESULTADO", true);
                 startActivity(intent);
                 finish();
             }
