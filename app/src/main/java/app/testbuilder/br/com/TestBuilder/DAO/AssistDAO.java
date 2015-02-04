@@ -69,6 +69,10 @@ public class AssistDAO {
         return (db.update(Assist.TABLE, values, Assist.KEY_ID + " = " + id, null) > 0);
     }
 
+    public boolean delete(int id) {
+        return (db.delete(Assist.TABLE, "id ='" + id + "'", null) > 0);
+    }
+
     public Assist getLastId() throws SQLException{
         Cursor cursor = db.rawQuery(SQL_LAST_ID, null);
         Assist toReturn = null;

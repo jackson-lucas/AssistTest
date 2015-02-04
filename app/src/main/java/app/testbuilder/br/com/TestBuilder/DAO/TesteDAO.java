@@ -45,6 +45,10 @@ public class TesteDAO {
         return (db.insert(t.TABLE, null, values)> 0) ;
     }
 
+    public boolean delete(int id) {
+        return (db.delete(Teste.TABLE, "id ='" + id + "'", null) > 0);
+    }
+
     public List<Teste> get(String nome) throws SQLException {
         List<Teste> list = new ArrayList<Teste>();
         Cursor cursor = db.rawQuery(SQL_SELECT_NOME, new String[]{String.valueOf(nome)});
