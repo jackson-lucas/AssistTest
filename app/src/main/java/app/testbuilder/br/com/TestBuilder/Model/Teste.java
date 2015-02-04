@@ -84,7 +84,7 @@ public class Teste {
 
         try {
             jsonObject.put("id", id);
-            jsonObject.put("usuario", usuario);
+            jsonObject.put("usuario_id", usuario);
             jsonObject.put("tipo", tipo);
             jsonObject.put("status", status);
         } catch (JSONException e) {

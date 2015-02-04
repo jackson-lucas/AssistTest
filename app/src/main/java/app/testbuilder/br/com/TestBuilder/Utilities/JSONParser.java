@@ -114,6 +114,4 @@ public class JSONParser {
 
         return allData;
     }
-
-
 }
