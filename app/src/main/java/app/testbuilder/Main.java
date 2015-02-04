@@ -208,7 +208,9 @@ public class Main extends ActionBarActivity {
             progressDialog.dismiss();
 
             if(result.equals("OK")) {
+
                 Toast.makeText(getBaseContext(), "Dados enviados com sucesso!", Toast.LENGTH_SHORT).show();
+
             } else {
 
                 Toast.makeText(getBaseContext(), "Erro ao tentar enviar dados!", Toast.LENGTH_SHORT).show();
