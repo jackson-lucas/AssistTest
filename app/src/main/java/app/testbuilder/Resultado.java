@@ -23,8 +23,9 @@ import app.testbuilder.br.com.TestBuilder.Utilities.ResultadoAdapter;
 public class Resultado extends ActionBarActivity {
 
     Assist assist;
-    int[] resultados;
+    int[] resultados = null;
     String[] substancias;
+    boolean suspenso;
     ArrayList<Substancia> substanciasLista = new ArrayList<Substancia>();
     ResultadoAdapter adapter;
     ListView list;
@@ -40,8 +41,11 @@ public class Resultado extends ActionBarActivity {
 
         if(intent != null) {
             assist = intent.getParcelableExtra("ASSIST");
+            suspenso = intent.getBooleanExtra("SUSPENSO", false);
 
-            resultados = assist.getResultado();
+            if (!suspenso) {
+                resultados = assist.getResultado();
+            }
         }
 
         Button confirmButton = (Button) findViewById(R.id.button);
@@ -91,11 +95,19 @@ public class Resultado extends ActionBarActivity {
     public void showResult() {
         String p1 = assist.getP1();
         substanciasLista.clear();
-
-        for(int index = 0; index < p1.length(); index++) {
-            if (p1.charAt(index) == '1') {
-                substanciasLista.add(new Substancia(substancias[index], resultados[index]));
-                Log.i("Substancia: ", substancias[index]);
+        if(resultados!=null) {
+            for(int index = 0; index < p1.length(); index++) {
+                if (p1.charAt(index) == '1') {
+                    substanciasLista.add(new Substancia(substancias[index], resultados[index]));
+                    Log.i("Substancia: ", substancias[index]);
+                }
+            }
+        } else {
+            for(int index = 0; index < p1.length(); index++) {
+                if (p1.charAt(index) == '1') {
+                    substanciasLista.add(new Substancia(substancias[index], -1));
+                    Log.i("Substancia: ", substancias[index]);
+                }
             }
         }
 

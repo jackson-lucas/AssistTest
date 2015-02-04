@@ -97,7 +97,7 @@ public class ASSISTPergunta1 extends ActionBarActivity {
                         Log.i("ASSIST-1-AFTER:",assist.toString());
                     } catch (SQLException e) {
 
-                        trace("ERROR-Cadastro:" + e.getMessage());
+                        Log.i("ERROR-Cadastro:", e.getMessage());
                     }
                     Intent intent = new Intent(ASSISTPergunta1.this, ASSISTPergunta2.class);
                     intent.putExtra("QUESTION", 1);
@@ -166,12 +166,27 @@ public class ASSISTPergunta1 extends ActionBarActivity {
         return substanciasUsadas;
     }
 
-    public void toast(String msg) {
-        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_perguntas, menu);
+
+        return true;
     }
 
-    private void trace(String msg) {
-        toast(msg);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_suspend) {
+            Intent intent = new Intent(ASSISTPergunta1.this, Resultado.class);
+            intent.putExtra("ASSIST", assist);
+            intent.putExtra("SUSPENSO", true);
+            startActivity(intent);
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }
