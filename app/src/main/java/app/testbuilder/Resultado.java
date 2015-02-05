@@ -20,8 +20,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import app.testbuilder.br.com.TestBuilder.DAO.AssistDAO;
+import app.testbuilder.br.com.TestBuilder.DAO.TesteDAO;
 import app.testbuilder.br.com.TestBuilder.Model.Assist;
 import app.testbuilder.br.com.TestBuilder.Model.Substancia;
+import app.testbuilder.br.com.TestBuilder.Model.Teste;
 import app.testbuilder.br.com.TestBuilder.Utilities.ResultadoAdapter;
 
 public class Resultado extends ActionBarActivity {
@@ -37,6 +39,8 @@ public class Resultado extends ActionBarActivity {
     //DAO's
     public Assist assist;
     public AssistDAO aDao;
+    public Teste teste;
+    public TesteDAO tDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,20 +67,23 @@ public class Resultado extends ActionBarActivity {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("DEBUG", "BUTTON FINALIZAR CLICKED");
-
-                Intent intent = new Intent(Resultado.this, Main.class);
-                intent.putExtra("RESULTADO", true);
-                startActivity(intent);
-
                 //Limpa dados deixados pelo ultimo update
                 assist = new Assist();
-
+                teste = new Teste();
+                aDao = new AssistDAO(getApplicationContext());
+                tDao = new TesteDAO(getApplicationContext());
                 try {
+
+                    assist.setTeste_id(tDao.getLastId().getId());
                     assist.setObs(observa.getText().toString());
                     aDao.update(assist);
+
                 } catch (SQLException e) {
                     trace("ERROR:" +e.getMessage());
                 }
+                Intent intent = new Intent(Resultado.this, Main.class);
+                intent.putExtra("RESULTADO", true);
+                startActivity(intent);
                 finish();
             }
         });
