@@ -59,6 +59,28 @@ public class Resultado extends ActionBarActivity {
             }
         }
 
+        aDao = new AssistDAO(getApplicationContext());
+
+        if(suspenso) {
+            Log.i("RESULTADO", assist.getId() + " <- ID");
+            assist.setP1("0000000000");
+            assist.setP2("0000000000");
+            assist.setP3("0000000000");
+            assist.setP4("0000000000");
+            assist.setP5("0000000000");
+            assist.setP6("0000000000");
+            assist.setP7("0000000000");
+            assist.setP8("0");
+            assist.setObs("");
+
+            try {
+                aDao.update(assist);
+
+            } catch (SQLException e) {
+                trace("ERROR:" +e.getMessage());
+            }
+        }
+
         //Confirma o butão resultado
         Button confirmButton = (Button) findViewById(R.id.button);
         confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -68,14 +90,6 @@ public class Resultado extends ActionBarActivity {
                 // Não existem dados para serem limpados. os dados apresentados são os do teste atual! (Jackson)
                 aDao = new AssistDAO(getApplicationContext());
 
-                try {
-
-                    assist.setObs("");
-                    aDao.update(assist);
-
-                } catch (SQLException e) {
-                    trace("ERROR:" +e.getMessage());
-                }
                 Intent intent = new Intent(Resultado.this, Main.class);
                 intent.putExtra("RESULTADO", true);
                 startActivity(intent);
