@@ -25,6 +25,7 @@ public class ASSISTPergunta1 extends ActionBarActivity {
 
     public Assist assist;
     public AssistDAO aDao;
+    public Teste teste;
     public TesteDAO tDao;
 
     @Override
@@ -174,16 +175,34 @@ public class ASSISTPergunta1 extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        teste = new Teste();
+        tDao = new TesteDAO(getApplicationContext());
 
         if (id == R.id.action_suspend) {
             Intent intent = new Intent(ASSISTPergunta1.this, Resultado.class);
             intent.putExtra("ASSIST", assist);
             intent.putExtra("SUSPENSO", true);
+            //Atualiza o teste para CANCELADO, caso o cumpridor desista de fazê-lo;
+            try {
+                teste.setId(tDao.getLastId().getId());
+                teste.setStatus("0");
+                tDao.update(teste);
+            } catch (SQLException e) {
+                trace("ERROR:" + e.getMessage());
+            }
             startActivity(intent);
             finish();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void toast(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private void trace(String msg) {
+        toast(msg);
     }
 
 }

@@ -45,6 +45,16 @@ public class TesteDAO {
         return (db.insert(t.TABLE, null, values)> 0) ;
     }
 
+    public boolean update(Teste t) throws SQLException {
+        ContentValues values = new ContentValues();
+        values.put(t.KEY_USUARIO, t.getUsuario());
+        values.put(t.KEY_TIPO, t.getTipo());
+        values.put(t.KEY_STATUS, t.getStatus());
+        String where = "id = ?";
+        String[] whereArgs = {Integer.toString(t.getId())};
+        return (db.update(t.TABLE, values, where, whereArgs) > 0);
+    }
+
     public boolean delete(int id) {
         return (db.delete(Teste.TABLE, "id ='" + id + "'", null) > 0);
     }
@@ -108,6 +118,5 @@ public class TesteDAO {
         toReturn.setStatus(cursor.getString(3));
         return toReturn;
     }
-
 
 }
