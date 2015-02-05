@@ -21,11 +21,6 @@
         </activity>
 
         <activity
-            android:name=".Register"
-            android:label="@string/title_activity_jsonpost">
-        </activity>
-
-        <activity
             android:name=".CadastroUI"
             android:label="@string/title_activity_cadastrar">
         </activity>

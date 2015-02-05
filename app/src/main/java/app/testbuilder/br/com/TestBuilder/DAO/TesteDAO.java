@@ -45,6 +45,20 @@ public class TesteDAO {
         return (db.insert(t.TABLE, null, values)> 0) ;
     }
 
+    public boolean update(Teste t) throws SQLException {
+        ContentValues values = new ContentValues();
+        values.put(t.KEY_USUARIO, t.getUsuario());
+        values.put(t.KEY_TIPO, t.getTipo());
+        values.put(t.KEY_STATUS, t.getStatus());
+        String where = "id = ?";
+        String[] whereArgs = {Integer.toString(t.getId())};
+        return (db.update(t.TABLE, values, where, whereArgs) > 0);
+    }
+
+    public boolean delete(int id) {
+        return (db.delete(Teste.TABLE, "id ='" + id + "'", null) > 0);
+    }
+
     public List<Teste> get(String nome) throws SQLException {
         List<Teste> list = new ArrayList<Teste>();
         Cursor cursor = db.rawQuery(SQL_SELECT_NOME, new String[]{String.valueOf(nome)});
@@ -61,8 +75,11 @@ public class TesteDAO {
         List<Teste> list = new LinkedList<Teste>();
         Cursor cursor = db.rawQuery(SQL_SELECT_ALL, null);
         if (cursor.moveToFirst()) {
+            Teste test = populaTeste(cursor);
+            list.add(test);
+
             while (cursor.moveToNext()) {
-                Teste test = populaTeste(cursor);
+                test = populaTeste(cursor);
                 list.add(test);
             }
         }
@@ -101,6 +118,5 @@ public class TesteDAO {
         toReturn.setStatus(cursor.getString(3));
         return toReturn;
     }
-
 
 }

@@ -67,7 +67,13 @@ public class ResultadoAdapter extends BaseAdapter  {
         //bandeira.setImageResource(substancia.getBandeira());
         bandeira.setBackgroundResource(substancia.getColor());
         tvEstado.setText(substancia.getNome());
-        tvCapital.setText(substancia.getResultado()+"");
+
+        int resultado = substancia.getResultado();
+        if(resultado != -1) {
+            tvCapital.setText(substancia.getResultado()+"");
+        } else {
+            tvCapital.setText("Não Completado");
+        }
 
         return convertView;
     }

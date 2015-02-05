@@ -12,23 +12,35 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import app.testbuilder.br.com.TestBuilder.DAO.AssistDAO;
+import app.testbuilder.br.com.TestBuilder.DAO.TesteDAO;
 import app.testbuilder.br.com.TestBuilder.Model.Assist;
 import app.testbuilder.br.com.TestBuilder.Model.Substancia;
+import app.testbuilder.br.com.TestBuilder.Model.Teste;
 import app.testbuilder.br.com.TestBuilder.Utilities.ResultadoAdapter;
 
 public class Resultado extends ActionBarActivity {
 
-    Assist assist;
-    int[] resultados;
+    int[] resultados = null;
     String[] substancias;
+    boolean suspenso;
     ArrayList<Substancia> substanciasLista = new ArrayList<Substancia>();
     ResultadoAdapter adapter;
     ListView list;
     AlertDialog.Builder alert;
+
+    //DAO's
+    public Assist assist;
+    public AssistDAO aDao;
+    public Teste teste;
+    public TesteDAO tDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,20 +52,38 @@ public class Resultado extends ActionBarActivity {
 
         if(intent != null) {
             assist = intent.getParcelableExtra("ASSIST");
+            suspenso = intent.getBooleanExtra("SUSPENSO", false);
 
-            resultados = assist.getResultado();
+            if (!suspenso) {
+                resultados = assist.getResultado();
+            }
         }
 
+        //Confirma o butão resultado
         Button confirmButton = (Button) findViewById(R.id.button);
-
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("DEBUG", "BUTTON FINALIZAR CLICKED");
+
+                // Não existem dados para serem limpados. os dados apresentados são os do teste atual! (Jackson)
+                aDao = new AssistDAO(getApplicationContext());
+
+                try {
+
+                    assist.setObs("");
+                    aDao.update(assist);
+
+                } catch (SQLException e) {
+                    trace("ERROR:" +e.getMessage());
+                }
                 Intent intent = new Intent(Resultado.this, Main.class);
+                intent.putExtra("RESULTADO", true);
                 startActivity(intent);
                 finish();
             }
         });
+
+
 
         substancias = getResources().getStringArray(R.array.substancias);
         Log.i("substancias", substancias.length+"");
@@ -68,22 +98,21 @@ public class Resultado extends ActionBarActivity {
         view.getLayoutParams().height = (int) (displayMetrics.heightPixels * 0.7);
         view.setLayoutParams(view.getLayoutParams());
 
-        showResult();
+        if(assist.getP1() != null) {
+            showResult();
+        }
 
         // Dialog
         alert = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View helpView = (View) inflater.inflate(R.layout.help_dialog, null);
-
         alert.setTitle("Ajuda");
         alert.setView(helpView);
-
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.dismiss();
             }
         });
-
         alert.create();
 
     }
@@ -91,11 +120,19 @@ public class Resultado extends ActionBarActivity {
     public void showResult() {
         String p1 = assist.getP1();
         substanciasLista.clear();
-
-        for(int index = 0; index < p1.length(); index++) {
-            if (p1.charAt(index) == '1') {
-                substanciasLista.add(new Substancia(substancias[index], resultados[index]));
-                Log.i("Substancia: ", substancias[index]);
+        if(resultados!=null) {
+            for(int index = 0; index < p1.length(); index++) {
+                if (p1.charAt(index) == '1') {
+                    substanciasLista.add(new Substancia(substancias[index], resultados[index]));
+                    Log.i("Substancia: ", substancias[index]);
+                }
+            }
+        } else {
+            for(int index = 0; index < p1.length(); index++) {
+                if (p1.charAt(index) == '1') {
+                    substanciasLista.add(new Substancia(substancias[index], -1));
+                    Log.i("Substancia: ", substancias[index]);
+                }
             }
         }
 
@@ -129,6 +166,15 @@ public class Resultado extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void toast(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private void trace(String msg) {
+        toast(msg);
     }
 
 }

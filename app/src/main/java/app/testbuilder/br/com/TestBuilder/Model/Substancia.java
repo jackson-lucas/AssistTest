@@ -14,6 +14,12 @@ public class Substancia {
         this.nome = nome;
         this.resultado = resultado;
 
+        if(resultado == -1) {
+            intervencao = "Não Completado";
+            color = R.color.gray;
+            return;
+        }
+
         if(nome.equals("bebidas alcoólicas")) {
             if(resultado < 11) {
                 intervencao = "Nenhuma intervenção";

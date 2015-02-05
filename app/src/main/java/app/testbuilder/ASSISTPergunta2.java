@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import app.testbuilder.br.com.TestBuilder.DAO.AssistDAO;
 import app.testbuilder.br.com.TestBuilder.DAO.TesteDAO;
 import app.testbuilder.br.com.TestBuilder.Model.Assist;
+import app.testbuilder.br.com.TestBuilder.Model.Teste;
 
 // TODO checar listas antes de ir para proxima activity ao pressionar botao
 public class ASSISTPergunta2 extends ActionBarActivity {
@@ -27,7 +28,12 @@ public class ASSISTPergunta2 extends ActionBarActivity {
     private boolean[] substanciasUsadas;
     private int lastRespostaIndex = -1;
     private int testeId = 1;
-    Assist assist;
+
+    //DAO's
+    public Assist assist;
+    public AssistDAO aDao;
+    public Teste teste;
+    public TesteDAO tDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -345,6 +351,48 @@ public class ASSISTPergunta2 extends ActionBarActivity {
                 context.addView(list);
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_perguntas, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        teste = new Teste();
+        tDao = new TesteDAO(getApplicationContext());
+        if (id == R.id.action_suspend) {
+            Intent intent = new Intent(ASSISTPergunta2.this, Resultado.class);
+            intent.putExtra("ASSIST", assist);
+            intent.putExtra("SUSPENSO", true);
+            //Atualiza o teste para CANCELADO, caso o cumpridor desista de fazê-lo;
+            try {
+                teste = tDao.getLastId();
+                // Se não recuperar pelo ID, você estará apagando dados do teste. (Jackson)
+                teste = tDao.getTesteById(teste.getId());
+                teste.setStatus("0");
+                tDao.update(teste);
+            } catch (SQLException e) {
+                trace("ERROR:" + e.getMessage());
+            }
+            startActivity(intent);
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void toast(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private void trace(String msg) {
+        toast(msg);
     }
 
 }

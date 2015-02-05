@@ -25,6 +25,7 @@ public class ASSISTPergunta1 extends ActionBarActivity {
 
     public Assist assist;
     public AssistDAO aDao;
+    public Teste teste;
     public TesteDAO tDao;
 
     @Override
@@ -42,7 +43,7 @@ public class ASSISTPergunta1 extends ActionBarActivity {
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-
+        alert.setMessage("Nem mesmo quando você estava na escola?");
 
         alert.setNegativeButton("Sim", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -75,7 +76,6 @@ public class ASSISTPergunta1 extends ActionBarActivity {
 
                 // Check checkboxes
                 if(verifyCheckboxes()) {
-                    assist = new Assist();
                     aDao = new AssistDAO(getApplicationContext());
                     tDao = new TesteDAO(getApplicationContext());
 
@@ -84,20 +84,18 @@ public class ASSISTPergunta1 extends ActionBarActivity {
                         assist.setTeste_id(tDao.getLastId().getId());
                         assist.setP1(p1); //Valores da Questão1
 
-                        boolean sucesso = aDao.inserir(assist); //Gravando o assist
+                        boolean sucesso = aDao.update(assist);
                         if(sucesso) {
                             Log.i("ASSIST-1-IF:",assist.toString());
                         } else {
                             Log.i("ASSIST-1-ELSE:","");
                         }
 
-                        assist = aDao.getLastId(); // android.database.sqlite.SQLiteException: no such table: assit (code 1): , while compiling: SELECT MAX(id) FROM assit
-                        assist.setP1(p1); // É necessário devido aDao.getLastId() retornar um novo objeto sem p1
-                        assist.setTeste_id(tDao.getLastId().getId());
+
                         Log.i("ASSIST-1-AFTER:",assist.toString());
                     } catch (SQLException e) {
 
-                        trace("ERROR-Cadastro:" + e.getMessage());
+                        Log.i("ERROR-Cadastro:", e.getMessage());
                     }
                     Intent intent = new Intent(ASSISTPergunta1.this, ASSISTPergunta2.class);
                     intent.putExtra("QUESTION", 1);
@@ -164,6 +162,41 @@ public class ASSISTPergunta1 extends ActionBarActivity {
             }
         }
         return substanciasUsadas;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_perguntas, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        teste = new Teste();
+        tDao = new TesteDAO(getApplicationContext());
+
+        if (id == R.id.action_suspend) {
+            Intent intent = new Intent(ASSISTPergunta1.this, Resultado.class);
+            intent.putExtra("ASSIST", assist);
+            intent.putExtra("SUSPENSO", true);
+            //Atualiza o teste para CANCELADO, caso o cumpridor desista de fazê-lo;
+            try {
+                teste = tDao.getLastId();
+                // Se não recuperar pelo ID, você estará apagando dados do teste. (Jackson)
+                teste = tDao.getTesteById(teste.getId());
+                teste.setStatus("0");
+                tDao.update(teste);
+            } catch (SQLException e) {
+                trace("ERROR:" + e.getMessage());
+            }
+            startActivity(intent);
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void toast(String msg) {

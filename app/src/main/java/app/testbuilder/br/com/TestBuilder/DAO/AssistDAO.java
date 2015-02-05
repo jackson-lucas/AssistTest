@@ -23,13 +23,14 @@ public class AssistDAO {
     private static final String SQL_SELECT_ALL = "SELECT * FROM assist ORDER BY id";
     private static final String SQL_SELECT_ID = "SELECT * FROM assist WHERE id = ?";
     private static final String SQL_LAST_ID = "SELECT MAX(id) FROM assist";
+    //private static final String SQL_LAST_TESTE_ID = "SELECT MAX(teste_id) FROM assist;";
 
     private BaseDAO dbHelper;
     private SQLiteDatabase db;
 
     /* Colunas base para resgatar dados */
     private String[] columns = {Assist.KEY_ID, Assist.KEY_TESTE, Assist.KEY_P1, Assist.KEY_P2, Assist.KEY_P3,
-            Assist.KEY_P4, Assist.KEY_P5, Assist.KEY_P6, Assist.KEY_P7, Assist.KEY_P8};
+            Assist.KEY_P4, Assist.KEY_P5, Assist.KEY_P6, Assist.KEY_P7, Assist.KEY_P8, Assist.KEY_OBS};
 
     public AssistDAO(Context context) {
         dbHelper = new BaseDAO(context);
@@ -48,6 +49,7 @@ public class AssistDAO {
         values.put(a.KEY_P6, a.getP6());
         values.put(a.KEY_P7, a.getP7());
         values.put(a.KEY_P8, a.getP8());
+        values.put(a.KEY_OBS, a.getObs());
 
         return (db.insert(a.TABLE, null, values) > 0);
     }
@@ -65,8 +67,13 @@ public class AssistDAO {
         values.put(a.KEY_P6, a.getP6());
         values.put(a.KEY_P7, a.getP7());
         values.put(a.KEY_P8, a.getP8());
+        values.put(a.KEY_OBS, a.getObs());
 
         return (db.update(Assist.TABLE, values, Assist.KEY_ID + " = " + id, null) > 0);
+    }
+
+    public boolean delete(int id) {
+        return (db.delete(Assist.TABLE, "id ='" + id + "'", null) > 0);
     }
 
     public Assist getLastId() throws SQLException{
@@ -91,8 +98,11 @@ public class AssistDAO {
         List<Assist> list = new LinkedList<Assist>();
         Cursor cursor = db.rawQuery(SQL_SELECT_ALL, null);
         if (cursor.moveToFirst()) {
+            Assist assist = populaAssist(cursor);
+            list.add(assist);
+
             while (cursor.moveToNext()) {
-                Assist assist = populaAssist(cursor);
+                assist = populaAssist(cursor);
                 list.add(assist);
             }
         }
@@ -113,6 +123,7 @@ public class AssistDAO {
         toReturn.setP6(cursor.getString(7));
         toReturn.setP7(cursor.getString(8));
         toReturn.setP8(cursor.getString(9));
+        toReturn.setObs(cursor.getString(10));
         return toReturn;
     }
 }
