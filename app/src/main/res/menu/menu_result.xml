@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:test_builder="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/action_observação"
-        android:title=""
-        android:icon="@android:drawable/ic_menu_help"
+        android:title="adicionar observação"
+        android:icon="@android:drawable/ic_menu_add"
         android:orderInCategory="100"
         test_builder:showAsAction="always"/>
     <item android:id="@+id/action_help"

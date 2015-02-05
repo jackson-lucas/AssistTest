@@ -35,6 +35,7 @@ public class Resultado extends ActionBarActivity {
     ResultadoAdapter adapter;
     ListView list;
     AlertDialog.Builder alert;
+    String observacao = "";
 
     //DAO's
     public Assist assist;
