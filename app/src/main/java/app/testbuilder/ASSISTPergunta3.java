@@ -8,22 +8,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.SQLException;
-import java.util.List;
 
 import app.testbuilder.br.com.TestBuilder.DAO.AssistDAO;
+import app.testbuilder.br.com.TestBuilder.DAO.TesteDAO;
 import app.testbuilder.br.com.TestBuilder.Model.Assist;
 import app.testbuilder.br.com.TestBuilder.Model.Teste;
 
 public class ASSISTPergunta3 extends ActionBarActivity {
 
-    private int testeId = 1; // Preciso saber no BD um número possível para representar erro
-    Assist assist;
+    //DAO's
+    public Assist assist;
+    public AssistDAO aDao;
+    public Teste teste;
+    public TesteDAO tDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,6 @@ public class ASSISTPergunta3 extends ActionBarActivity {
         Intent intent = getIntent();
 
         if(intent != null) {
-            testeId = intent.getIntExtra("TESTE_ID", 1);
             assist = intent.getParcelableExtra("ASSIST");
         }
 
@@ -91,15 +91,34 @@ public class ASSISTPergunta3 extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
+        teste = new Teste();
+        tDao = new TesteDAO(getApplicationContext());
         if (id == R.id.action_suspend) {
             Intent intent = new Intent(ASSISTPergunta3.this, Resultado.class);
             intent.putExtra("ASSIST", assist);
             intent.putExtra("SUSPENSO", true);
+            //Atualiza o teste para CANCELADO, caso o cumpridor desista de fazê-lo;
+            try {
+                teste.setId(tDao.getLastId().getId());
+                teste.setStatus("0");
+                tDao.update(teste);
+            } catch (SQLException e) {
+                trace("ERROR:" + e.getMessage());
+            }
+
             startActivity(intent);
             finish();
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void toast(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private void trace(String msg) {
+        toast(msg);
+    }
+
 }
