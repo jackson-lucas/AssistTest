@@ -31,6 +31,7 @@ public class Assist implements Parcelable {
     public static final String KEY_P6 ="p6";
     public static final String KEY_P7 ="p7";
     public static final String KEY_P8 ="p8";
+    public static final String KEY_OBS ="obs";
 
     int id;
     int teste_id;
@@ -42,6 +43,7 @@ public class Assist implements Parcelable {
     String p6;
     String p7;
     String p8;
+    String obs;
     int[] resultado = new int[10];
 
     public Assist() {
@@ -49,12 +51,11 @@ public class Assist implements Parcelable {
     }
 
     public Assist(int id) {
-
         this.id = id;
         this.resultado = new int[10];
     }
 
-    public Assist(int id, int teste_id, String p1, String p2, String p3, String p4, String p5, String p6, String p7, String p8) {
+    public Assist(int id, int teste_id, String p1, String p2, String p3, String p4, String p5, String p6, String p7, String p8, String obs) {
         this.id = id;
         this.teste_id = teste_id;
         this.p1 = p1;
@@ -65,7 +66,7 @@ public class Assist implements Parcelable {
         this.p6 = p6;
         this.p7 = p7;
         this.p8 = p8;
-        this.resultado = new int[10];
+        this.obs = obs;
     }
 
     public int getId() {
@@ -148,6 +149,31 @@ public class Assist implements Parcelable {
         this.p8 = p8;
     }
 
+    public String getObs() {
+        return obs;
+    }
+
+    public void setObs(String obs) {
+        this.obs = obs;
+    }
+
+    @Override
+    public String toString() {
+        return "Assist{" +
+                ", id=" + id +
+                "teste_id=" + teste_id +
+                ", p1='" + p1 + '\'' +
+                ", p2='" + p2 + '\'' +
+                ", p3='" + p3 + '\'' +
+                ", p4='" + p4 + '\'' +
+                ", p5='" + p5 + '\'' +
+                ", p6='" + p6 + '\'' +
+                ", p7='" + p7 + '\'' +
+                ", p8='" + p8 + '\'' +
+                ", obs='" + obs + '\'' +
+                '}';
+    }
+
     public int[] getResultado() {
         somarRespostas();
         return resultado;
@@ -184,32 +210,13 @@ public class Assist implements Parcelable {
             jsonObject.put("p6", p6);
             jsonObject.put("p7", p7);
             jsonObject.put("p8", p8);
+            jsonObject.put("obs", obs);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         return jsonObject;
     }
-
-    @Override
-    public String toString() {
-        return "Assist{" +
-                "id=" + id +
-                ", teste_id=" + teste_id +
-                ", p1='" + p1 + '\'' +
-                ", p2='" + p2 + '\'' +
-                ", p3='" + p3 + '\'' +
-                ", p4='" + p4 + '\'' +
-                ", p5='" + p5 + '\'' +
-                ", p6='" + p6 + '\'' +
-                ", p7='" + p7 + '\'' +
-                ", p8='" + p8 + '\'' +
-                ", resultado='" + resultado + '\'' +
-                '}';
-    }
-
-
-
 
 
     /**

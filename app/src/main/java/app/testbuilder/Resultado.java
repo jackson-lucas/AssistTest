@@ -12,17 +12,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import app.testbuilder.br.com.TestBuilder.DAO.AssistDAO;
 import app.testbuilder.br.com.TestBuilder.Model.Assist;
 import app.testbuilder.br.com.TestBuilder.Model.Substancia;
 import app.testbuilder.br.com.TestBuilder.Utilities.ResultadoAdapter;
 
 public class Resultado extends ActionBarActivity {
 
-    Assist assist;
     int[] resultados = null;
     String[] substancias;
     boolean suspenso;
@@ -30,6 +33,10 @@ public class Resultado extends ActionBarActivity {
     ResultadoAdapter adapter;
     ListView list;
     AlertDialog.Builder alert;
+
+    //DAO's
+    public Assist assist;
+    public AssistDAO aDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,17 +55,33 @@ public class Resultado extends ActionBarActivity {
             }
         }
 
-        Button confirmButton = (Button) findViewById(R.id.button);
+        //Instancia o obj-Observação
+        final EditText observa = (EditText) findViewById(R.id.editText);
 
+        //Confirma o butão resultado
+        Button confirmButton = (Button) findViewById(R.id.button);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("DEBUG", "BUTTON FINALIZAR CLICKED");
+
                 Intent intent = new Intent(Resultado.this, Main.class);
                 intent.putExtra("RESULTADO", true);
                 startActivity(intent);
+
+                //Limpa dados deixados pelo ultimo update
+                assist = new Assist();
+
+                try {
+                    assist.setObs(observa.getText().toString());
+                    aDao.update(assist);
+                } catch (SQLException e) {
+                    trace("ERROR:" +e.getMessage());
+                }
                 finish();
             }
         });
+
+
 
         substancias = getResources().getStringArray(R.array.substancias);
         Log.i("substancias", substancias.length+"");
@@ -81,16 +104,13 @@ public class Resultado extends ActionBarActivity {
         alert = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View helpView = (View) inflater.inflate(R.layout.help_dialog, null);
-
         alert.setTitle("Ajuda");
         alert.setView(helpView);
-
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.dismiss();
             }
         });
-
         alert.create();
 
     }
@@ -144,6 +164,15 @@ public class Resultado extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void toast(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private void trace(String msg) {
+        toast(msg);
     }
 
 }

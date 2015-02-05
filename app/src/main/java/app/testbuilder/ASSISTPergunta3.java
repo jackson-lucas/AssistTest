@@ -59,6 +59,7 @@ public class ASSISTPergunta3 extends ActionBarActivity {
                         assist.setP8(resposta);
 
                         aDao.update(assist);
+
                     } catch (SQLException e) {
                         Log.e("ERROR:", e.getMessage());
                     }
