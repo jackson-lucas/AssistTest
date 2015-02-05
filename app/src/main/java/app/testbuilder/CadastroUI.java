@@ -97,6 +97,8 @@ public class CadastroUI extends ActionBarActivity {
                         assist.setTeste_id(testDao.getLastId().getId());
                         aDao.inserir(assist);
 
+                        assist.setId(aDao.getLastId().getId());
+
                     } catch (SQLException e) {
                         trace("ErrorCadastro:" + e.getMessage());
                     }
