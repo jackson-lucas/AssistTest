@@ -38,7 +38,7 @@ public class BaseDAO extends SQLiteOpenHelper {
             "p6 varchar(10) DEFAULT 0000000000," +
             "p7 varchar(10) DEFAULT 0000000000," +
             "p8 varchar(10) DEFAULT 0000000000," +
-            "Obs text);";
+            "obs text);";
 
     public BaseDAO(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

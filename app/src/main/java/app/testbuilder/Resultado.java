@@ -59,23 +59,18 @@ public class Resultado extends ActionBarActivity {
             }
         }
 
-        //Instancia o obj-Observação
-        final EditText observa = (EditText) findViewById(R.id.editText);
-
         //Confirma o butão resultado
         Button confirmButton = (Button) findViewById(R.id.button);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("DEBUG", "BUTTON FINALIZAR CLICKED");
-                //Limpa dados deixados pelo ultimo update
-                assist = new Assist();
-                teste = new Teste();
+
+                // Não existem dados para serem limpados. os dados apresentados são os do teste atual! (Jackson)
                 aDao = new AssistDAO(getApplicationContext());
-                tDao = new TesteDAO(getApplicationContext());
+
                 try {
 
-                    assist.setTeste_id(tDao.getLastId().getId());
-                    assist.setObs(observa.getText().toString());
+                    assist.setObs("");
                     aDao.update(assist);
 
                 } catch (SQLException e) {

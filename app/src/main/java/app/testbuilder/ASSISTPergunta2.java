@@ -372,7 +372,9 @@ public class ASSISTPergunta2 extends ActionBarActivity {
             intent.putExtra("SUSPENSO", true);
             //Atualiza o teste para CANCELADO, caso o cumpridor desista de fazê-lo;
             try {
-                teste.setId(tDao.getLastId().getId());
+                teste = tDao.getLastId();
+                // Se não recuperar pelo ID, você estará apagando dados do teste. (Jackson)
+                teste = tDao.getTesteById(teste.getId());
                 teste.setStatus("0");
                 tDao.update(teste);
             } catch (SQLException e) {

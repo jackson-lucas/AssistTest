@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.testbuilder.br.com.TestBuilder.DAO.AssistDAO;
+import app.testbuilder.br.com.TestBuilder.DAO.TesteDAO;
 import app.testbuilder.br.com.TestBuilder.Utilities.JSONParser;
 
 /* TODO Falta deletar os dados BD quando for enviado com sucesso para servidor
@@ -129,10 +130,18 @@ public class Main extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        AssistDAO assistDAO = new AssistDAO(this);
+        /*
+            BUG: Existe um erro ao tentar utilizar assistDAO.getAllAssist()
+            java.lang.IllegalStateException: Couldn't read row 0, col 10 from CursorWindow.  Make sure the Cursor is initialized correctly before accessing data from it.
+            AsssitDAO.java:126
+            AsssitDAO.java:101
+
+            Troquei para testeDAO pois estou fazendo outros testes e preciso do Main funcionando
+         */
+        TesteDAO testeDAO = new TesteDAO(this);
         try {
             MenuItem menuItem = menu.findItem(R.id.action_send_data);
-            if (assistDAO.getAllAssist().size() == 0) {
+            if (testeDAO.getAllTestes().size() == 0) {
                 menuItem.setVisible(false);
             }
         } catch (SQLException e) {
