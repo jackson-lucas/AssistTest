@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 import app.testbuilder.br.com.TestBuilder.DAO.AssistDAO;
 import app.testbuilder.br.com.TestBuilder.DAO.TesteDAO;
@@ -34,7 +35,6 @@ public class Resultado extends ActionBarActivity {
     ArrayList<Substancia> substanciasLista = new ArrayList<Substancia>();
     ResultadoAdapter adapter;
     ListView list;
-    AlertDialog.Builder alert;
     String observacao = "";
 
     //DAO's
@@ -72,7 +72,7 @@ public class Resultado extends ActionBarActivity {
             assist.setP6("0000000000");
             assist.setP7("0000000000");
             assist.setP8("0");
-            assist.setObs("");
+            assist.setObs(observacao);
 
             try {
                 aDao.update(assist);
@@ -89,7 +89,14 @@ public class Resultado extends ActionBarActivity {
                 Log.d("DEBUG", "BUTTON FINALIZAR CLICKED");
 
                 // Não existem dados para serem limpados. os dados apresentados são os do teste atual! (Jackson)
-                aDao = new AssistDAO(getApplicationContext());
+
+                try {
+                    assist.setObs(observacao);
+                    aDao.update(assist);
+
+                } catch (SQLException e) {
+                    trace("ERROR:" +e.getMessage());
+                }
 
                 Intent intent = new Intent(Resultado.this, Main.class);
                 intent.putExtra("RESULTADO", true);
@@ -116,20 +123,49 @@ public class Resultado extends ActionBarActivity {
         if(assist.getP1() != null) {
             showResult();
         }
+    }
 
-        // Dialog
-        alert = new AlertDialog.Builder(this);
+    public void createObservacaoDialog() {
+        final EditText editText = new EditText(this);
+        editText.setId(R.id.editText);
+        editText.setText(observacao);
+
+
+
+        AlertDialog.Builder observacaoDialog = new AlertDialog.Builder(this);
+        observacaoDialog.setTitle("Observação")
+            .setView(editText)
+            .setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    EditText editText = (EditText) ((AlertDialog) dialog).findViewById(R.id.editText);
+                    observacao = editText.getText().toString();
+                    dialog.dismiss();
+                }
+            })
+            .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                }
+            })
+            .create()
+            .show();
+    }
+
+    public void createAlertDialog() {
         LayoutInflater inflater = getLayoutInflater();
         View helpView = (View) inflater.inflate(R.layout.help_dialog, null);
-        alert.setTitle("Ajuda");
-        alert.setView(helpView);
-        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
-            }
-        });
-        alert.create();
 
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle("Ajuda")
+            .setView(helpView)
+            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                }
+            })
+            .create()
+            .show();
     }
 
     public void showResult() {
@@ -177,7 +213,9 @@ public class Resultado extends ActionBarActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_help) {
-            alert.show();
+            createAlertDialog();
+        } else if (id == R.id.action_observacao) {
+            createObservacaoDialog();
         }
 
         return super.onOptionsItemSelected(item);
