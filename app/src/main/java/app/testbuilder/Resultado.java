@@ -75,6 +75,7 @@ public class Resultado extends ActionBarActivity {
             assist.setObs("");
 
             try {
+
                 aDao.update(assist);
 
             } catch (SQLException e) {
