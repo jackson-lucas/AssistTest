@@ -11,4 +11,5 @@
     <item name="list_group8" type="id" />
     <item name="list_group9" type="id" />
     <item name="list_group10" type="id" />
+    <item name="editText" type="id" />
 </resources>
