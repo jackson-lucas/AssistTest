@@ -11,27 +11,20 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
-import org.apache.http.protocol.HTTP;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -42,7 +35,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.testbuilder.br.com.TestBuilder.DAO.AssistDAO;
 import app.testbuilder.br.com.TestBuilder.DAO.TesteDAO;
 import app.testbuilder.br.com.TestBuilder.Utilities.JSONParser;
 
@@ -51,7 +43,7 @@ import app.testbuilder.br.com.TestBuilder.Utilities.JSONParser;
  */
 public class Main extends ActionBarActivity {
 
-    private final String URL = "http://testbuilder.com.br/testbuilder/post_usuario.php";
+    private final String URL = "http://www.testbuilder.com.br/testbuilder/post.php";
     Button btnIniciar;
     public JSONParser jsonParser;
     ProgressDialog progressDialog;
@@ -279,7 +271,5 @@ public class Main extends ActionBarActivity {
 
         inputStream.close();
         return result;
-
     }
-
 }

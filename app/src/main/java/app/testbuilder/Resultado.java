@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 import app.testbuilder.br.com.TestBuilder.DAO.AssistDAO;
 import app.testbuilder.br.com.TestBuilder.DAO.TesteDAO;
@@ -75,6 +74,7 @@ public class Resultado extends ActionBarActivity {
             assist.setObs(observacao);
 
             try {
+
                 aDao.update(assist);
 
             } catch (SQLException e) {
