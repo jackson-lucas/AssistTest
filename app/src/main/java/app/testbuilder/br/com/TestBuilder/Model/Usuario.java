@@ -1,6 +1,11 @@
 package app.testbuilder.br.com.TestBuilder.Model;
 
-import java.util.Date;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by jcaf on 27/12/2014.
@@ -23,12 +28,12 @@ public class Usuario {
     private String cumpridor;
     private int idade;
     private String genero;
-    private Date dt_cadastro;
+    private String dt_cadastro;
 
     public Usuario() {
     }
 
-    public Usuario(String avaliador, String cumpridor, int idade, String genero, Date dt_cadastro) {
+    public Usuario(String avaliador, String cumpridor, int idade, String genero, String dt_cadastro) {
         this.avaliador = avaliador;
         this.cumpridor = cumpridor;
         this.idade = idade;
@@ -37,13 +42,27 @@ public class Usuario {
     }
 
     //Insert;Update;Delete
-    public Usuario(int id, String avaliador, String cumpridor, int idade, String genero, Date dt_cadastro) {
+    public Usuario(int id, String avaliador, String cumpridor, int idade, String genero, String dt_cadastro) {
         this.id = id;
         this.avaliador = avaliador;
         this.cumpridor = cumpridor;
         this.idade = idade;
         this.genero = genero;
         this.dt_cadastro = dt_cadastro;
+    }
+
+    public Usuario(JSONObject object){
+        try {
+            this.id = object.getInt("id");
+            this.avaliador = object.getString("avaliador");
+            this.cumpridor = object.getString("cumpridor");
+            this.idade = object.getInt("idade");
+            this.genero = object.getString("genero");
+            this.dt_cadastro = object.getString("dt_cadastro");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public int getId() {
@@ -74,7 +93,7 @@ public class Usuario {
         return idade;
     }
 
-    public void setIdade(int idade) {
+    public void     setIdade(int idade) {
         this.idade = idade;
     }
 
@@ -86,11 +105,11 @@ public class Usuario {
         this.genero = genero;
     }
 
-    public Date getDt_cadastro() {
+    public String getDt_cadastro() {
         return dt_cadastro;
     }
 
-    public void setDt_cadastro(Date dt_cadastro) {
+    public void setDt_cadastro(String dt_cadastro) {
         this.dt_cadastro = dt_cadastro;
     }
 
@@ -123,4 +142,45 @@ public class Usuario {
                 '}';
     }
 
+    public String toJSONString() {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("id", getId());
+            obj.put("avaliador", getAvaliador());
+            obj.put("cumpridor", getCumpridor());
+            obj.put("idade", getIdade());
+            obj.put("genero", getGenero());
+            obj.put("dt_cadastro", getDt_cadastro());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return obj.toString();
+    }
+
+    public JSONObject getAsJson() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("id", id);
+            jsonObject.put("avaliador", avaliador);
+            jsonObject.put("cumpridor", cumpridor);
+            jsonObject.put("idade", idade);
+            jsonObject.put("genero", genero);
+            jsonObject.put("dt_cadastro", dt_cadastro);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
+    }
+
+    public static List<Usuario> fromJson(JSONArray jsonObjects) {
+        List<Usuario> users = new LinkedList<Usuario>();
+        for (int i = 0; i < jsonObjects.length(); i++) {
+            try {
+                users.add(new Usuario(jsonObjects.getJSONObject(i)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return users;
+    }
 }

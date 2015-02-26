@@ -4,16 +4,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    <TextView
-        android:id="@+id/textView1"
-        android:paddingBottom="25dp"
-        android:paddingTop="10dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cadastro"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <!-- Avaliador -->
     <LinearLayout
         android:layout_width="fill_parent"
@@ -35,7 +25,6 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:ems="10"
-            android:hint="Text"
             android:layout_weight="4"
             android:layout_marginRight="15dp"
             android:clickable="false"
@@ -56,7 +45,7 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:gravity="right"
-            android:text="Cumpridor:"
+            android:text="Cliente:"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
 
         <EditText
@@ -64,7 +53,6 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:ems="10"
-            android:hint="Text"
             android:layout_weight="4"
             android:layout_marginRight="15dp"
             android:clickable="false"
@@ -92,11 +80,11 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:ems="10"
-            android:hint="Text"
             android:layout_weight="4"
             android:layout_marginRight="15dp"
             android:clickable="false"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:inputType="number" />
     </LinearLayout>
 
     <!-- Genero -->
@@ -137,7 +125,7 @@
                 android:id="@+id/rbFemenino"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Femenino"
+                android:text="Feminino"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_weight="4" />
 
@@ -161,15 +149,6 @@
             android:text="Salvar"
             android:layout_weight="2.01" />
 
-        <Button
-            android:id="@+id/btnLastID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:onClick="btn_LastId"
-            android:text="ID"
-            android:layout_weight="2.01" />
-
-        </LinearLayout>
+    </LinearLayout>
 
     </LinearLayout>

@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:text="Iniciar Teste"
         android:id="@+id/btnTeste"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="190dp"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

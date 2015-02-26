@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">TestBuilder</string>
+    <string name="app_name">AssistTest</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="enviar_dados">Enviar Dados</string>
+    <string name="ajuda">Ajuda</string>
+    <string name="suspender">Suspender</string>
 
-    <string name="title_activity_cadastrar">Cadastrar</string>
+    <string name="title_activity_cadastrar">Cadastro</string>
+    <string name="title_activity_jsonpost">Enviar Dados</string>
     <string name="title_activity_resultados">Resultados</string>
     <string name="title_activities_assist">Teste: ASSIST</string>
 

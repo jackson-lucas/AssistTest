@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:test_builder="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_observacao"
+        android:title="adicionar observação"
+        android:icon="@android:drawable/ic_menu_add"
+        android:orderInCategory="100"
+        test_builder:showAsAction="ifRoom|withText"/>
+    <item android:id="@+id/action_help"
+        android:title=""
+        android:icon="@android:drawable/ic_menu_help"
+        android:orderInCategory="100"
+        test_builder:showAsAction="always"/>
+</menu>

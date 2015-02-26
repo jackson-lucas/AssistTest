@@ -1,7 +1,6 @@
 package app.testbuilder;
 
 import android.app.AlertDialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,19 +14,32 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
+import java.sql.SQLException;
 
-// TODO Update no SQLite ao finalizar
+import app.testbuilder.br.com.TestBuilder.DAO.AssistDAO;
+import app.testbuilder.br.com.TestBuilder.DAO.TesteDAO;
+import app.testbuilder.br.com.TestBuilder.Model.Assist;
+import app.testbuilder.br.com.TestBuilder.Model.Teste;
+
 public class ASSISTPergunta1 extends ActionBarActivity {
 
-    List<Boolean> substanciasUsadas;
+    public Assist assist;
+    public AssistDAO aDao;
+    public Teste teste;
+    public TesteDAO tDao;
 
-    // TODO create a dialog
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_assistpergunta1);
+
+        // START Retrieve data from another activity
+        Intent intent = getIntent();
+
+        if (intent != null) {
+            assist = intent.getParcelableExtra("ASSIST");
+        }
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
@@ -41,9 +53,7 @@ public class ASSISTPergunta1 extends ActionBarActivity {
         alert.setPositiveButton("Não", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // Paciente nunca usou nenhum tipo de droga
-
                 Toast.makeText(getApplicationContext(), "Parabéns por não utilizar drogas!", Toast.LENGTH_LONG).show();
-
                 Intent intent;
                 intent = new Intent(ASSISTPergunta1.this, Main.class);
                 startActivity(intent);
@@ -52,7 +62,6 @@ public class ASSISTPergunta1 extends ActionBarActivity {
         });
 
         alert.create();
-
 
         String[] perguntasAssist = getResources().getStringArray(R.array.perguntas_assist);
 
@@ -67,19 +76,40 @@ public class ASSISTPergunta1 extends ActionBarActivity {
 
                 // Check checkboxes
                 if(verifyCheckboxes()) {
+                    aDao = new AssistDAO(getApplicationContext());
+                    tDao = new TesteDAO(getApplicationContext());
 
+                    try {
+                        String p1 = aDao.booleanToString(getSubstancias());
+                        assist.setTeste_id(tDao.getLastId().getId());
+                        assist.setP1(p1); //Valores da Questão1
+
+                        boolean sucesso = aDao.update(assist);
+                        if(sucesso) {
+                            Log.i("ASSIST-1-IF:",assist.toString());
+                        } else {
+                            Log.i("ASSIST-1-ELSE:","");
+                        }
+
+
+                        Log.i("ASSIST-1-AFTER:",assist.toString());
+                    } catch (SQLException e) {
+
+                        Log.i("ERROR-Cadastro:", e.getMessage());
+                    }
                     Intent intent = new Intent(ASSISTPergunta1.this, ASSISTPergunta2.class);
                     intent.putExtra("QUESTION", 1);
                     intent.putExtra("SUBSTANCIAS", getSubstancias());
+                    intent.putExtra("ASSIST", assist);
                     startActivity(intent);
                     finish();
+
+                // Se não selecionou nenhuma substância
                 } else {
                     alert.show();
                 }
-
             }
         });
-
     }
 
     int getCheckBoxId(int index) {
@@ -114,7 +144,6 @@ public class ASSISTPergunta1 extends ActionBarActivity {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -132,30 +161,50 @@ public class ASSISTPergunta1 extends ActionBarActivity {
                 substanciasUsadas[index] = false;
             }
         }
-
         return substanciasUsadas;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_perguntas, menu);
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        teste = new Teste();
+        tDao = new TesteDAO(getApplicationContext());
 
-        //noinspection SimplifiableIfStatement
-        // Modificao de action_settings para action_bar nao sei se foi correto
-        if (id == R.id.action_bar) {
-            return true;
+        if (id == R.id.action_suspend) {
+            Intent intent = new Intent(ASSISTPergunta1.this, Resultado.class);
+            intent.putExtra("ASSIST", assist);
+            intent.putExtra("SUSPENSO", true);
+            //Atualiza o teste para CANCELADO, caso o cumpridor desista de fazê-lo;
+            try {
+                teste = tDao.getLastId();
+                // Se não recuperar pelo ID, você estará apagando dados do teste. (Jackson)
+                teste = tDao.getTesteById(teste.getId());
+                teste.setStatus("0");
+                tDao.update(teste);
+            } catch (SQLException e) {
+                trace("ERROR:" + e.getMessage());
+            }
+            startActivity(intent);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void toast(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private void trace(String msg) {
+        toast(msg);
+    }
+
 }
