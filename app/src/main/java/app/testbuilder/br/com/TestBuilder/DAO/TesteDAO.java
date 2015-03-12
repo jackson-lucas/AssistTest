@@ -14,9 +14,6 @@ import java.util.List;
 import app.testbuilder.br.com.TestBuilder.Model.Teste;
 
 
-/**
- * Created by jcaf on 28/12/2014.
- */
 public class TesteDAO {
 
     /* SQL INSERT, DELETE e UPDATE. */
@@ -28,7 +25,9 @@ public class TesteDAO {
     private BaseDAO dbHelper;
     private SQLiteDatabase db;
 
-    /* Colunas base para resgatar dados */
+    /**
+     *  Colunas base para resgatar dados
+     */
     private String[] columns = {Teste.KEY_ID, Teste.KEY_USUARIO, Teste.KEY_TIPO, Teste.KEY_STATUS};
 
     public TesteDAO(Context context)  {
@@ -109,7 +108,9 @@ public class TesteDAO {
         return test;
     }
 
-    //Converter o Cursor de dados no objeto POJO Teste
+    /**
+     * Converter o Cursor de dados no objeto POJO Teste
+     */
     private Teste populaTeste(Cursor cursor) throws SQLException {
         final Teste toReturn = new Teste();
         toReturn.setId(cursor.getInt(0));

@@ -12,10 +12,6 @@ import java.util.List;
 
 import app.testbuilder.br.com.TestBuilder.Model.Usuario;
 
-/**
- * Created by jcaf on 28/12/2014.
- */
-
 @SuppressWarnings("UnusedAssignment")
 public class UsuarioDAO {
 
@@ -28,7 +24,9 @@ public class UsuarioDAO {
     private BaseDAO dbHelper;
     private SQLiteDatabase db;
 
-    /* Colunas base para resgatar dados */
+    /**
+     *  Colunas base para resgatar dados
+     *  */
     private String[] columns = {Usuario.KEY_ID, Usuario.KEY_avaliador, Usuario.KEY_cumpridor, Usuario.KEY_idade, Usuario.KEY_genero, Usuario.KEY_dt_cadastro};
 
     public UsuarioDAO(Context context) {
@@ -79,7 +77,9 @@ public class UsuarioDAO {
         return (list);
     }
 
-    //Converter o Cursor de dados no objeto POJO Usuario
+    /**
+     * Converter o Cursor de dados no objeto POJO Usuario
+     */
     private Usuario populaUsuario(Cursor cursor) throws SQLException {
         Usuario toReturn = new Usuario();
         toReturn.setId(cursor.getInt(0));

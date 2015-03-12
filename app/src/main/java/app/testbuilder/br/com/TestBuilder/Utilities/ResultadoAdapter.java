@@ -1,8 +1,5 @@
 package app.testbuilder.br.com.TestBuilder.Utilities;
 
-/**
- * Created by jacksonlima on 1/23/15.
- */
 import java.util.List;
 
 import android.content.Context;

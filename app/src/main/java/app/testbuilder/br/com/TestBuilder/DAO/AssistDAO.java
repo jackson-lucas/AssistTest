@@ -14,9 +14,6 @@ import java.util.List;
 import app.testbuilder.br.com.TestBuilder.Model.Assist;
 
 
-/**
- * Created by jcaf on 28/12/2014.
- */
 public class AssistDAO {
 
     /* SQL INSERT, DELETE e UPDATE. */
@@ -28,7 +25,9 @@ public class AssistDAO {
     private BaseDAO dbHelper;
     private SQLiteDatabase db;
 
-    /* Colunas base para resgatar dados */
+    /**
+     * Colunas base para resgatar dados
+     */
     private String[] columns = {Assist.KEY_ID, Assist.KEY_TESTE, Assist.KEY_P1, Assist.KEY_P2, Assist.KEY_P3,
             Assist.KEY_P4, Assist.KEY_P5, Assist.KEY_P6, Assist.KEY_P7, Assist.KEY_P8, Assist.KEY_OBS};
 
@@ -110,7 +109,9 @@ public class AssistDAO {
         return (list);
     }
 
-    //Converter o Cursor de dados no objeto POJO Assist
+    /**
+     * Converter o Cursor de dados no objeto POJO Assist
+     */
     private Assist populaAssist(Cursor cursor) throws SQLException {
         final Assist toReturn = new Assist();
         toReturn.setId(cursor.getInt(0));

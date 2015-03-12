@@ -2,9 +2,6 @@ package app.testbuilder.br.com.TestBuilder.Model;
 
 import app.testbuilder.R;
 
-/**
- * Created by jacksonlima on 1/23/15.
- */
 public class Substancia {
     private String nome, intervencao = "";
     private int resultado;

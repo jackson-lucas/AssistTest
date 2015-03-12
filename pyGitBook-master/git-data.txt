@@ -1,0 +1,220 @@
+[START commit][author=Jackson Lucas][time=1424920201][message=Merge branch 'dev+master'][hash=ae08f7d12f182e4ed5a2e950bfa7cc857c1de592]
+[START commit][author=Jackson Lucas][time=1424060338][message=Merge branch 'develop' into dev+master][hash=252fa5901658ffadb7e285fc5f05e8e3deeeb863]
+[START commit][author=jeanufam][time=1424053585][message=Main(URL) + Resultado][hash=82433d8b2b4cf863f661f4a0390aa21ac832ab1e]
+ 6 files changed, 61 insertions(+), 30 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1423448473][message=Merge branch 'dev+master' into develop][hash=19da7a7fb5b607c3ec6880803ce520a3e2b294ae]
+[START commit][author=Jackson Lucas][time=1423448446][message=BUGFIX editText agora é id][hash=da728efc9f1e77b444fffb5771a186c320592829]
+ 1 file changed, 1 insertion(+)
+
+[START commit][author=Jackson Lucas][time=1423185740][message=Merge branch 'dev+master' into develop][hash=886e5efc9230c3e8d3e69099ae1c9e5fa8d4c86b]
+[START commit][author=Jackson Lucas][time=1423185712][message=Observação implementado][hash=6ebc511687aeea9aa489b4bff2c9bf7b43291ede]
+ 3 files changed, 57 insertions(+), 42 deletions(-)
+
+[START commit][author=jeanufam][time=1423181795][message=Deletado Parser e Registro;][hash=fbf4e77228802bdd2e1eeaeadd94f2404eaf9f8b]
+ 3 files changed, 1 insertion(+), 282 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1423180183][message=Merge branch 'dev+master' into develop][hash=2df3811a0f8e9d16876419e652d977964ededf30]
+[START commit][author=Jackson Lucas][time=1423180159][message=trabalho em progresso][hash=50c11a4fab17cb06a3129beabb6547bad1afca7d]
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1423179808][message=Correções para inserir Assist corretamente no BD][hash=f7ae1f059caa81fcdaebe46dbd53f5b820b1044a]
+ 3 files changed, 29 insertions(+), 8 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1423173100][message=Merge branch 'dev+master' into develop][hash=859157be90cc1f33c62310bb39e93c1b4fae152d]
+[START commit][author=Jackson Lucas][time=1423172747][message=Várias mudanças: checar descrição.][hash=e0beb0c585dd772aa5642c5ad7197b74af47837f]
+ 7 files changed, 27 insertions(+), 44 deletions(-)
+
+[START commit][author=jeanufam][time=1423168102][message=Revert "Revert "Ajustes:Assit1,2,3; main; atualiza o teste e assist""][hash=16f0dbb13040728078f214376c8b3a7fc43d00b7]
+ 5 files changed, 81 insertions(+), 10 deletions(-)
+
+[START commit][author=jeanufam][time=1423168076][message=nda][hash=1125bd86dadc8d2180f8f0ab3b8a7de3da9cb3e9]
+ 2 files changed, 18 insertions(+), 7 deletions(-)
+
+[START commit][author=jeanufam][time=1423167361][message=Revert "Ajustes:Assit1,2,3; main; atualiza o teste e assist"][hash=5fa2b86cfe9656737f68a47cf2d5daee6c21405f]
+ 5 files changed, 10 insertions(+), 81 deletions(-)
+
+[START commit][author=jeanufam][time=1423155716][message=Ajuste do OBS no assist][hash=9bc91bf6547e4494cc16b0bccb5487ca227ab895]
+ 4 files changed, 67 insertions(+), 30 deletions(-)
+
+[START commit][author=jeanufam][time=1423147925][message=Ajustes:Assit1,2,3; main; atualiza o teste e assist][hash=bed97330960ef24a2ad47120a7784fb8cb803db0]
+ 5 files changed, 81 insertions(+), 10 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1423082132][message=Resultado->Main avisa que existem dados p/ enviar][hash=7efc2db5d467edcdb03238d98bd3a24348abb077]
+ 3 files changed, 46 insertions(+), 2 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1423081215][message=Observações adicionados, ainda não incorporado ao JSON][hash=283380b44dde1167afda4623a4cea617c28d2ead]
+ 1 file changed, 27 insertions(+), 2 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1423080271][message=Agora pode ser suspendido na pergunta 1 também][hash=e7090428ddb88c06d72f51c01a6e087e4a39b102]
+ 3 files changed, 12 insertions(+), 6 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1423079218][message=Adicionado opção suspender][hash=3427413695ab82398d7b7c2c3189c79dccb3d5dd]
+ 10 files changed, 137 insertions(+), 14 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1423076645][message=Mensagem em P1 aparece novamente][hash=da65dfabacd4414e2b57db0fa156ef1d6cb3b0fc]
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+[START commit][author=jeanufam][time=1423075265][message=Metodos Delete][hash=0a6d91100b52d41cd84854f600db24ee7303d610]
+ 2 files changed, 8 insertions(+)
+
+[START commit][author=jeanufam][time=1423074850][message=Revert "."][hash=aecdadb8150b98bb1525d3f9dc2d9d6dbbec595c]
+ 1 file changed, 2 deletions(-)
+
+[START commit][author=jeanufam][time=1423074841][message=.][hash=b204cfd5047d16ca9dc14aba530134852b5d5b6e]
+ 1 file changed, 2 insertions(+)
+
+[START commit][author=jeanufam][time=1423055694][message=model Usuario/Json: de usuario para usuario_id][hash=7bc86d140d364dceb532a998c64966b3692de0c8]
+ 2 files changed, 1 insertion(+), 3 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1422726225][message=Mudanças na MainActivity][hash=60fe550fa72d078c410454d3e5c11b09490fef14]
+ 1 file changed, 36 insertions(+), 6 deletions(-)
+
+[START commit][author=jeanufam][time=1422584517][message=testando o json][hash=af0f9a888fcc60f136beb8ec38072cb82372564c]
+ 2 files changed, 3 insertions(+), 4 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1422408854][message=Conexão com Servidor feita + Correção nos getAll dos DAO's][hash=280997fbfcea0d0d8b593c2184ca829577306707]
+ 8 files changed, 56 insertions(+), 175 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1422344819][message=JSONParser incluido no Main, falta testar][hash=ab21162b114e7fc25a36ef778cff7cffc5963614]
+ 1 file changed, 8 insertions(+), 16 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1422341985][message=JSONParser agora é faz chamadas de todos os objetos no BD][hash=2b9e13c033e4af4281df8205e3b6810950fa6e43]
+ 3 files changed, 120 insertions(+), 150 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1422294515][message=Merge branch 'develop' into dev+master][hash=90748154fd17b6691a06ba6f0f4ff94286e74187]
+[START commit][author=Jackson Lucas][time=1422294485][message=ApiHelper deletado + Main modificado p/ teste próprio][hash=628a45f881ca1798cf5403bd2ecb7e52ae5b6354]
+ 2 files changed, 136 insertions(+), 9 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1422277629][message=Deletado botão enviar dados(duplicado)][hash=566055dce5b49786108c3e7933e3e18016024e64]
+ 2 files changed, 4 insertions(+), 20 deletions(-)
+
+[START commit][author=jeanufam][time=1422276107][message=Json implementado][hash=0f0d8598816cbcbad901cac2dd3bc8298d6c3505]
+ 19 files changed, 669 insertions(+), 317 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1422083292][message=Merge branch 'develop' into dev+master][hash=2bb4562fa00b89103571e0dd5a1ee85cf24888dc]
+[START commit][author=jeanufam][time=1422083219][message=Checa campos do cadastro][hash=dd28a4ba8ec616ace5fc3f9f65a54833b716685b]
+ 2 files changed, 55 insertions(+), 39 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1422081384][message=Merge branch 'dev+master' into develop][hash=496f11ca76f2245c1271da6c95fc1c2b7d29a67e]
+[START commit][author=Jackson Lucas][time=1422081115][message=Merge branch 'develop' into dev+master][hash=dc6e0ce102f80481e3c6a60dd57ca3101c7df33a]
+[START commit][author=Jackson Lucas][time=1422080997][message=Activity Resultado tem botão ajuda e item da lista agora tem imagem a direita][hash=0e41695f045eefbf05da22bc60822143d45db0a4]
+ 7 files changed, 144 insertions(+), 4 deletions(-)
+
+[START commit][author=jeanufam][time=1422073429][message=idade apenas com numeros][hash=7705cb22e0478f978a4bcee3e7c0dfaa75e6c144]
+ 2 files changed, 3 insertions(+), 5 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1422059307][message=ListView funcionando][hash=92bdabada6396e53ea7a5246b89f42da94978948]
+ 6 files changed, 48 insertions(+), 37 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1422044029][message=Desenvolvendo Activity Resultado.][hash=4aacfd1cbec93bc4414ee84fbfc164ba27084de9]
+ 8 files changed, 225 insertions(+), 96 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1421998996][message=Tentativa de mostrar resultado][hash=0c44fd639a6107698ec5b98515b6a5fb2a6d963f]
+ 3 files changed, 78 insertions(+), 10 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1421993346][message=Merge branch 'develop' into dev+master][hash=4453ea11452b6502a24d02f68320c67fc7c90949]
+[START commit][author=jeanufam][time=1421993070][message=criado ListAll para todas as tabelas][hash=73e5c09856e5b0d5c35b5873f695c165903750f8]
+ 3 files changed, 56 insertions(+), 44 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1421969502][message=Merge branch 'dev+master' into develop][hash=3b3dfe55658cb812d354ab752af064b96a485f01]
+[START commit][author=Jackson Lucas][time=1421966665][message=Botão "Enviar Dados" criado.][hash=3f7bfe23f7ca59d73c3821af7a4275fd21c09167]
+ 3 files changed, 7 insertions(+), 3 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1421965637][message=Padronização das Activities para ActionBarActivity][hash=ec5433fa93f3556eab92d3357005988f5fbc437c]
+ 10 files changed, 39 insertions(+), 106 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1421962715][message=Desenvolvimento do JSON iniciado][hash=9f508a0f043fe472c9cf103247d0743fb0c6f337]
+ 4 files changed, 73 insertions(+)
+
+[START commit][author=Jackson Lucas][time=1421958180][message=assist agora soma resultado, resultado.java recebe assist][hash=9ee771ebc46cbfc6d8c83630b734eb2b9defd712]
+ 3 files changed, 52 insertions(+), 1 deletion(-)
+
+[START commit][author=Jackson Lucas][time=1421952701][message=Resolvido problema real do Main.java.][hash=3d1675a90506791c30b62d31efeedbe7dcf51214]
+ 1 file changed, 1 insertion(+)
+
+[START commit][author=Jackson Lucas][time=1421951339][message=Main.java: botão voltar agora comporta-se saindo do app][hash=b7a8a8d7b3fcce4a25771d676a7f1fac7a3ff8bf]
+ 1 file changed, 5 insertions(+)
+
+[START commit][author=jeanufam][time=1421950635][message=Resolvido Teste_id e commit no db OK][hash=5d403a2c84c33fe95b6d8a1dd35ac29aedd817c2]
+ 3 files changed, 9 insertions(+), 14 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1421949144][message=Correções em ASSISTPergunta1.java][hash=b4a09d9d643d24858c1552eaa6f9d81a837b42d2]
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1421948415][message=Agora assist é passado entre activities][hash=0a8d8eb46ac778318d8d73cbf05fa812efab689a]
+ 3 files changed, 31 insertions(+), 13 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1421946949][message=Merge branch 'dev' into dev+master][hash=817508a368582703898fa39966c295ea4b96f295]
+[START commit][author=jeanufam][time=1421946902][message=Ajustar Assist02][hash=513f469a40cc9167c95984898ec47fc20098d514]
+ 6 files changed, 57 insertions(+), 70 deletions(-)
+
+[START commit][author=jeanufam][time=1421875499][message=Merge remote-tracking branch 'origin/dev' into dev][hash=6b28846405dd6aa8574cc3722e5c3bffe8f297be]
+[START commit][author=jeanufam][time=1421875393][message=Teste][hash=4d032eab8bf262be5a239241874bc5c1d157fe48]
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1421823554][message=Merge branch 'dev' into dev+master][hash=87912ac537810c0219fda7c75c4dd39e9330a108]
+[START commit][author=Jackson Lucas][time=1421823532][message=Aplicativo funciona, ainda precisa verificar se o DB está ok][hash=e9904be006596a94835e3eff8b96283fed6e17ba]
+ 4 files changed, 29 insertions(+), 27 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1421820528][message=Merge branch 'dev+master' into dev][hash=929bdbc61b8a33adba3a223d0797d00375bdca19]
+[START commit][author=Jackson Lucas][time=1421820500][message=Merge branch 'dev' of https://github.com/jackson7am/TestBuilder2 into dev][hash=be1bd9a3c9e28b34abb47e8776168b3011d34ce5]
+[START commit][author=Jackson Lucas][time=1421820404][message=Correções em ASSIST2 e 3][hash=9d2ac94bbaad47af92393e4fd48d51e107a0aac0]
+ 3 files changed, 8 insertions(+), 5 deletions(-)
+
+[START commit][author=jeanufam][time=1421820364][message=Erro no AssistP01][hash=88742776a20494ebf38f8c7d37f1afa39e7b0cc1]
+ 5 files changed, 84 insertions(+), 49 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1421815233][message=Merge branch 'dev+master' into dev][hash=5d8cabedb74e1df1c25ffa300d3a73f110cd4e3b]
+[START commit][author=Jackson Lucas][time=1421815210][message=ASSISTPergunta3.java inserção no DB feita][hash=6220a569b43001fdfdf0f82c9363143c7f18f7ad]
+ 1 file changed, 27 insertions(+), 2 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1421814086][message=ASSISTPergunta2.java inserção no DB feita][hash=aec408a366e45f07efda872ad3eda54f57fba9ed]
+ 2 files changed, 127 insertions(+), 5 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1421807386][message=Merge branch 'dev+master' into dev][hash=9dbb551cddc6d050cff911b40e842117cc1edff9]
+[START commit][author=Jackson Lucas][time=1421807176][message=Class Assist agora implementa Parceable][hash=6a261e8b16d84deed6c53424a42ceb318b40fb1e]
+ 2 files changed, 64 insertions(+), 1 deletion(-)
+
+[START commit][author=Jackson Lucas][time=1421804229][message=Merge branch 'dev' into dev+master][hash=f4f32f0c1985c51ce01ef0fcbb72fc605b6060db]
+[START commit][author=jeanufam][time=1421689618][message=Assist cadastrando P1 corretamente!][hash=92d33cb468ff68ac894c62349201542adc81b44e]
+ 4 files changed, 40 insertions(+), 43 deletions(-)
+
+[START commit][author=jeanufam][time=1421686054][message=Ajuste do Assist][hash=e432adaa9e4c80da0f00f9e116655dc777ea889d]
+ 2 files changed, 51 insertions(+), 6 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1421683448][message=Merge branch 'master' into dev+master][hash=da3605ab7eb7c732e94e2f343bad59ee8a3df905]
+[START commit][author=jeanufam][time=1421681544][message=Assist e AssistDAO feitos][hash=7bb43d4fe3b0ee84a22aebbe60880fee5bc04647]
+ 7 files changed, 222 insertions(+), 51 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1421678757][message=Toast de Pergunta1 para Main funcionando!][hash=07643dcafcfe39f13b8fa7e96e0d150cf79acea7]
+ 3 files changed, 10 insertions(+), 11 deletions(-)
+
+[START commit][author=jeanufam][time=1421651109][message=Data tipo string][hash=564269b432304f9e477e5946937573d2d89bb55b]
+ 6 files changed, 20 insertions(+), 32 deletions(-)
+
+[START commit][author=cmtejf][time=1421566524][message=Merge branch 'master' of https://github.com/jackson7am/TestBuilder2][hash=1576c35a3f87e337d81fbb137ebdce43a993a47c]
+[START commit][author=cmtejf][time=1421566515][message=Cadastro com Teste Completo][hash=5470bfb7a1fb1a0aec854c293381df81538263ef]
+ 4 files changed, 68 insertions(+), 40 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1421565064][message=Assist Pergunta 1 agora verifica resposta do usuário][hash=ecc210b862585f2899748d0672014afd655ca8c8]
+ 2 files changed, 90 insertions(+), 5 deletions(-)
+
+[START commit][author=cmtejf][time=1421561241][message=Merge branch 'master' of https://github.com/jackson7am/TestBuilder2][hash=2e194c908b5ceaff63c273be94098dd02980a5e8]
+[START commit][author=cmtejf][time=1421561213][message=CadastroCompleto][hash=f1032ba0ed5bc42a2a45a877282efafa535ce99d]
+ 6 files changed, 46 insertions(+), 18 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1421559361][message=Questão 8 agora verifica se foi respondida][hash=a7d90f33f1abc337937f1f72b62a466d7eaf2e7a]
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+[START commit][author=Jackson Lucas][time=1421558910][message=Questões 2 a 7 agora verificam se usuário respondeu todas as questões][hash=87fde6fdbd7c2e942ab109f2961bd3599e85d9e6]
+ 2 files changed, 29 insertions(+), 9 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1421555369][message=Perguntas agora estão enumeradas][hash=d90d56646d6778f969a8446ceb2e4a0f487fc424]
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1421554520][message=alinhei botão confirmar ASSISTPergunta2][hash=6d875fd2097921730b7f39a7566190bb7cbc2ad3]
+ 3 files changed, 11 insertions(+), 3 deletions(-)
+
+[START commit][author=Jackson Lucas][time=1421548534][message=Initial commit][hash=a18d44e1d4310ecefc741c908b9bec258611ff2e]
+ 65 files changed, 2513 insertions(+)

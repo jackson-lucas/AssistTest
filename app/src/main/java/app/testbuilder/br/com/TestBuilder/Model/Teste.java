@@ -3,12 +3,12 @@ package app.testbuilder.br.com.TestBuilder.Model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by jcaf on 27/12/2014.
- */
 public class Teste {
 
-    // Labels table name
+    /**
+     * Labels table name
+     */
+
     public static final String TABLE = "teste";
 
     // Labels Table Columns names

@@ -4,10 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by jcaf on 27/12/2014.
- */
-
 public class BaseDAO extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "vemepa2.db";

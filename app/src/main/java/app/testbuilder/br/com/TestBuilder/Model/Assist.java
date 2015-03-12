@@ -9,15 +9,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- * Created by jcaf on 27/12/2014.
- */
-
-
 public class Assist implements Parcelable {
     // Parceable é necessário para passar Objetos da Classe entre Activities
 
-    // Labels table name
+    /**
+     * Labels table name
+     */
     public static final String TABLE="assist";
 
     // Labels Table Columns names
